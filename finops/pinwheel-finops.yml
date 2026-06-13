@@ -1,0 +1,74 @@
+specificationVersion: "1.0"
+id: pinwheel-finops
+name: Pinwheel API FinOps
+description: >-
+  FinOps Framework 1.0 FOCUS-aligned cost management reference for Pinwheel
+  API consumption. Pinwheel uses usage-based billing tied to production API
+  transactions across payroll connectivity products. Cost drivers include
+  income/employment verifications, direct deposit switches, bill switches,
+  tax form retrievals, and connected account monitoring events.
+url: https://www.pinwheelapi.com/contact
+costModel: usage-based
+billingEnvironments:
+  - name: Production
+    billable: true
+    host: api.getpinwheel.com
+    description: All production API calls are billable per transaction or event
+  - name: Development
+    billable: false
+    host: development.getpinwheel.com
+    description: Development environment; confirm billing status with Pinwheel sales
+  - name: Sandbox
+    billable: false
+    host: sandbox.getpinwheel.com
+    description: Sandbox environment for testing; not billable
+costDimensions:
+  - name: Income & Employment Verifications
+    product: Verify
+    description: >-
+      Charged per verification request for income data, employment history,
+      paystubs, and credential checks via the Verify product.
+    unit: per verification
+    pricingContact: https://www.pinwheelapi.com/contact
+  - name: Direct Deposit Switches
+    product: Deposit Switch
+    description: >-
+      Charged per completed direct deposit allocation switch across 1,800+
+      payroll platforms.
+    unit: per switch
+    pricingContact: https://www.pinwheelapi.com/contact
+  - name: Bill Switches
+    product: Bill Switch
+    description: >-
+      Charged per bill or subscription payment method switch completed through
+      the Bill Switch or Bill Manager products.
+    unit: per switch
+    pricingContact: https://www.pinwheelapi.com/contact
+  - name: Tax Form Retrievals
+    product: Taxes
+    description: >-
+      Charged per tax form (e.g., W-2, 1099) retrieved directly from payroll
+      systems via the Taxes product.
+    unit: per retrieval
+    pricingContact: https://www.pinwheelapi.com/contact
+  - name: Connected Account Events
+    product: Connected Accounts
+    description: >-
+      Charged per monitoring event for real-time income, investment, and
+      payment data updates via Connected Accounts.
+    unit: per event
+    pricingContact: https://www.pinwheelapi.com/contact
+optimization:
+  - recommendation: Use sandbox for all development and QA testing to avoid billable charges
+  - recommendation: Implement request caching for employment and income data to reduce repeated verifications
+  - recommendation: Batch job polling using the Jobs endpoint rather than polling individual resources
+  - recommendation: Negotiate volume discounts for high-frequency verification or switching use cases
+  - recommendation: Monitor 429 responses and implement exponential backoff to avoid wasted retry spend
+  - recommendation: Segment production traffic by product line to attribute costs to business units
+compliance:
+  certifications:
+    - SOC 2 Type 2
+    - ISO 27001
+    - FCRA
+    - PCI DSS Level 2
+  trustCenter: https://trust.pinwheelapi.com/

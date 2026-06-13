@@ -1,0 +1,71 @@
+specificationVersion: "0.1"
+id: pinwheel-plans-pricing
+name: Pinwheel API Plans & Pricing
+description: >-
+  Pinwheel offers usage-based pricing for its payroll connectivity API products.
+  Pricing is not publicly listed and is customized based on product selection,
+  verification volume, direct deposit switching volume, and enterprise requirements.
+  Prospective customers must contact Pinwheel's sales team for pricing details.
+  Production API calls are billable; sandbox and development environments are
+  available for testing at no charge.
+url: https://www.pinwheelapi.com/contact
+contact:
+  email: sales@pinwheelapi.com
+plans:
+  - name: Sandbox
+    description: >-
+      Free testing environment with mock payroll data. Allows developers to
+      build and test integrations before going live. Rate limit of 10 requests
+      per second. Not billable.
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+    free: true
+    rateLimit:
+      requests: 10
+      window: second
+    features:
+      - Mock payroll account data
+      - All API endpoints available
+      - No billable transactions
+      - Developer dashboard access
+  - name: Development
+    description: >-
+      Pre-production environment using real credentials for validation before
+      launch. Rate limit of 10 requests per second. Contact sales for access
+      and billing terms.
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+    free: false
+    contact: true
+    rateLimit:
+      requests: 10
+      window: second
+    features:
+      - Real payroll credentials
+      - Pre-production validation
+      - All API endpoints available
+  - name: Production
+    description: >-
+      Live production environment with full access to 1,800+ payroll platforms
+      and all Pinwheel products. Usage-based billing for verification requests,
+      deposit switches, bill switches, and other transactions. Rate limit of 50
+      requests per second. Enterprise volume discounts available.
+    url: https://www.pinwheelapi.com/contact
+    free: false
+    contact: true
+    rateLimit:
+      requests: 50
+      window: second
+    features:
+      - 1,800+ payroll platform coverage
+      - Deposit Switch
+      - Verify (income and employment)
+      - Bill Switch
+      - Switch Kit
+      - Bill Manager
+      - Taxes
+      - Connected Accounts
+      - SOC 2 Type 2 certified
+      - ISO 27001 certified
+      - FCRA compliant
+      - PCI DSS Level 2 compliant
+      - SLA guarantees
+      - Dedicated support

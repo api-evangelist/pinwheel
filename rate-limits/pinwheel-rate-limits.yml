@@ -1,0 +1,54 @@
+specificationVersion: "0.1"
+id: pinwheel-rate-limits
+name: Pinwheel API Rate Limits
+description: >-
+  Pinwheel enforces per-environment rate limits on all API requests to ensure
+  platform stability. Production environments support up to 50 requests per
+  second, while sandbox and development environments are limited to 10 requests
+  per second. Exceeding limits returns HTTP 429; clients should implement
+  exponential backoff retry logic.
+url: https://docs.pinwheelapi.com/public/docs/api
+limits:
+  - name: Production Rate Limit
+    description: >-
+      Maximum request rate for the production environment
+      (api.getpinwheel.com). Applies to all API endpoints.
+    environment: production
+    host: api.getpinwheel.com
+    requests: 50
+    window: second
+    errorCode: 429
+    retryStrategy: exponential-backoff
+  - name: Sandbox Rate Limit
+    description: >-
+      Maximum request rate for the sandbox environment
+      (sandbox.getpinwheel.com). Used for testing with mock data.
+    environment: sandbox
+    host: sandbox.getpinwheel.com
+    requests: 10
+    window: second
+    errorCode: 429
+    retryStrategy: exponential-backoff
+  - name: Development Rate Limit
+    description: >-
+      Maximum request rate for the development environment
+      (development.getpinwheel.com). Used for pre-production validation
+      with real credentials.
+    environment: development
+    host: development.getpinwheel.com
+    requests: 10
+    window: second
+    errorCode: 429
+    retryStrategy: exponential-backoff
+headers:
+  - name: x-api-secret
+    description: API secret key for authentication; must be included in every request
+    required: true
+  - name: Content-Type
+    description: Must be set to application/json for all requests
+    required: true
+  - name: Pinwheel-Version
+    description: >-
+      API version header required for all requests.
+      Latest known version: 2025-07-08
+    required: true
