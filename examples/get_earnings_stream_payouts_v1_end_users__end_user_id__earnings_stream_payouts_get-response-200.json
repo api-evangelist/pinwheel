@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "refreshed_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-01-15T10:30:00Z",
+    "count": 0,
+    "next_cursor": "string"
+  },
+  "data": [
+    {
+      "pay_date": "2024-01-15",
+      "earnings": []
+    }
+  ]
+}

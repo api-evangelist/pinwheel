@@ -1,0 +1,55 @@
+{
+  "properties": {
+    "raw": {
+      "type": "string",
+      "title": "raw",
+      "description": "The raw address."
+    },
+    "line1": {
+      "type": "string",
+      "title": "line1",
+      "description": "The first line of the address."
+    },
+    "line2": {
+      "type": "string",
+      "title": "line2",
+      "description": "The second line of the address."
+    },
+    "city": {
+      "type": "string",
+      "title": "city",
+      "description": "The city of the address."
+    },
+    "state": {
+      "type": "string",
+      "title": "state",
+      "description": "The state of the address."
+    },
+    "postal_code": {
+      "type": "string",
+      "title": "postal_code",
+      "description": "The postal code of the address."
+    },
+    "country": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "US"
+          ]
+        }
+      ],
+      "description": "The country of the address."
+    }
+  },
+  "type": "object",
+  "required": [
+    "raw"
+  ],
+  "title": "Address",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/AddressGetResponseItem.json"
+}

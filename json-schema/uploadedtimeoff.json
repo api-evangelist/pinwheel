@@ -1,0 +1,44 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "name",
+      "description": "The name of the time off."
+    },
+    "category": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "pto",
+            "sick",
+            "other"
+          ]
+        }
+      ],
+      "description": "The category of the time off."
+    },
+    "available_hours": {
+      "type": "number",
+      "title": "available_hours",
+      "description": "The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved."
+    },
+    "earned_hours": {
+      "type": "number",
+      "title": "earned_hours",
+      "description": "The hours of time off earned during the pay period."
+    },
+    "used_hours": {
+      "type": "number",
+      "title": "used_hours",
+      "description": "The hours of time off used during the pay period."
+    }
+  },
+  "type": "object",
+  "title": "UploadedTimeOff",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/UploadedTimeOff.json"
+}

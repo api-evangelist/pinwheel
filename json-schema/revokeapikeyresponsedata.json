@@ -1,0 +1,53 @@
+{
+  "properties": {
+    "mode": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "sandbox",
+            "development",
+            "production"
+          ]
+        }
+      ],
+      "description": "The mode that the Admin API token is authorized for."
+    },
+    "key": {
+      "type": "string",
+      "title": "key",
+      "description": "The public token that refers to your API key, as distinct from the API Secret."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "expires_at",
+      "description": "Timestamp used to set when this key automatically expires."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "created_at",
+      "description": "ISO 8601 timestamp of created time."
+    },
+    "revoked_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "revoked_at",
+      "description": "Timestamp of when this key was revoked."
+    }
+  },
+  "type": "object",
+  "required": [
+    "mode",
+    "key",
+    "created_at",
+    "revoked_at"
+  ],
+  "title": "object",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/RevokeAPIKeyResponseData.json"
+}

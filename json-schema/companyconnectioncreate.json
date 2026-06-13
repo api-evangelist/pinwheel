@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "title": "company_name",
+      "description": "Name of the company used in a Company Connection."
+    }
+  },
+  "type": "object",
+  "required": [
+    "company_name"
+  ],
+  "title": "CompanyConnectionPostBody",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CompanyConnectionCreate.json"
+}

@@ -1,0 +1,43 @@
+{
+  "properties": {
+    "date": {
+      "type": "string",
+      "title": "date",
+      "description": "The date of the transaction."
+    },
+    "description": {
+      "type": "string",
+      "title": "description",
+      "description": "The description of the transaction."
+    },
+    "amount": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "amount",
+      "description": "The amount of the transaction."
+    },
+    "base_type": {
+      "type": "string",
+      "title": "base_type",
+      "description": "The base type of the transaction."
+    },
+    "type": {
+      "type": "string",
+      "title": "type",
+      "description": "The type of the transaction."
+    }
+  },
+  "type": "object",
+  "title": "BankAccountTransaction",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/BankAccountTransaction.json"
+}

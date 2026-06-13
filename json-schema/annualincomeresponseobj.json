@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "year": {
+      "type": "string",
+      "title": "year",
+      "description": "Year for which the income represents."
+    },
+    "gross_pay_ytd": {
+      "type": "integer",
+      "title": "gross_pay_ytd",
+      "description": "The cumulative year to date total earnings before any taxes or deductions are removed, in cents."
+    },
+    "net_pay_ytd": {
+      "type": "integer",
+      "title": "net_pay_ytd",
+      "description": "The cumulative year to date total earnings after all taxes and deductions are removed, in cents."
+    },
+    "total_deductions_ytd": {
+      "type": "integer",
+      "title": "total_deductions_ytd",
+      "description": "The cumulative year to date total deductions, in cents."
+    },
+    "total_reimbursements_ytd": {
+      "type": "integer",
+      "title": "total_reimbursements_ytd",
+      "description": "The cumulative year to date total reimbursements, in cents."
+    },
+    "total_taxes_ytd": {
+      "type": "integer",
+      "title": "total_taxes_ytd",
+      "description": "The cumulative year to date total taxes, in cents."
+    },
+    "earnings_ytds": {
+      "items": {
+        "$ref": "#/components/schemas/EarningsYtds"
+      },
+      "type": "array",
+      "title": "earnings_ytds",
+      "description": "The cumulative year to date amount for all earnings, in cents."
+    }
+  },
+  "type": "object",
+  "required": [
+    "year",
+    "gross_pay_ytd",
+    "net_pay_ytd",
+    "total_deductions_ytd",
+    "total_reimbursements_ytd",
+    "total_taxes_ytd",
+    "earnings_ytds"
+  ],
+  "title": "AnnualIncomeResponseObj",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/AnnualIncomeResponseObj.json"
+}

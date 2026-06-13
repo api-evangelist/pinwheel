@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "action": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "deactivate",
+            "terminate",
+            "deactivated",
+            "terminated"
+          ]
+        }
+      ],
+      "description": "The action to take on the end user's account. Valid actions are `deactivated` and `terminated`. When an end user is set to `deactivated`, the user can reactivate themselves. When an end user is set to `terminated`, the action is irreversible."
+    },
+    "reason": {
+      "type": "string",
+      "title": "reason",
+      "description": "The reason for taking action on the end user's account."
+    }
+  },
+  "type": "object",
+  "required": [
+    "action"
+  ],
+  "title": "Bill Navigator Status Update Request",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/BillNavigatorStatusUpdateRequest.json"
+}

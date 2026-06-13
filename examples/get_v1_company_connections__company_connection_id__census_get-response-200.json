@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "count": 0,
+    "next_cursor": "string"
+  },
+  "data": [
+    {
+      "created_at": "2024-01-15T10:30:00Z",
+      "employee_external_id": "string",
+      "date_of_birth": "2024-01-15",
+      "emails": [],
+      "first_name": "string",
+      "middle_name": "string",
+      "last_name": "string",
+      "last_four_ssn": "string",
+      "full_name": "string",
+      "phone_numbers": []
+    }
+  ]
+}

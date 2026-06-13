@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "box_15_state": {
+      "type": "string",
+      "title": "box_15_state",
+      "description": "State. Box 15 IRS Form W-2."
+    },
+    "box_15_employer_state_id": {
+      "type": "string",
+      "title": "box_15_employer_state_id",
+      "description": "Employer's state ID number. Box 15 IRS Form W-2."
+    },
+    "box_16": {
+      "type": "integer",
+      "title": "box_16",
+      "description": "State wages, tips, etc. Box 16 IRS Form W-2."
+    },
+    "box_17": {
+      "type": "integer",
+      "title": "box_17",
+      "description": "State income tax. Box 17 IRS Form W-2."
+    },
+    "box_18": {
+      "type": "integer",
+      "title": "box_18",
+      "description": "Local wages, tips, etc. Box 18 IRS Form W-2."
+    },
+    "box_19": {
+      "type": "integer",
+      "title": "box_19",
+      "description": "Local income tax. Box 19 IRS Form W-2."
+    },
+    "box_20": {
+      "type": "string",
+      "title": "box_20",
+      "description": "Locality name. Box 20 IRS Form W-2."
+    }
+  },
+  "type": "object",
+  "title": "W2Box15To20",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/W2Box15To20.json"
+}

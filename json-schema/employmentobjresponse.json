@@ -1,0 +1,95 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "Unique identifier for the object."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "created_at",
+      "description": "ISO 8601 timestamp of created time."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "updated_at",
+      "description": "ISO 8601 timestamp of the last update to this object."
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "account_id",
+      "description": "Unique identifier for the object."
+    },
+    "status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "employed",
+            "terminated",
+            "furloughed"
+          ]
+        }
+      ],
+      "description": "The employment status of the employee."
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "title": "start_date",
+      "description": "The date the employee began their job."
+    },
+    "termination_date": {
+      "type": "string",
+      "format": "date",
+      "title": "termination_date",
+      "description": "The date the employee was terminated."
+    },
+    "employer_name": {
+      "type": "string",
+      "title": "employer_name",
+      "description": "Name of employer, e.g., Apple, Disney, Walmart."
+    },
+    "employer_address": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/AddressGetResponseItem"
+        }
+      ],
+      "title": "employer_address",
+      "description": "The address of the employer."
+    },
+    "employer_phone_number": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/PhoneNumberGetResponseItem"
+        }
+      ],
+      "title": "employer_phone_number",
+      "description": "The phone number of the employer."
+    },
+    "title": {
+      "type": "string",
+      "title": "title",
+      "description": "The job title of the employee."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "updated_at",
+    "account_id",
+    "employer_name"
+  ],
+  "title": "Employment",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/EmploymentObjResponse.json"
+}

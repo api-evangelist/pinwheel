@@ -47,6 +47,16 @@ apis:
         url: https://docs.pinwheelapi.com/public/docs/getting-started
       - type: OpenAPI
         url: https://docs.pinwheelapi.com/public/reference/api-overview
+      - type: OpenAPI
+        url: openapi/pinwheel-pinwheel-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/
+      - type: Examples
+        url: examples/
+      - type: Vocabulary
+        url: vocabulary/pinwheel-vocabulary.yml
+      - type: JSONLDContext
+        url: json-ld/pinwheel-context.jsonld
 common:
   - type: Website
     url: https://www.pinwheelapi.com

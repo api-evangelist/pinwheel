@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "suspected",
+            "not_suspected",
+            "unavailable"
+          ]
+        }
+      ],
+      "description": "The suspected fraud status of the document."
+    }
+  },
+  "type": "object",
+  "required": [
+    "status"
+  ],
+  "title": "SharedFraud",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/SharedFraud.json"
+}

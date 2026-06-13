@@ -1,0 +1,69 @@
+{
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "bank_statement"
+      ],
+      "title": "document_type",
+      "description": "The type of the document.",
+      "default": "bank_statement"
+    },
+    "bank_name": {
+      "type": "string",
+      "title": "bank_name",
+      "description": "The name of the bank associated with this bank statement."
+    },
+    "statement_begin_date": {
+      "type": "string",
+      "title": "statement_begin_date",
+      "description": "The beginning date of the bank statement."
+    },
+    "statement_end_date": {
+      "type": "string",
+      "title": "statement_end_date",
+      "description": "The end date of the bank statement."
+    },
+    "statement_holders": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "statement_holders",
+      "description": "The holders of the bank statement."
+    },
+    "applicant1": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/ApplicantNameAndAddress"
+        }
+      ],
+      "title": "applicant1",
+      "description": "The first applicant associated with this bank statement."
+    },
+    "applicant2": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/ApplicantNameAndAddress"
+        }
+      ],
+      "title": "applicant2",
+      "description": "The second applicant associated with this bank statement."
+    },
+    "accounts": {
+      "items": {
+        "$ref": "#/components/schemas/BankAccount"
+      },
+      "type": "array",
+      "title": "accounts",
+      "description": "The accounts associated with this bank statement."
+    }
+  },
+  "type": "object",
+  "title": "UploadedBankStatement",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/UploadedBankStatement.json"
+}

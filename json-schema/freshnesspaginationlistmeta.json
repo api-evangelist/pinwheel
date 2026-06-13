@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "refreshed_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "refreshed_at",
+      "description": "ISO 8601 timestamp of the most recent refresh of this data."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "updated_at",
+      "description": "ISO 8601 timestamp of the last update to this object."
+    },
+    "count": {
+      "type": "integer",
+      "title": "count",
+      "description": "Number of objects returned."
+    },
+    "next_cursor": {
+      "type": "string",
+      "title": "next_cursor",
+      "description": "Pointer to the next page of results."
+    }
+  },
+  "type": "object",
+  "title": "FreshnessPaginationListMeta",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/FreshnessPaginationListMeta.json"
+}

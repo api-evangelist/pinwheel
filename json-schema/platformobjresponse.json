@@ -1,0 +1,167 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "UUID of the platform."
+    },
+    "name": {
+      "type": "string",
+      "title": "name",
+      "description": "Name of platform, e.g., ADP Portal, Gusto, Paylocity."
+    },
+    "type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "payroll",
+            "time_and_attendance",
+            "tax",
+            "merchant"
+          ]
+        }
+      ],
+      "description": "The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation."
+    },
+    "fractional_amount_supported": {
+      "type": "boolean",
+      "title": "fractional_amount_supported",
+      "description": "Whether or not the platform accepts decimal values for `direct_deposit_switch`."
+    },
+    "min_amount": {
+      "type": "number",
+      "title": "min_amount",
+      "description": "Minimum amount, if any, platform accepts for `direct_deposit_switch`.",
+      "minimum": true,
+      "exclusiveMinimum": true
+    },
+    "max_amount": {
+      "type": "number",
+      "title": "max_amount",
+      "description": "Maximum amount, if any, platform accepts for `direct_deposit_switch`.",
+      "minimum": true,
+      "exclusiveMinimum": true
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "title": "last_updated",
+      "description": "ISO 8601 timestamp of the last update to this object."
+    },
+    "logo_url": {
+      "type": "string",
+      "maxLength": 65536,
+      "minLength": 1,
+      "format": "uri",
+      "title": "logo_url",
+      "description": "The URL of the platform logo."
+    },
+    "percentage_supported": {
+      "type": "boolean",
+      "title": "percentage_supported",
+      "description": "Whether a direct deposit job supports percentage switching."
+    },
+    "min_percentage": {
+      "type": "integer",
+      "exclusiveMaximum": true,
+      "title": "min_percentage",
+      "description": "Minimum percentage allowed for `direct_deposit_switch`.",
+      "maximum": 100.0,
+      "minimum": true,
+      "exclusiveMinimum": true
+    },
+    "max_percentage": {
+      "type": "integer",
+      "exclusiveMaximum": true,
+      "title": "max_percentage",
+      "description": "Maximum percentage allowed for `direct_deposit_switch`.",
+      "maximum": 100.0,
+      "minimum": true,
+      "exclusiveMinimum": true
+    },
+    "merchant_category": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "automotive",
+            "buy_now_pay_later",
+            "charity_and_donations",
+            "education",
+            "entertainment_and_recreation",
+            "financial_services",
+            "fitness",
+            "food_and_delivery",
+            "gaming",
+            "health_and_wellness",
+            "home_and_household_services",
+            "insurance",
+            "internet_and_telecom",
+            "loan",
+            "media",
+            "music_and_audio_streaming",
+            "news",
+            "other",
+            "productivity_and_saas_tools",
+            "professional_services",
+            "rent",
+            "shopping_and_retail",
+            "social_and_dating",
+            "sports",
+            "travel_and_transportation",
+            "utilities",
+            "video_streaming"
+          ]
+        }
+      ],
+      "description": "The business category of the merchant, used to classify the type of service provided."
+    },
+    "supported_jobs": {
+      "items": {
+        "type": "string",
+        "enum": [
+          "direct_deposit_allocations",
+          "bill_cancellation",
+          "direct_deposit_switch",
+          "paycheck_viewer",
+          "paystubs",
+          "bill_switch",
+          "identity",
+          "direct_deposit_payment",
+          "income",
+          "employment",
+          "tax_forms",
+          "shifts"
+        ]
+      },
+      "type": "array",
+      "description": "Array of supported jobs."
+    },
+    "amount_supported": {
+      "type": "boolean",
+      "title": "amount_supported",
+      "description": "Whether a direct deposit job supports specific amount."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "fractional_amount_supported",
+    "last_updated",
+    "percentage_supported",
+    "min_percentage",
+    "max_percentage",
+    "supported_jobs",
+    "amount_supported"
+  ],
+  "title": "Platform",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/PlatformObjResponse.json"
+}

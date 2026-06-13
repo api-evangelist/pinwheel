@@ -1,0 +1,56 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "Unique identifier for the object."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "created_at",
+      "description": "ISO 8601 timestamp of created time."
+    },
+    "company_name": {
+      "type": "string",
+      "title": "company_name",
+      "description": "Name of the company used in a Company Connection."
+    },
+    "status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "ready_to_connect",
+            "connection_failed",
+            "processing",
+            "data_available",
+            "reconnect_needed"
+          ]
+        }
+      ],
+      "description": "The status of the Company Connection. <a href='https://docs.pinwheelapi.com/docs/company-connect-technical-implementation#company-connection-status' target='_blank'>See documentation for details</a>."
+    },
+    "status_updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "status_updated_at",
+      "description": "Timestamp of when the Company Connection's status was last updated."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "company_name",
+    "status",
+    "status_updated_at"
+  ],
+  "title": "CompanyConnectionBase",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CompanyConnectionBase.json"
+}

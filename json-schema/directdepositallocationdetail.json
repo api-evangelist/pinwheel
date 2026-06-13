@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "amount",
+            "percentage",
+            "remainder"
+          ]
+        }
+      ],
+      "description": "Indicates what type of allocation this is."
+    },
+    "value": {
+      "type": "integer",
+      "title": "value",
+      "description": "The value (if any) for this allocation.  Will be set if the type is `percentage` or `amount`."
+    },
+    "target": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/TargetAccount"
+        }
+      ],
+      "title": "target",
+      "description": "The target account for this allocation."
+    }
+  },
+  "type": "object",
+  "title": "DirectDepositAllocationDetail",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/DirectDepositAllocationDetail.json"
+}

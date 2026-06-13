@@ -1,0 +1,146 @@
+{
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "W-2"
+      ],
+      "title": "document_type",
+      "description": "The type of the document.",
+      "default": "W-2"
+    },
+    "box_a": {
+      "type": "string",
+      "title": "box_a",
+      "description": "Employee's social security number. Box a IRS Form W-2."
+    },
+    "box_b": {
+      "type": "string",
+      "title": "box_b",
+      "description": "Employer identification number (EIN). Box b IRS Form W-2."
+    },
+    "box_c": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/W2BoxC"
+        }
+      ],
+      "title": "box_c",
+      "description": "Employer's name and address. Box c IRS Form W-2."
+    },
+    "box_d": {
+      "type": "string",
+      "title": "box_d",
+      "description": "Control number. Box d IRS Form W-2."
+    },
+    "box_e": {
+      "type": "string",
+      "title": "box_e",
+      "description": "Employee's name. Box e IRS Form Form W-2."
+    },
+    "box_f": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/AddressGetResponseItem"
+        }
+      ],
+      "title": "box_f",
+      "description": "Employee's address. Box f IRS Form W-2."
+    },
+    "box_1": {
+      "type": "integer",
+      "title": "box_1",
+      "description": "Wages, tips, other compensation. Box 1 IRS Form W-2."
+    },
+    "box_2": {
+      "type": "integer",
+      "title": "box_2",
+      "description": "Federal income tax withheld. Box 2 IRS Form W-2."
+    },
+    "box_3": {
+      "type": "integer",
+      "title": "box_3",
+      "description": "Social security wages. Box 3 IRS Form W-2."
+    },
+    "box_4": {
+      "type": "integer",
+      "title": "box_4",
+      "description": "Social security tax withheld. Box 4 IRS Form W-2."
+    },
+    "box_5": {
+      "type": "integer",
+      "title": "box_5",
+      "description": "Medicare wages and tips. Box 5 IRS Form W-2."
+    },
+    "box_6": {
+      "type": "integer",
+      "title": "box_6",
+      "description": "Medicare tax withheld. Box 6 IRS Form W-2."
+    },
+    "box_7": {
+      "type": "integer",
+      "title": "box_7",
+      "description": "Social security tips. Box 7 IRS Form W-2."
+    },
+    "box_8": {
+      "type": "integer",
+      "title": "box_8",
+      "description": "Allocated tips. Box 8 IRS Form W-2."
+    },
+    "box_9": {
+      "type": "string",
+      "title": "box_9",
+      "description": "This field is intentionally left blank."
+    },
+    "box_10": {
+      "type": "string",
+      "title": "box_10",
+      "description": "Dependent care benefits. Box 10 IRS Form W-2."
+    },
+    "box_11": {
+      "type": "string",
+      "title": "box_11",
+      "description": "Nonqualified plans. Box 11 IRS Form W-2."
+    },
+    "box_12": {
+      "items": {
+        "$ref": "#/components/schemas/W2Box12"
+      },
+      "type": "array",
+      "title": "box_12",
+      "description": "Miscellaneous income or tax line items. Box 12 IRS Form W-2."
+    },
+    "box_13": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/W2Box13"
+        }
+      ],
+      "title": "box_13",
+      "description": "Statutory employee, Retirement plan, or Third-party sick pay options. Box 13 IRS Form W-2."
+    },
+    "box_14": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "box_14",
+      "description": "Other. Box 14 IRS Form W-2."
+    },
+    "box_15_to_20": {
+      "items": {
+        "$ref": "#/components/schemas/W2Box15To20"
+      },
+      "type": "array",
+      "title": "box_15_to_20",
+      "description": "Box 15 to 20 IRS Form W-2. These boxes may contain multiple sets of values if the either the state or the locality of the employee and the employer differ, and are separately taxed."
+    }
+  },
+  "type": "object",
+  "title": "TaxFormW2",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/TaxFormW2.json"
+}

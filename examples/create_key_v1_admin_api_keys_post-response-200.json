@@ -1,0 +1,8 @@
+{
+  "data": {
+    "key": "string",
+    "expires_at": "2024-01-15T10:30:00Z",
+    "created_at": "2024-01-15T10:30:00Z",
+    "secret": "string"
+  }
+}

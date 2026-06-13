@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "type": {
+      "type": "string",
+      "title": "type",
+      "description": "The category of earning."
+    },
+    "description": {
+      "type": "string",
+      "title": "description",
+      "description": "The description of the earning."
+    },
+    "amount": {
+      "type": "integer",
+      "title": "amount",
+      "description": "The amount of earning, in cents."
+    },
+    "amount_ytd": {
+      "type": "integer",
+      "title": "amount_ytd",
+      "description": "The amount ytd of earning, in cents."
+    }
+  },
+  "type": "object",
+  "title": "UploadedEarning",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/UploadedEarning.json"
+}

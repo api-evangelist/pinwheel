@@ -1,0 +1,2586 @@
+vocabulary: Pinwheel API Vocabulary
+description: Domain vocabulary for the Pinwheel payroll connectivity API covering
+  payroll, direct deposit switching, income verification, employment data, and tax
+  form retrieval.
+version: v2025-07-08
+source: https://api.getpinwheel.com/openapi.json
+terms:
+- term: APIKeys
+  description: API Keys domain concept.
+  type: concept
+- term: Accounts
+  description: Accounts domain concept.
+  type: concept
+- term: CompanyConnect
+  description: Company Connect domain concept.
+  type: concept
+  usedIn:
+  - components/schemas/CompanyConnect
+- term: DirectDepositAllocations
+  description: Direct Deposit Allocations domain concept.
+  type: concept
+- term: EarningsStream
+  description: Earnings Stream domain concept.
+  type: concept
+- term: EmployersandPlatforms
+  description: Employers and Platforms domain concept.
+  type: concept
+- term: EndUsers
+  description: End Users domain concept.
+  type: concept
+- term: IncomeandEmployment
+  description: Income and Employment domain concept.
+  type: concept
+- term: Jobs
+  description: Jobs domain concept.
+  type: concept
+- term: LinkTokens
+  description: Link Tokens domain concept.
+  type: concept
+- term: PayoutCards
+  description: Payout Cards domain concept.
+  type: concept
+- term: Sandbox
+  description: Sandbox domain concept.
+  type: concept
+- term: Schemas
+  description: Schemas domain concept.
+  type: concept
+- term: TaxForms
+  description: Tax Forms domain concept.
+  type: concept
+- term: VerificationReports
+  description: Verification Reports domain concept.
+  type: concept
+- term: Webhooks
+  description: Webhooks domain concept.
+  type: concept
+- term: AddressGetResponseItem
+  description: Pinwheel AddressGetResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/AddressGetResponseItem
+- term: raw
+  description: The raw address.
+  type: string
+  usedIn:
+  - AddressGetResponseItem.raw
+- term: line1
+  description: The first line of the address.
+  type: string
+  usedIn:
+  - AddressGetResponseItem.line1
+- term: line2
+  description: The second line of the address.
+  type: string
+  usedIn:
+  - AddressGetResponseItem.line2
+- term: city
+  description: The city of the address.
+  type: string
+  usedIn:
+  - AddressGetResponseItem.city
+  - CardDetails.city
+- term: state
+  description: The state of the address.
+  type: string
+  usedIn:
+  - AddressGetResponseItem.state
+  - CardDetails.state
+- term: postal_code
+  description: The postal code of the address.
+  type: string
+  usedIn:
+  - AddressGetResponseItem.postal_code
+- term: country
+  description: The country of the address.
+  usedIn:
+  - AddressGetResponseItem.country
+- term: Allocation
+  description: Pinwheel Allocation object.
+  type: object
+  usedIn:
+  - components/schemas/Allocation
+- term: type
+  description: Type of allocation.
+  usedIn:
+  - Allocation.type
+  - BankAccountDetails.type
+  - BankAccountTransaction.type
+  - DeductionObjPublicResponseItem.type
+  - DirectDepositAllocationDetail.type
+  - ParamsPayload.type
+  - ParamsPayload_v2023_11_22.type
+  - PhoneNumberGetResponseItem.type
+  - PlatformObjResponse.type
+  - ShiftObjResponse.type
+  - UploadedDeduction.type
+  - UploadedEarning.type
+  - UploadedTax.type
+- term: value
+  description: Value of allocation. If type is amount, you must include a value. If
+    type is null, the end-user will be able to select the allocation type and value.
+    If min_amount is also specified for the allocation, must be greater than or equal
+    to min_amount.
+  type: number
+  usedIn:
+  - Allocation.value
+  - DirectDepositAllocationDetail.value
+  - PhoneNumberGetResponseItem.value
+- term: min_amount
+  description: Minimum amount for the allocation.
+  type: number
+  usedIn:
+  - Allocation.min_amount
+  - EmployerObjResponse.min_amount
+  - PlatformObjResponse.min_amount
+  - SearchResultObjResponse.min_amount
+- term: targets
+  description: List of allowed target accounts for an allocation.
+  type: array
+  usedIn:
+  - Allocation.targets
+- term: AllocationAccountObjResponse
+  description: Pinwheel AllocationAccountObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/AllocationAccountObjResponse
+- term: account_name
+  description: The name of the account, as entered by the user or presented by the
+    platform.
+  type: string
+  usedIn:
+  - AllocationAccountObjResponse.account_name
+  - BankAccount.account_name
+  - MerchantPayment.account_name
+  - TargetAccount.account_name
+- term: account_type
+  description: The type of account.
+  usedIn:
+  - AllocationAccountObjResponse.account_type
+  - MerchantPayment.account_type
+  - TargetAccount.account_type
+- term: allocation_type
+  description: The type of allocation.
+  usedIn:
+  - AllocationAccountObjResponse.allocation_type
+- term: amount
+  description: The amount of this allocation, in cents. Required if `allocation_type`
+    is `amount`.
+  type: integer
+  usedIn:
+  - AllocationAccountObjResponse.amount
+  - BankAccountTransaction.amount
+  - DeductionObjPublicResponseItem.amount
+  - EarningObjPublicResponseItem.amount
+  - EarningsYtds.amount
+  - NetPayObjResponse.amount
+  - ParamsPayload.amount
+  - ShiftEarningObjPublicResponseItem.amount
+  - TaxObjPublicResponseItem.amount
+  - UploadedDeduction.amount
+  - UploadedEarning.amount
+  - UploadedTax.amount
+  - W2Box12.amount
+- term: bank_name
+  description: The name of the bank associated with `allocation.routing_number`, if
+    available.
+  type: string
+  usedIn:
+  - AllocationAccountObjResponse.bank_name
+  - UploadedBankStatement.bank_name
+- term: currency
+  description: Three-letter ISO 4217 currency code, uppercase. For example, the code
+    for US dollars is USD.
+  usedIn:
+  - AllocationAccountObjResponse.currency
+  - CompanyIncomeObjResponse.currency
+  - CompanyPaystubObjResponse.currency
+  - IncomeObjResponse.currency
+  - IncomeResponseObj.currency
+  - NetPayObjResponse.currency
+  - PaystubObjResponse_v2022_03_02.currency
+  - PaystubWithEarningsResponseObj.currency
+  - ShiftObjResponse.currency
+- term: masked_account_number
+  description: Either the last two or four digits associated with the allocation,
+    dependent on what is displayed by the platform.
+  type: string
+  usedIn:
+  - AllocationAccountObjResponse.masked_account_number
+- term: percentage
+  description: The percentage of this allocation. Required if `allocation_type` is
+    `percentage`.
+  type: number
+  usedIn:
+  - AllocationAccountObjResponse.percentage
+- term: priority
+  description: The priority of this allocation. Lower priority allocations are filled
+    first.
+  type: integer
+  usedIn:
+  - AllocationAccountObjResponse.priority
+- term: routing_number
+  description: Either the full routing number or last four digits of the routing number
+    associated with the allocation, dependent on what is displayed by the platform.
+  type: string
+  usedIn:
+  - AllocationAccountObjResponse.routing_number
+  - BankAccountDetails.routing_number
+- term: AnnualIncomeResponseObj
+  description: Pinwheel AnnualIncomeResponseObj object.
+  type: object
+  usedIn:
+  - components/schemas/AnnualIncomeResponseObj
+- term: year
+  description: Year for which the income represents.
+  type: string
+  usedIn:
+  - AnnualIncomeResponseObj.year
+  - ParamsPayload.year
+  - ParamsPayload_v2023_11_22.year
+  - TaxFormObjResponseNoDocument_v2022_06_22.year
+  - TaxFormObjResponse_v2022_06_22.year
+- term: gross_pay_ytd
+  description: The cumulative year to date total earnings before any taxes or deductions
+    are removed, in cents.
+  type: integer
+  usedIn:
+  - AnnualIncomeResponseObj.gross_pay_ytd
+  - CompanyPaystubObjResponse.gross_pay_ytd
+  - PaystubObjResponse_v2022_03_02.gross_pay_ytd
+  - PaystubWithEarningsResponseObj.gross_pay_ytd
+  - UploadedPaystub.gross_pay_ytd
+- term: net_pay_ytd
+  description: The cumulative year to date total earnings after all taxes and deductions
+    are removed, in cents.
+  type: integer
+  usedIn:
+  - AnnualIncomeResponseObj.net_pay_ytd
+  - CompanyPaystubObjResponse.net_pay_ytd
+  - PaystubObjResponse_v2022_03_02.net_pay_ytd
+  - PaystubWithEarningsResponseObj.net_pay_ytd
+  - UploadedPaystub.net_pay_ytd
+- term: total_deductions_ytd
+  description: The cumulative year to date total deductions, in cents.
+  type: integer
+  usedIn:
+  - AnnualIncomeResponseObj.total_deductions_ytd
+- term: total_reimbursements_ytd
+  description: The cumulative year to date total reimbursements, in cents.
+  type: integer
+  usedIn:
+  - AnnualIncomeResponseObj.total_reimbursements_ytd
+- term: total_taxes_ytd
+  description: The cumulative year to date total taxes, in cents.
+  type: integer
+  usedIn:
+  - AnnualIncomeResponseObj.total_taxes_ytd
+- term: earnings_ytds
+  description: The cumulative year to date amount for all earnings, in cents.
+  type: array
+  usedIn:
+  - AnnualIncomeResponseObj.earnings_ytds
+- term: ApplicantNameAndAddress
+  description: Pinwheel ApplicantNameAndAddress object.
+  type: object
+  usedIn:
+  - components/schemas/ApplicantNameAndAddress
+- term: name
+  description: The full name of the applicant.
+  type: string
+  usedIn:
+  - ApplicantNameAndAddress.name
+  - BankAccountDetails.name
+  - DeductionObjPublicResponseItem.name
+  - EarningObjPublicResponseItem.name
+  - EmployeeNameAndAddress.name
+  - EmployeeResponseObj.name
+  - EmployerNameAndAddress.name
+  - EmployerObjResponse.name
+  - JobObjResponse.name
+  - JobObjResponse_v2023_11_22.name
+  - PlatformObjResponse.name
+  - SearchResultObjResponse.name
+  - ShiftEarningObjPublicResponseItem.name
+  - TaxObjPublicResponseItem.name
+  - TimeOffObjPublicResponseItem.name
+  - UploadedTimeOff.name
+  - W2BoxC.name
+- term: address
+  description: The address of the applicant.
+  usedIn:
+  - ApplicantNameAndAddress.address
+  - CompanyIdentityObjResponse.address
+  - EmployeeNameAndAddress.address
+  - EmployeeResponseObj.address
+  - EmployerNameAndAddress.address
+  - IdentityObjResponse.address
+  - W2BoxC.address
+- term: BankAccount
+  description: Pinwheel BankAccount object.
+  type: object
+  usedIn:
+  - components/schemas/BankAccount
+- term: account_number
+  description: The account number of the bank account.
+  usedIn:
+  - BankAccount.account_number
+  - BankAccountDetails.account_number
+- term: bank_account_type
+  description: The type of the bank account.
+  type: string
+  usedIn:
+  - BankAccount.bank_account_type
+- term: is_joint_account
+  description: Whether the bank account is a joint account.
+  type: boolean
+  usedIn:
+  - BankAccount.is_joint_account
+- term: total_deposits
+  description: The total deposits of the bank account.
+  usedIn:
+  - BankAccount.total_deposits
+- term: beginning_balance
+  description: The beginning balance of the bank account.
+  usedIn:
+  - BankAccount.beginning_balance
+- term: ending_balance
+  description: The ending balance of the bank account.
+  usedIn:
+  - BankAccount.ending_balance
+- term: transactions
+  description: The transactions of the bank account.
+  type: array
+  usedIn:
+  - BankAccount.transactions
+- term: BankAccountDetails
+  description: Pinwheel BankAccountDetails object.
+  type: object
+  usedIn:
+  - components/schemas/BankAccountDetails
+- term: BankAccountTransaction
+  description: Pinwheel BankAccountTransaction object.
+  type: object
+  usedIn:
+  - components/schemas/BankAccountTransaction
+- term: date
+  description: The date of the transaction.
+  type: string
+  usedIn:
+  - BankAccountTransaction.date
+- term: description
+  description: The description of the transaction.
+  type: string
+  usedIn:
+  - BankAccountTransaction.description
+  - UploadedDeduction.description
+  - UploadedEarning.description
+  - UploadedTax.description
+- term: base_type
+  description: The base type of the transaction.
+  type: string
+  usedIn:
+  - BankAccountTransaction.base_type
+- term: BillNavigatorStatusUpdateRequest
+  description: Pinwheel BillNavigatorStatusUpdateRequest object.
+  type: object
+  usedIn:
+  - components/schemas/BillNavigatorStatusUpdateRequest
+- term: action
+  description: The action to take on the end user's account. Valid actions are `deactivated`
+    and `terminated`. When an end user is set to `deactivated`, the user can reactivate
+    themselves. When an end user is set to `terminated`, the action is irreversible.
+  usedIn:
+  - BillNavigatorStatusUpdateRequest.action
+  - ParamsPayload_v2023_11_22.action
+- term: reason
+  description: The reason for taking action on the end user's account.
+  type: string
+  usedIn:
+  - BillNavigatorStatusUpdateRequest.reason
+- term: CardDetails
+  description: Pinwheel CardDetails object.
+  type: object
+  usedIn:
+  - components/schemas/CardDetails
+- term: card_name
+  description: Name of the card. Required if requesting `bill_switch` job.
+  type: string
+  usedIn:
+  - CardDetails.card_name
+  - MerchantPayment.card_name
+  - ParamsPayload_v2023_11_22.card_name
+- term: card_number
+  description: Card number. Required if requesting `bill_switch` job.
+  type: string
+  usedIn:
+  - CardDetails.card_number
+- term: cvc
+  description: Card verification code or other security code of the card. Required
+    if requesting `bill_switch` job.
+  type: string
+  usedIn:
+  - CardDetails.cvc
+- term: expiration_date
+  description: Expiration date of the card in MM/YY format. Required if requesting
+    `bill_switch` job.
+  type: string
+  usedIn:
+  - CardDetails.expiration_date
+- term: name_on_card
+  description: Full name displayed on the card. Required if requesting `bill_switch`
+    job.
+  type: string
+  usedIn:
+  - CardDetails.name_on_card
+- term: card_zip_code
+  description: Zip code for the card. Required if requesting `bill_switch` job.
+  type: string
+  usedIn:
+  - CardDetails.card_zip_code
+- term: billing_address
+  description: Billing address line one of the card. Required if requesting `bill_switch`
+    job.
+  type: string
+  usedIn:
+  - CardDetails.billing_address
+- term: billing_address_two
+  description: Billing address line two of the card. Required if requesting `bill_switch`
+    job.
+  type: string
+  usedIn:
+  - CardDetails.billing_address_two
+- term: company_connection_id
+  description: ID of the Company Connection.
+  type: string
+  usedIn:
+  - CompanyConnect.company_connection_id
+- term: CompanyConnectLinkTokenCreate
+  description: Pinwheel CompanyConnectLinkTokenCreate object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyConnectLinkTokenCreate
+- term: required_jobs
+  description: List of job types to be performed on the Company Connection. Platforms
+    that do not support ALL of these jobs will not be visible to the user.
+  type: array
+  usedIn:
+  - CompanyConnectLinkTokenCreate.required_jobs
+- term: org_name
+  description: Organization or app name that is displayed to the user.
+  type: string
+  usedIn:
+  - CompanyConnectLinkTokenCreate.org_name
+  - LinkTokenCreate_v2025_07_08.org_name
+- term: skip_intro_screen
+  description: If set to true, intro screen is not shown to user.
+  type: boolean
+  usedIn:
+  - CompanyConnectLinkTokenCreate.skip_intro_screen
+  - LinkTokenCreate_v2025_07_08.skip_intro_screen
+- term: platform_id
+  description: UUID of a platform. If set, user is taken directly to Link login screen.
+  type: string
+  usedIn:
+  - CompanyConnectLinkTokenCreate.platform_id
+  - LinkTokenCreate_v2025_07_08.platform_id
+  - PayrollAccountObjResponse.platform_id
+- term: language
+  description: IETF code denoting which language to display in Link.
+  usedIn:
+  - CompanyConnectLinkTokenCreate.language
+  - LinkTokenCreate_v2025_07_08.language
+- term: company_connect
+  description: Configuration used to specify a Company Connection.
+  usedIn:
+  - CompanyConnectLinkTokenCreate.company_connect
+- term: CompanyConnectLinkTokenObjResponse
+  description: Pinwheel CompanyConnectLinkTokenObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyConnectLinkTokenObjResponse
+- term: mode
+  description: Token mode, i.e. `sandbox`, `development`, or `production`.
+  usedIn:
+  - CompanyConnectLinkTokenObjResponse.mode
+  - CreateAPIKeyResponseData.mode
+  - CreateAdminTokenResponseData.mode
+  - LinkTokenObjResponse_v2021_07_28.mode
+  - ListAPIKeyResponseData.mode
+  - RevokeAPIKeyResponseData.mode
+- term: id
+  description: UUID of the link token.
+  type: string
+  usedIn:
+  - CompanyConnectLinkTokenObjResponse.id
+  - CompanyConnectionBase.id
+  - DDAllocationObjResponse.id
+  - DocumentObjPublicResponseItem.id
+  - EmployerObjResponse.id
+  - EmploymentObjResponse.id
+  - EndUserDocumentObjResponse.id
+  - IdentityObjResponse.id
+  - IncomeObjResponse.id
+  - JobObjResponse.id
+  - JobObjResponse_v2023_11_22.id
+  - LinkTokenObjResponse_v2021_07_28.id
+  - PayrollAccountObjResponse.id
+  - PaystubObjResponse_v2022_03_02.id
+  - PaystubWithEarningsResponseObj.id
+  - PlatformObjResponse.id
+  - SearchResultObjResponse.id
+  - ShiftObjResponse.id
+  - TaxFormObjResponseNoDocument_v2022_06_22.id
+  - TaxFormObjResponse_v2022_06_22.id
+  - VerificationReportsVOEObjResponse.id
+  - VerificationReportsVOIEObjResponse.id
+  - WebhookObjResponse.id
+- term: token
+  description: Short-lived token that is used to initialize Pinwheel Link.
+  type: string
+  usedIn:
+  - CompanyConnectLinkTokenObjResponse.token
+  - CreateAdminTokenResponseData.token
+  - LinkTokenObjResponse_v2021_07_28.token
+- term: expires
+  description: The token will be invalid after this timestamp.
+  type: string
+  usedIn:
+  - CompanyConnectLinkTokenObjResponse.expires
+  - LinkTokenObjResponse_v2021_07_28.expires
+- term: CompanyConnectionBase
+  description: Pinwheel CompanyConnectionBase object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyConnectionBase
+- term: created_at
+  description: ISO 8601 timestamp of created time.
+  type: string
+  usedIn:
+  - CompanyConnectionBase.created_at
+  - CompanyEmploymentObjResponse.created_at
+  - CompanyIdentityObjResponse.created_at
+  - CompanyIncomeObjResponse.created_at
+  - CompanyPaystubObjResponse.created_at
+  - CreateAPIKeyResponseData.created_at
+  - DDAllocationObjResponse.created_at
+  - EmploymentObjResponse.created_at
+  - EndUserDocumentObjResponse.created_at
+  - IdentityObjResponse.created_at
+  - IncomeObjResponse.created_at
+  - ListAPIKeyResponseData.created_at
+  - PayrollAccountObjResponse.created_at
+  - PaystubObjResponse_v2022_03_02.created_at
+  - PaystubWithEarningsResponseObj.created_at
+  - RevokeAPIKeyResponseData.created_at
+  - ShiftObjResponse.created_at
+  - TaxFormObjResponseNoDocument_v2022_06_22.created_at
+  - TaxFormObjResponse_v2022_06_22.created_at
+  - WebhookObjResponse.created_at
+- term: company_name
+  description: Name of the company used in a Company Connection.
+  type: string
+  usedIn:
+  - CompanyConnectionBase.company_name
+  - CompanyConnectionCreate.company_name
+- term: status
+  description: The status of the Company Connection. <a href='https://docs.pinwheelapi.com/docs/company-connect-technical-implementation#company-connection-status'
+    target='_blank'>See documentation for details</a>.
+  usedIn:
+  - CompanyConnectionBase.status
+  - CompanyEmploymentObjResponse.status
+  - EarningsStreamPayoutObjResponse_v2023_04_18.status
+  - EmploymentObjResponse.status
+  - FieldWarning.status
+  - SharedFraud.status
+  - WebhookCreate_v2023_04_18.status
+  - WebhookObjResponse.status
+  - WebhookUpdate.status
+- term: status_updated_at
+  description: Timestamp of when the Company Connection's status was last updated.
+  type: string
+  usedIn:
+  - CompanyConnectionBase.status_updated_at
+- term: CompanyConnectionCreate
+  description: Pinwheel CompanyConnectionCreate object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyConnectionCreate
+- term: CompanyEmploymentObjResponse
+  description: Pinwheel CompanyEmploymentObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyEmploymentObjResponse
+- term: employee_external_id
+  description: Employee ID as reported by their employer.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.employee_external_id
+  - CompanyIdentityObjResponse.employee_external_id
+  - CompanyIncomeObjResponse.employee_external_id
+  - CompanyPaystubObjResponse.employee_external_id
+- term: employment_type
+  description: The employment type e.g. full time, part time, seasonal, contractor.
+  usedIn:
+  - CompanyEmploymentObjResponse.employment_type
+  - EmploymentResponseObj.employment_type
+  - IncomeAndEmploymentResponseObj.employment_type
+- term: start_date
+  description: The date the employee began their job.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.start_date
+  - EmploymentObjResponse.start_date
+  - EmploymentResponseObj.start_date
+  - IncomeAndEmploymentResponseObj.start_date
+  - ShiftObjResponse.start_date
+- term: termination_date
+  description: The date the employee was terminated.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.termination_date
+  - EmploymentObjResponse.termination_date
+  - EmploymentResponseObj.termination_date
+  - IncomeAndEmploymentResponseObj.termination_date
+- term: employer_name
+  description: Name of employer, e.g., Apple, Disney, Walmart.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.employer_name
+  - CompanyPaystubObjResponse.employer_name
+  - EmploymentObjResponse.employer_name
+  - EmploymentResponseObj.employer_name
+  - IncomeAndEmploymentResponseObj.employer_name
+  - PaystubObjResponse_v2022_03_02.employer_name
+  - PaystubWithEarningsResponseObj.employer_name
+  - UploadedW2Informed.employer_name
+- term: title
+  description: The job title of the employee.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.title
+  - EmploymentObjResponse.title
+  - EmploymentResponseObj.title
+  - IncomeAndEmploymentResponseObj.title
+- term: department
+  description: The department the employee works in.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.department
+- term: manager_external_id
+  description: The employee's manager's employee ID.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.manager_external_id
+- term: class_code
+  description: A three- to four-digit code that identifies types of work, typically
+    used by insurance companies to evaluate risk.
+  type: string
+  usedIn:
+  - CompanyEmploymentObjResponse.class_code
+- term: employer_address
+  description: The address of the employer.
+  usedIn:
+  - CompanyEmploymentObjResponse.employer_address
+  - EmploymentObjResponse.employer_address
+  - EmploymentResponseObj.employer_address
+  - IncomeAndEmploymentResponseObj.employer_address
+- term: CompanyIdentityObjResponse
+  description: Pinwheel CompanyIdentityObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyIdentityObjResponse
+- term: date_of_birth
+  description: The date the employee was born.
+  type: string
+  usedIn:
+  - CompanyIdentityObjResponse.date_of_birth
+  - EmployeeResponseObj.date_of_birth
+  - IdentityObjResponse.date_of_birth
+  - LinkUserAuthenticationDataObjCreate.date_of_birth
+- term: emails
+  description: The emails associated with the employee.
+  type: array
+  usedIn:
+  - CompanyIdentityObjResponse.emails
+  - IdentityObjResponse.emails
+- term: first_name
+  description: The first name of the employee.
+  type: string
+  usedIn:
+  - CompanyIdentityObjResponse.first_name
+  - EmployeeName.first_name
+  - LinkUserAuthenticationDataObjCreate.first_name
+- term: middle_name
+  description: The middle name of the employee.
+  type: string
+  usedIn:
+  - CompanyIdentityObjResponse.middle_name
+  - EmployeeName.middle_name
+- term: last_name
+  description: The last name of the employee.
+  type: string
+  usedIn:
+  - CompanyIdentityObjResponse.last_name
+  - EmployeeName.last_name
+  - LinkUserAuthenticationDataObjCreate.last_name
+- term: last_four_ssn
+  description: The last four digits of the employee's social security number (SSN).
+  type: string
+  usedIn:
+  - CompanyIdentityObjResponse.last_four_ssn
+  - EmployeeResponseObj.last_four_ssn
+  - IdentityObjResponse.last_four_ssn
+- term: full_name
+  description: The full name of the employee.
+  type: string
+  usedIn:
+  - CompanyIdentityObjResponse.full_name
+  - EmployeeName.full_name
+  - IdentityObjResponse.full_name
+- term: phone_numbers
+  description: The phone numbers of the employee.
+  type: array
+  usedIn:
+  - CompanyIdentityObjResponse.phone_numbers
+  - EmployeeResponseObj.phone_numbers
+  - IdentityObjResponse.phone_numbers
+- term: CompanyIncomeObjResponse
+  description: Pinwheel CompanyIncomeObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyIncomeObjResponse
+- term: compensation_amount
+  description: The amount per compensation unit, in cents.
+  type: integer
+  usedIn:
+  - CompanyIncomeObjResponse.compensation_amount
+  - IncomeObjResponse.compensation_amount
+  - IncomeResponseObj.compensation_amount
+- term: compensation_unit
+  description: The compensation time frame.
+  usedIn:
+  - CompanyIncomeObjResponse.compensation_unit
+  - IncomeObjResponse.compensation_unit
+  - IncomeResponseObj.compensation_unit
+- term: pay_frequency
+  description: Describes how often the employee is paid.
+  usedIn:
+  - CompanyIncomeObjResponse.pay_frequency
+  - IncomeObjResponse.pay_frequency
+  - IncomeResponseObj.pay_frequency
+- term: CompanyPaystubObjResponse
+  description: Pinwheel CompanyPaystubObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/CompanyPaystubObjResponse
+- term: pay_date
+  description: The date when the check amount is paid to the employee.
+  type: string
+  usedIn:
+  - CompanyPaystubObjResponse.pay_date
+  - EarningsStreamPayoutObjResponse_v2023_04_18.pay_date
+  - ParamsPayload.pay_date
+  - ParamsPayload_v2023_11_22.pay_date
+  - PaystubObjResponse_v2022_03_02.pay_date
+  - PaystubWithEarningsResponseObj.pay_date
+  - UploadedPaystub.pay_date
+  - UploadedSSIAwardLetter.pay_date
+- term: pay_period_start
+  description: The date when the pay period begins. Some platforms, like unemployment
+    portals, do not have fixed pay periods.
+  type: string
+  usedIn:
+  - CompanyPaystubObjResponse.pay_period_start
+  - PaystubObjResponse_v2022_03_02.pay_period_start
+  - PaystubWithEarningsResponseObj.pay_period_start
+  - UploadedPaystub.pay_period_start
+- term: pay_period_end
+  description: The date when the pay period ends. Some platforms, like unemployment
+    portals, do not have fixed pay periods.
+  type: string
+  usedIn:
+  - CompanyPaystubObjResponse.pay_period_end
+  - PaystubObjResponse_v2022_03_02.pay_period_end
+  - PaystubWithEarningsResponseObj.pay_period_end
+  - UploadedPaystub.pay_period_end
+- term: gross_pay_amount
+  description: The total earnings before any deductions are made, in cents.
+  type: integer
+  usedIn:
+  - CompanyPaystubObjResponse.gross_pay_amount
+  - PaystubObjResponse_v2022_03_02.gross_pay_amount
+  - PaystubWithEarningsResponseObj.gross_pay_amount
+  - UploadedPaystub.gross_pay_amount
+- term: net_pay_amount
+  description: The total earnings after all taxes and deductions are removed, in cents.
+  type: integer
+  usedIn:
+  - CompanyPaystubObjResponse.net_pay_amount
+  - PaystubObjResponse_v2022_03_02.net_pay_amount
+  - PaystubWithEarningsResponseObj.net_pay_amount
+  - UploadedPaystub.net_pay_amount
+- term: check_amount
+  description: The amount paid to the employee in this payout, in cents.
+  type: integer
+  usedIn:
+  - CompanyPaystubObjResponse.check_amount
+  - PaystubObjResponse_v2022_03_02.check_amount
+  - PaystubWithEarningsResponseObj.check_amount
+- term: total_taxes
+  description: The total taxes for this pay period, in cents.
+  type: integer
+  usedIn:
+  - CompanyPaystubObjResponse.total_taxes
+  - PaystubObjResponse_v2022_03_02.total_taxes
+  - PaystubWithEarningsResponseObj.total_taxes
+- term: total_deductions
+  description: The total deductions for this pay period, in cents.
+  type: integer
+  usedIn:
+  - CompanyPaystubObjResponse.total_deductions
+  - PaystubObjResponse_v2022_03_02.total_deductions
+  - PaystubWithEarningsResponseObj.total_deductions
+- term: total_reimbursements
+  description: The total reimbursements for this pay period, in cents.
+  type: integer
+  usedIn:
+  - CompanyPaystubObjResponse.total_reimbursements
+  - PaystubObjResponse_v2022_03_02.total_reimbursements
+  - PaystubWithEarningsResponseObj.total_reimbursements
+- term: CreateAPIKeyOptions
+  description: Pinwheel CreateAPIKeyOptions object.
+  type: object
+  usedIn:
+  - components/schemas/CreateAPIKeyOptions
+- term: expires_at
+  description: Timestamp used to set when this key automatically expires.
+  type: string
+  usedIn:
+  - CreateAPIKeyOptions.expires_at
+  - CreateAPIKeyResponseData.expires_at
+  - ListAPIKeyResponseData.expires_at
+  - RevokeAPIKeyResponseData.expires_at
+- term: CreateAPIKeyResponse
+  description: Pinwheel CreateAPIKeyResponse object.
+  type: object
+  usedIn:
+  - components/schemas/CreateAPIKeyResponse
+- term: data
+  description: ''
+  usedIn:
+  - CreateAPIKeyResponse.data
+  - CreateAdminTokenResponse.data
+  - RevokeAPIKeyResponse.data
+- term: CreateAPIKeyResponseData
+  description: Pinwheel CreateAPIKeyResponseData object.
+  type: object
+  usedIn:
+  - components/schemas/CreateAPIKeyResponseData
+- term: key
+  description: The public token that refers to your API key, as distinct from the
+    API Secret.
+  type: string
+  usedIn:
+  - CreateAPIKeyResponseData.key
+  - ListAPIKeyResponseData.key
+  - RevokeAPIKeyResponseData.key
+- term: secret
+  description: The secret token part of the API key used to authorize requests to
+    the Pinwheel API.
+  type: string
+  usedIn:
+  - CreateAPIKeyResponseData.secret
+- term: CreateAdminTokenRequest
+  description: Pinwheel CreateAdminTokenRequest object.
+  type: object
+  usedIn:
+  - components/schemas/CreateAdminTokenRequest
+- term: username
+  description: Username or email of the Developer Dashboard user used to create an
+    Admin API token.
+  type: string
+  usedIn:
+  - CreateAdminTokenRequest.username
+- term: password
+  description: Password of the Developer Dashboard user used to create an Admin API
+    token.
+  type: string
+  usedIn:
+  - CreateAdminTokenRequest.password
+- term: CreateAdminTokenResponse
+  description: Pinwheel CreateAdminTokenResponse object.
+  type: object
+  usedIn:
+  - components/schemas/CreateAdminTokenResponse
+- term: CreateAdminTokenResponseData
+  description: Pinwheel CreateAdminTokenResponseData object.
+  type: object
+  usedIn:
+  - components/schemas/CreateAdminTokenResponseData
+- term: expiration
+  description: Timestamp of when the Admin API token expires.
+  type: string
+  usedIn:
+  - CreateAdminTokenResponseData.expiration
+- term: workspace_name
+  description: Name of the workspace the Admin API token is authorized for.
+  type: string
+  usedIn:
+  - CreateAdminTokenResponseData.workspace_name
+- term: user_role
+  description: The role of the developer-dashboard user the Admin API token was authenticated
+    with.
+  usedIn:
+  - CreateAdminTokenResponseData.user_role
+- term: DDAllocationObjResponse
+  description: Pinwheel DDAllocationObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/DDAllocationObjResponse
+- term: account_id
+  description: UUID of the payroll account.
+  type: string
+  usedIn:
+  - DDAllocationObjResponse.account_id
+  - EmploymentObjResponse.account_id
+  - IdentityObjResponse.account_id
+  - IncomeObjResponse.account_id
+  - JobObjResponse.account_id
+  - JobObjResponse_v2023_11_22.account_id
+  - LinkTokenCreate_v2025_07_08.account_id
+  - PaystubObjResponse_v2022_03_02.account_id
+  - PaystubWithEarningsResponseObj.account_id
+  - ShiftObjResponse.account_id
+  - TaxFormObjResponseNoDocument_v2022_06_22.account_id
+  - TaxFormObjResponse_v2022_06_22.account_id
+- term: updated_at
+  description: ISO 8601 timestamp of the last update to this object.
+  type: string
+  usedIn:
+  - DDAllocationObjResponse.updated_at
+  - EmploymentObjResponse.updated_at
+  - FreshnessPaginationListMeta.updated_at
+  - IdentityObjResponse.updated_at
+  - IncomeObjResponse.updated_at
+  - VerificationReportsVOEObjResponse.updated_at
+  - VerificationReportsVOIEObjResponse.updated_at
+- term: allocations
+  description: List of current allocations for this payroll account.
+  type: array
+  usedIn:
+  - DDAllocationObjResponse.allocations
+- term: DeductionObjPublicResponseItem
+  description: Pinwheel DeductionObjPublicResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/DeductionObjPublicResponseItem
+- term: category
+  description: The category of deduction.
+  usedIn:
+  - DeductionObjPublicResponseItem.category
+  - EarningObjPublicResponseItem.category
+  - EarningsYtds.category
+  - ShiftEarningObjPublicResponseItem.category
+  - TaxObjPublicResponseItem.category
+  - TimeOffObjPublicResponseItem.category
+  - UploadedTimeOff.category
+- term: DirectDepositAllocationDetail
+  description: Pinwheel DirectDepositAllocationDetail object.
+  type: object
+  usedIn:
+  - components/schemas/DirectDepositAllocationDetail
+- term: target
+  description: The target account for this allocation.
+  usedIn:
+  - DirectDepositAllocationDetail.target
+- term: DocumentObjPublicResponseItem
+  description: Pinwheel DocumentObjPublicResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/DocumentObjPublicResponseItem
+- term: download_url
+  description: URL from which the document may be downloaded.
+  type: string
+  usedIn:
+  - DocumentObjPublicResponseItem.download_url
+- term: download_url_expiration
+  description: ISO 8601 timestamp of when the download URL will no longer be valid.
+  type: string
+  usedIn:
+  - DocumentObjPublicResponseItem.download_url_expiration
+- term: EarningObjPublicResponseItem
+  description: Pinwheel EarningObjPublicResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/EarningObjPublicResponseItem
+- term: rate
+  description: The amount earned per hour, in cents.
+  type: integer
+  usedIn:
+  - EarningObjPublicResponseItem.rate
+  - ShiftEarningObjPublicResponseItem.rate
+- term: hours
+  description: The hours worked.
+  type: number
+  usedIn:
+  - EarningObjPublicResponseItem.hours
+  - ShiftEarningObjPublicResponseItem.hours
+- term: EarningsStreamPayoutObjResponse_v2023_04_18
+  description: Pinwheel EarningsStreamPayoutObjResponse_v2023_04_18 object.
+  type: object
+  usedIn:
+  - components/schemas/EarningsStreamPayoutObjResponse_v2023_04_18
+- term: net_pay
+  description: Object representing how much someone will receive in net pay (i.e.,
+    the pay that will be disbursed to user-directed accounts) for the work they completed
+    that day. This is equivalent to (gross pay - deductions). E.g., gross pay minus
+    income tax, healthcare, 401k contributions, or other withholdings that are not
+    included in the user's payout.
+  usedIn:
+  - EarningsStreamPayoutObjResponse_v2023_04_18.net_pay
+- term: earnings
+  description: List of objects representing income earned on a given day. All earnings
+    roll up into specific payouts.
+  type: array
+  usedIn:
+  - EarningsStreamPayoutObjResponse_v2023_04_18.earnings
+  - PaystubObjResponse_v2022_03_02.earnings
+  - PaystubWithEarningsResponseObj.earnings
+  - ShiftObjResponse.earnings
+  - UploadedPaystub.earnings
+- term: EarningsYtds
+  description: Pinwheel EarningsYtds object.
+  type: object
+  usedIn:
+  - components/schemas/EarningsYtds
+- term: EmployeeName
+  description: Pinwheel EmployeeName object.
+  type: object
+  usedIn:
+  - components/schemas/EmployeeName
+- term: EmployeeNameAndAddress
+  description: Pinwheel EmployeeNameAndAddress object.
+  type: object
+  usedIn:
+  - components/schemas/EmployeeNameAndAddress
+- term: EmployeeResponseObj
+  description: Pinwheel EmployeeResponseObj object.
+  type: object
+  usedIn:
+  - components/schemas/EmployeeResponseObj
+- term: EmployerNameAndAddress
+  description: Pinwheel EmployerNameAndAddress object.
+  type: object
+  usedIn:
+  - components/schemas/EmployerNameAndAddress
+- term: EmployerObjResponse
+  description: Pinwheel EmployerObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/EmployerObjResponse
+- term: last_updated
+  description: ISO 8601 timestamp of the last update to this object.
+  type: string
+  usedIn:
+  - EmployerObjResponse.last_updated
+  - PlatformObjResponse.last_updated
+  - SearchResultObjResponse.last_updated
+  - WebhookObjResponse.last_updated
+- term: logo_url
+  description: The URL of the employer logo.
+  type: string
+  usedIn:
+  - EmployerObjResponse.logo_url
+  - PlatformObjResponse.logo_url
+  - SearchResultObjResponse.logo_url
+- term: supported_jobs
+  description: Array of supported jobs.
+  type: array
+  usedIn:
+  - EmployerObjResponse.supported_jobs
+  - PlatformObjResponse.supported_jobs
+  - SearchResultObjResponse.supported_jobs
+- term: fractional_amount_supported
+  description: Whether or not the platform accepts decimal values for `direct_deposit_switch`.
+  type: boolean
+  usedIn:
+  - EmployerObjResponse.fractional_amount_supported
+  - PlatformObjResponse.fractional_amount_supported
+  - SearchResultObjResponse.fractional_amount_supported
+- term: amount_supported
+  description: Whether a direct deposit job supports specific amount.
+  type: boolean
+  usedIn:
+  - EmployerObjResponse.amount_supported
+  - PlatformObjResponse.amount_supported
+  - SearchResultObjResponse.amount_supported
+- term: max_amount
+  description: Maximum amount, if any, platform accepts for `direct_deposit_switch`.
+  type: number
+  usedIn:
+  - EmployerObjResponse.max_amount
+  - PlatformObjResponse.max_amount
+  - SearchResultObjResponse.max_amount
+- term: min_percentage
+  description: Minimum percentage allowed for `direct_deposit_switch`.
+  type: integer
+  usedIn:
+  - EmployerObjResponse.min_percentage
+  - PlatformObjResponse.min_percentage
+  - SearchResultObjResponse.min_percentage
+- term: max_percentage
+  description: Maximum percentage allowed for `direct_deposit_switch`.
+  type: integer
+  usedIn:
+  - EmployerObjResponse.max_percentage
+  - PlatformObjResponse.max_percentage
+  - SearchResultObjResponse.max_percentage
+- term: percentage_supported
+  description: Whether a direct deposit job supports percentage switching.
+  type: boolean
+  usedIn:
+  - EmployerObjResponse.percentage_supported
+  - PlatformObjResponse.percentage_supported
+  - SearchResultObjResponse.percentage_supported
+- term: EmploymentObjResponse
+  description: Pinwheel EmploymentObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/EmploymentObjResponse
+- term: employer_phone_number
+  description: The phone number of the employer.
+  usedIn:
+  - EmploymentObjResponse.employer_phone_number
+- term: EmploymentResponseObj
+  description: Pinwheel EmploymentResponseObj object.
+  type: object
+  usedIn:
+  - components/schemas/EmploymentResponseObj
+- term: employment_duration_months
+  description: The length of time, in months, the employee has been active with the
+    employer.
+  type: integer
+  usedIn:
+  - EmploymentResponseObj.employment_duration_months
+  - IncomeAndEmploymentResponseObj.employment_duration_months
+- term: employment_status
+  description: The employment status of the employee.
+  usedIn:
+  - EmploymentResponseObj.employment_status
+  - IncomeAndEmploymentResponseObj.employment_status
+- term: most_recent_pay_date
+  description: The latest date when the employee received regular pay.
+  type: string
+  usedIn:
+  - EmploymentResponseObj.most_recent_pay_date
+  - IncomeAndEmploymentResponseObj.most_recent_pay_date
+- term: EndUser
+  description: Pinwheel EndUser object.
+  type: object
+  usedIn:
+  - components/schemas/EndUser
+- term: platform_matching
+  description: User PII data for enabling partner-based switches.
+  usedIn:
+  - EndUser.platform_matching
+- term: EndUserDocumentObjResponse
+  description: Pinwheel EndUserDocumentObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/EndUserDocumentObjResponse
+- term: end_user_id
+  description: User ID provided by you, to associate Pinwheel users with your user
+    model. Required if `account_id` is not provided. This ID will be returned in all
+    webhook events and all account-affiliated API responses. Leading and trailing
+    whitespace will be stripped. Do not include PII in this identifier.
+  type: string
+  usedIn:
+  - EndUserDocumentObjResponse.end_user_id
+  - LinkTokenCreate_v2025_07_08.end_user_id
+  - PayrollAccountObjResponse.end_user_id
+- term: document
+  description: A document.
+  usedIn:
+  - EndUserDocumentObjResponse.document
+  - PaystubObjResponse_v2022_03_02.document
+  - TaxFormObjResponse_v2022_06_22.document
+  - VerificationReportsVOEObjResponse.document
+  - VerificationReportsVOIEObjResponse.document
+- term: document_type
+  description: The type of the document.
+  usedIn:
+  - EndUserDocumentObjResponse.document_type
+  - ParamsPayload.document_type
+  - ParamsPayload_v2023_11_22.document_type
+  - TaxFormW2.document_type
+  - UploadedBankStatement.document_type
+  - UploadedPaystub.document_type
+  - UploadedSSIAwardLetter.document_type
+  - UploadedW2Informed.document_type
+- term: parsed_data
+  description: The parsed data of the document.
+  usedIn:
+  - EndUserDocumentObjResponse.parsed_data
+  - TaxFormObjResponse_v2022_06_22.parsed_data
+- term: warnings
+  description: Used to indicate if there are any warnings for fields returned in this
+    response.
+  type: array
+  usedIn:
+  - EndUserDocumentObjResponse.warnings
+  - TaxFormObjResponse_v2022_06_22.warnings
+- term: fraud
+  description: Used to indicate any fraud indications in this document.
+  usedIn:
+  - EndUserDocumentObjResponse.fraud
+- term: FieldWarning
+  description: Pinwheel FieldWarning object.
+  type: object
+  usedIn:
+  - components/schemas/FieldWarning
+- term: field
+  description: The response field associated with this warning. Nested values are
+    delimited with a `.`, i.e. `parsed_data.box_13.statutory_employee`.
+  type: string
+  usedIn:
+  - FieldWarning.field
+- term: message
+  description: A full description of the warning.
+  type: string
+  usedIn:
+  - FieldWarning.message
+- term: FreshnessPaginationListMeta
+  description: Pinwheel FreshnessPaginationListMeta object.
+  type: object
+  usedIn:
+  - components/schemas/FreshnessPaginationListMeta
+- term: refreshed_at
+  description: ISO 8601 timestamp of the most recent refresh of this data.
+  type: string
+  usedIn:
+  - FreshnessPaginationListMeta.refreshed_at
+  - RefreshableMeta.refreshed_at
+  - RefreshablePaginationListMeta.refreshed_at
+  - VerificationReportsVOEObjResponse.refreshed_at
+  - VerificationReportsVOIEObjResponse.refreshed_at
+- term: count
+  description: Number of objects returned.
+  type: integer
+  usedIn:
+  - FreshnessPaginationListMeta.count
+  - ListMeta.count
+  - PaginationMeta.count
+  - ParamsPayload.count
+  - ParamsPayload_v2023_11_22.count
+  - RefreshablePaginationListMeta.count
+- term: next_cursor
+  description: Pointer to the next page of results.
+  type: string
+  usedIn:
+  - FreshnessPaginationListMeta.next_cursor
+  - PaginationMeta.next_cursor
+  - RefreshablePaginationListMeta.next_cursor
+- term: IdentityObjResponse
+  description: Pinwheel IdentityObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/IdentityObjResponse
+- term: IncomeAndEmploymentResponseObj
+  description: Pinwheel IncomeAndEmploymentResponseObj object.
+  type: object
+  usedIn:
+  - components/schemas/IncomeAndEmploymentResponseObj
+- term: income
+  description: Income details for the employment.
+  usedIn:
+  - IncomeAndEmploymentResponseObj.income
+  - PayrollAccountDataRefreshed.income
+  - PayrollAccountDataUpdated.income
+- term: IncomeObjResponse
+  description: Pinwheel IncomeObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/IncomeObjResponse
+- term: IncomeResponseObj
+  description: Pinwheel IncomeResponseObj object.
+  type: object
+  usedIn:
+  - components/schemas/IncomeResponseObj
+- term: annual_incomes
+  description: Annualized pay details for the user. Starting with the current year
+    and going back at most 2 years.
+  type: array
+  usedIn:
+  - IncomeResponseObj.annual_incomes
+- term: paystubs
+  description: Up to 2 most recent paystubs for the employee's income.
+  type: array
+  usedIn:
+  - IncomeResponseObj.paystubs
+  - PayrollAccountDataRefreshed.paystubs
+  - PayrollAccountDataUpdated.paystubs
+- term: JobObjResponse
+  description: Pinwheel JobObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/JobObjResponse
+- term: timestamp
+  description: ISO 8601 timestamp of job completion.
+  type: string
+  usedIn:
+  - JobObjResponse.timestamp
+  - JobObjResponse_v2023_11_22.timestamp
+- term: outcome
+  description: The outcome of the job.
+  usedIn:
+  - JobObjResponse.outcome
+  - JobObjResponse_v2023_11_22.outcome
+- term: error_code
+  description: On error, an explicit code describing the error.
+  type: string
+  usedIn:
+  - JobObjResponse.error_code
+  - JobObjResponse_v2023_11_22.error_code
+- term: error_type
+  description: On error, a high level classification of the error.
+  type: string
+  usedIn:
+  - JobObjResponse.error_type
+  - JobObjResponse_v2023_11_22.error_type
+- term: link_token_id
+  description: UUID of the link token triggering the job.
+  type: string
+  usedIn:
+  - JobObjResponse.link_token_id
+  - JobObjResponse_v2023_11_22.link_token_id
+  - PayrollAccountObjResponse.link_token_id
+- term: params
+  description: Input parameters to the job.
+  usedIn:
+  - JobObjResponse.params
+  - JobObjResponse_v2023_11_22.params
+- term: JobObjResponse_v2023_11_22
+  description: Pinwheel JobObjResponse_v2023_11_22 object.
+  type: object
+  usedIn:
+  - components/schemas/JobObjResponse_v2023_11_22
+- term: LinkTokenCreate_v2025_07_08
+  description: Pinwheel LinkTokenCreate_v2025_07_08 object.
+  type: object
+  usedIn:
+  - components/schemas/LinkTokenCreate_v2025_07_08
+- term: allocation
+  description: Allocation specified for the link token.
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.allocation
+  - ParamsPayload_v2023_11_22.allocation
+- term: employer_id
+  description: UUID of an employer. If set, user is taken directly to Link login screen.
+  type: string
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.employer_id
+- term: disable_direct_deposit_splitting
+  description: If set to true, user will not be given the option to choose between
+    a full or partial direct deposit switch. Only relevant with job `direct_deposit_switch`.
+    Defaults to false.
+  type: boolean
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.disable_direct_deposit_splitting
+- term: platform_type
+  description: The type of the platform. `payroll` platforms are used for direct-deposit
+    switching and for Verify use cases. `time_and_attendance` platforms contain data
+    around shifts and hours. `tax` platforms are used for tax solutions. `merchant`
+    type platforms are used for bill switching and cancellation.
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.platform_type
+  - SearchResultObjResponse.platform_type
+- term: document_uploads
+  description: Optional parameter to facilitate pathway into document uploads usage.
+    Defaults to None.
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.document_uploads
+- term: tags
+  description: Tags associated with the Link token. These are restricted to string
+    key-value pairs.
+  type: object
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.tags
+  - PayrollAccountObjResponse.tags
+- term: deposit_forms
+  description: Optional parameter to facilitate pathway into deposit forms. Defaults
+    to fallback if deposit forms are enabled for your workspace.
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.deposit_forms
+- term: use_case
+  description: Field to indicate where in your application Pinwheel is being launched.
+    Required if leveraging Background Identify (PreMatch employee lookup check prior
+    to SDK initialization).
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.use_case
+- term: end_user
+  description: Optional field where data about an end user can be provided to enable
+    products such as automated platform matching.
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.end_user
+- term: cards
+  description: Card details needed to attempt a bill switch.
+  type: array
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.cards
+- term: reseller_customer_id
+  description: The identifier for a reseller's customer. This field is required for
+    resellers. For other customers, a non-null value will result in a 400 error. The
+    value supplied must be preregistered with Pinwheel's customer success team.
+  type: string
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.reseller_customer_id
+  - PayrollAccountObjResponse.reseller_customer_id
+- term: solution
+  description: The Pinwheel solution to be presented to the user.
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.solution
+- term: features
+  description: A list of job types to be performed on the user's account. Platforms/merchants
+    that do not support ALL of these jobs will not be visible to the user. This property
+    is required unless the account_id property is set.
+  type: array
+  usedIn:
+  - LinkTokenCreate_v2025_07_08.features
+- term: LinkTokenObjResponse_v2021_07_28
+  description: Pinwheel LinkTokenObjResponse_v2021_07_28 object.
+  type: object
+  usedIn:
+  - components/schemas/LinkTokenObjResponse_v2021_07_28
+- term: smart_branch_url
+  description: URL that will initiate a Pinwheel-hosted smart branch experience, if
+    smart branch is configured for the workspace.
+  type: string
+  usedIn:
+  - LinkTokenObjResponse_v2021_07_28.smart_branch_url
+- term: LinkUserAuthenticationDataObjCreate
+  description: Pinwheel LinkUserAuthenticationDataObjCreate object.
+  type: object
+  usedIn:
+  - components/schemas/LinkUserAuthenticationDataObjCreate
+- term: social_security_number
+  description: Full 9-digit social security number of the user (required). Using full
+    SSN will improve conversion.
+  type: string
+  usedIn:
+  - LinkUserAuthenticationDataObjCreate.social_security_number
+- term: social_security_number_last_four
+  description: Last four digits of the user's social security number. Use this field
+    only when the full 9-digit SSN (social_security_number) is not available. Passing
+    the full SSN yields over 20% higher match rate compared to using only the last
+    four digits.
+  type: string
+  usedIn:
+  - LinkUserAuthenticationDataObjCreate.social_security_number_last_four
+- term: mobile_phone_number
+  description: The users's 10-digit mobile phone number (required). Do not include
+    country code.
+  type: string
+  usedIn:
+  - LinkUserAuthenticationDataObjCreate.mobile_phone_number
+- term: home_address_zip_code
+  description: The user's 5-digit home zip code (required).
+  type: string
+  usedIn:
+  - LinkUserAuthenticationDataObjCreate.home_address_zip_code
+- term: email
+  description: The user's email (strongly recommended). The email must have valid
+    syntax with an @ and valid domain e.g. `name@example.com`. If provided email is
+    invalid a 400 will be returned. For more details on validation see https://github.com/JoshData/python-email-validator.
+  type: string
+  usedIn:
+  - LinkUserAuthenticationDataObjCreate.email
+- term: ListAPIKeyResponseData
+  description: Pinwheel ListAPIKeyResponseData object.
+  type: object
+  usedIn:
+  - components/schemas/ListAPIKeyResponseData
+- term: last_used_at
+  description: Date the API key was last used in a Pinwheel API request. Null if the
+    key hasn't been used.
+  type: string
+  usedIn:
+  - ListAPIKeyResponseData.last_used_at
+- term: is_active
+  description: If true, the API key can be used in Pinwheel API requests. Otherwise,
+    the key is no longer useable.
+  type: boolean
+  usedIn:
+  - ListAPIKeyResponseData.is_active
+- term: revoked_at
+  description: Timestamp of when this key was revoked.
+  type: string
+  usedIn:
+  - ListAPIKeyResponseData.revoked_at
+  - RevokeAPIKeyResponseData.revoked_at
+- term: ListMeta
+  description: Pinwheel ListMeta object.
+  type: object
+  usedIn:
+  - components/schemas/ListMeta
+- term: MerchantPayment
+  description: Pinwheel MerchantPayment object.
+  type: object
+  usedIn:
+  - components/schemas/MerchantPayment
+- term: last_four_card_number
+  description: The last four digits of the card number added in a bill switch job.
+  type: string
+  usedIn:
+  - MerchantPayment.last_four_card_number
+- term: last_four_account_number
+  description: The last four digits of the account number for this payment.
+  type: string
+  usedIn:
+  - MerchantPayment.last_four_account_number
+  - TargetAccount.last_four_account_number
+- term: NetPayObjResponse
+  description: Pinwheel NetPayObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/NetPayObjResponse
+- term: PaginationMeta
+  description: Pinwheel PaginationMeta object.
+  type: object
+  usedIn:
+  - components/schemas/PaginationMeta
+- term: ParamsPayload
+  description: Pinwheel ParamsPayload object.
+  type: object
+  usedIn:
+  - components/schemas/ParamsPayload
+- term: batch_size
+  description: The number of paystubs to process in each batch.
+  type: integer
+  usedIn:
+  - ParamsPayload.batch_size
+- term: batch_number
+  description: The number of the batch to process.
+  type: integer
+  usedIn:
+  - ParamsPayload.batch_number
+- term: total_employees
+  description: The total number of employees in the company.
+  type: integer
+  usedIn:
+  - ParamsPayload.total_employees
+- term: from_pay_date
+  description: The earliest pay date for the set of available paystubs in the paystubs
+    job.
+  type: string
+  usedIn:
+  - ParamsPayload.from_pay_date
+  - ParamsPayload_v2023_11_22.from_pay_date
+- term: to_pay_date
+  description: The latest pay date for the set of available paystubs in the paystubs
+    job.
+  type: string
+  usedIn:
+  - ParamsPayload.to_pay_date
+  - ParamsPayload_v2023_11_22.to_pay_date
+- term: has_potential_paystubs_documents
+  description: Indicates whether a paystubs documents job will attempt to run.
+  type: boolean
+  usedIn:
+  - ParamsPayload.has_potential_paystubs_documents
+  - ParamsPayload_v2023_11_22.has_potential_paystubs_documents
+- term: sync_status
+  description: The current synchronization status of the payroll platforms data with
+    Pinwheel's data.
+  usedIn:
+  - ParamsPayload.sync_status
+  - ParamsPayload_v2023_11_22.sync_status
+- term: bill_id
+  description: UUID of the user's recurring bill. This corresponds to the `id` field
+    in the Bill Detection webhooks (e.g. `bill.added`).
+  type: string
+  usedIn:
+  - ParamsPayload.bill_id
+  - ParamsPayload_v2023_11_22.bill_id
+- term: payment
+  description: The payment that was updated during a bill switch job.
+  usedIn:
+  - ParamsPayload.payment
+  - ParamsPayload_v2023_11_22.payment
+- term: frequency
+  description: How often the recurring bill is paid.
+  usedIn:
+  - ParamsPayload.frequency
+  - ParamsPayload_v2023_11_22.frequency
+- term: next_payment_date
+  description: Next payment date for the bill (if known).
+  type: string
+  usedIn:
+  - ParamsPayload.next_payment_date
+  - ParamsPayload_v2023_11_22.next_payment_date
+- term: next_payment_amount_cents
+  description: Next predicted payment amount in cents.
+  type: integer
+  usedIn:
+  - ParamsPayload.next_payment_amount_cents
+  - ParamsPayload_v2023_11_22.next_payment_amount_cents
+- term: is_integrated_switch
+  description: Whether this is an integrated switch flow (true) or guided flow (false).
+  type: boolean
+  usedIn:
+  - ParamsPayload.is_integrated_switch
+  - ParamsPayload_v2023_11_22.is_integrated_switch
+- term: is_integrated_cancellation
+  description: Whether this is an integrated cancellation flow (true) or guided flow
+    (false).
+  type: boolean
+  usedIn:
+  - ParamsPayload.is_integrated_cancellation
+  - ParamsPayload_v2023_11_22.is_integrated_cancellation
+- term: detection_method
+  description: Whether this bill was detected from an external account (`external-plaid`),
+    uploaded transaction data (`first-party`), or created manually by the user (`manual`).
+  usedIn:
+  - ParamsPayload.detection_method
+  - ParamsPayload_v2023_11_22.detection_method
+- term: reported_platform_name
+  description: For platforms not tracked by Pinwheel, the reported name of the merchant/platform
+    associated with the recurring bill or subscription.
+  type: string
+  usedIn:
+  - ParamsPayload.reported_platform_name
+  - ParamsPayload_v2023_11_22.reported_platform_name
+- term: reserved_platform_id
+  description: For platforms not tracked by Pinwheel, the reserved platform ID if
+    we track it in the future.
+  type: string
+  usedIn:
+  - ParamsPayload.reserved_platform_id
+  - ParamsPayload_v2023_11_22.reserved_platform_id
+- term: ParamsPayload_v2023_11_22
+  description: Pinwheel ParamsPayload_v2023_11_22 object.
+  type: object
+  usedIn:
+  - components/schemas/ParamsPayload_v2023_11_22
+- term: PayrollAccountDataRefreshed
+  description: Pinwheel PayrollAccountDataRefreshed object.
+  type: object
+  usedIn:
+  - components/schemas/PayrollAccountDataRefreshed
+- term: direct_deposit_allocations
+  description: ISO 8601 timestamp of the most recent check of direct deposit allocations
+    data.
+  type: string
+  usedIn:
+  - PayrollAccountDataRefreshed.direct_deposit_allocations
+  - PayrollAccountDataUpdated.direct_deposit_allocations
+- term: employment
+  description: ISO 8601 timestamp of the most recent check of employment data.
+  type: string
+  usedIn:
+  - PayrollAccountDataRefreshed.employment
+  - PayrollAccountDataUpdated.employment
+- term: identity
+  description: ISO 8601 timestamp of the most recent check of identity data.
+  type: string
+  usedIn:
+  - PayrollAccountDataRefreshed.identity
+  - PayrollAccountDataUpdated.identity
+- term: shifts
+  description: ISO 8601 timestamp of the most recent check of shifts data.
+  type: string
+  usedIn:
+  - PayrollAccountDataRefreshed.shifts
+  - PayrollAccountDataUpdated.shifts
+- term: PayrollAccountDataUpdated
+  description: Pinwheel PayrollAccountDataUpdated object.
+  type: object
+  usedIn:
+  - components/schemas/PayrollAccountDataUpdated
+- term: PayrollAccountObjResponse
+  description: Pinwheel PayrollAccountObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/PayrollAccountObjResponse
+- term: customer_id
+  description: 'Banking platforms webhooks only: the customer ID associated with the
+    platform''s customer.'
+  type: string
+  usedIn:
+  - PayrollAccountObjResponse.customer_id
+  - WebhookCreate_v2023_04_18.customer_id
+  - WebhookObjResponse.customer_id
+  - WebhookUpdate.customer_id
+- term: connected
+  description: If true, you can retrieve new data for the account using On Demand
+    Updates or automatically via Monitoring.
+  type: boolean
+  usedIn:
+  - PayrollAccountObjResponse.connected
+- term: monitoring_status
+  description: Monitoring status describes the the automated ability of Pinwheel to
+    retrieve new account information.
+  usedIn:
+  - PayrollAccountObjResponse.monitoring_status
+  - PayrollAccountPatchMonitoringStatus.monitoring_status
+- term: data_updated_at
+  description: When data last changed for this payroll account.
+  usedIn:
+  - PayrollAccountObjResponse.data_updated_at
+- term: data_refreshed_at
+  description: ISO 8601 timestamp of when data was last refreshed for this payroll
+    account.
+  usedIn:
+  - PayrollAccountObjResponse.data_refreshed_at
+- term: PayrollAccountPatchMonitoringStatus
+  description: Pinwheel PayrollAccountPatchMonitoringStatus object.
+  type: object
+  usedIn:
+  - components/schemas/PayrollAccountPatchMonitoringStatus
+- term: PaystubObjResponse_v2022_03_02
+  description: Pinwheel PaystubObjResponse_v2022_03_02 object.
+  type: object
+  usedIn:
+  - components/schemas/PaystubObjResponse_v2022_03_02
+- term: external_paystub_id
+  description: The external id of a single paystub from the payroll provider.
+  type: string
+  usedIn:
+  - PaystubObjResponse_v2022_03_02.external_paystub_id
+  - PaystubWithEarningsResponseObj.external_paystub_id
+- term: taxes
+  description: The taxes for this pay period, in cents.
+  type: array
+  usedIn:
+  - PaystubObjResponse_v2022_03_02.taxes
+  - UploadedPaystub.taxes
+- term: deductions
+  description: The deductions for this pay period, in cents.
+  type: array
+  usedIn:
+  - PaystubObjResponse_v2022_03_02.deductions
+  - UploadedPaystub.deductions
+- term: time_off
+  description: The user's time off balances for this pay period. To enable time off
+    balances, please contact Pinwheel support.
+  type: array
+  usedIn:
+  - PaystubObjResponse_v2022_03_02.time_off
+  - UploadedPaystub.time_off
+- term: PaystubWithEarningsResponseObj
+  description: Pinwheel PaystubWithEarningsResponseObj object.
+  type: object
+  usedIn:
+  - components/schemas/PaystubWithEarningsResponseObj
+- term: PhoneNumberGetResponseItem
+  description: Pinwheel PhoneNumberGetResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/PhoneNumberGetResponseItem
+- term: PlatformObjResponse
+  description: Pinwheel PlatformObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/PlatformObjResponse
+- term: merchant_category
+  description: The business category of the merchant, used to classify the type of
+    service provided.
+  usedIn:
+  - PlatformObjResponse.merchant_category
+- term: RefreshableMeta
+  description: Pinwheel RefreshableMeta object.
+  type: object
+  usedIn:
+  - components/schemas/RefreshableMeta
+- term: RefreshablePaginationListMeta
+  description: Pinwheel RefreshablePaginationListMeta object.
+  type: object
+  usedIn:
+  - components/schemas/RefreshablePaginationListMeta
+- term: RevokeAPIKeyResponse
+  description: Pinwheel RevokeAPIKeyResponse object.
+  type: object
+  usedIn:
+  - components/schemas/RevokeAPIKeyResponse
+- term: RevokeAPIKeyResponseData
+  description: Pinwheel RevokeAPIKeyResponseData object.
+  type: object
+  usedIn:
+  - components/schemas/RevokeAPIKeyResponseData
+- term: SearchResultObjResponse
+  description: Pinwheel SearchResultObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/SearchResultObjResponse
+- term: response_type
+  description: Type of search result, either platform or employer.
+  usedIn:
+  - SearchResultObjResponse.response_type
+- term: SharedFraud
+  description: Pinwheel SharedFraud object.
+  type: object
+  usedIn:
+  - components/schemas/SharedFraud
+- term: ShiftEarningObjPublicResponseItem
+  description: Pinwheel ShiftEarningObjPublicResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/ShiftEarningObjPublicResponseItem
+- term: ShiftObjResponse
+  description: Pinwheel ShiftObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/ShiftObjResponse
+- term: end_date
+  description: The date the Shift ended. ISO 8601 format.
+  type: string
+  usedIn:
+  - ShiftObjResponse.end_date
+- term: timezone
+  description: The timezone where the work was completed. Valid names are in the IANA
+    Timezone Database.
+  type: string
+  usedIn:
+  - ShiftObjResponse.timezone
+- term: timestamps
+  description: An array of objects that tracks clock in and out times over a shift.
+  type: array
+  usedIn:
+  - ShiftObjResponse.timestamps
+- term: ShiftTimestamp
+  description: Pinwheel ShiftTimestamp object.
+  type: object
+  usedIn:
+  - components/schemas/ShiftTimestamp
+- term: from
+  description: Datetime the work began. ISO 8601 format.
+  type: string
+  usedIn:
+  - ShiftTimestamp.from
+- term: to
+  description: Datetime the work ended. ISO 8601 format.
+  type: string
+  usedIn:
+  - ShiftTimestamp.to
+- term: TargetAccount
+  description: Pinwheel TargetAccount object.
+  type: object
+  usedIn:
+  - components/schemas/TargetAccount
+- term: TaxFormObjResponseNoDocument_v2022_06_22
+  description: Pinwheel TaxFormObjResponseNoDocument_v2022_06_22 object.
+  type: object
+  usedIn:
+  - components/schemas/TaxFormObjResponseNoDocument_v2022_06_22
+- term: form_type
+  description: The type of form.
+  usedIn:
+  - TaxFormObjResponseNoDocument_v2022_06_22.form_type
+  - TaxFormObjResponse_v2022_06_22.form_type
+- term: TaxFormObjResponse_v2022_06_22
+  description: Pinwheel TaxFormObjResponse_v2022_06_22 object.
+  type: object
+  usedIn:
+  - components/schemas/TaxFormObjResponse_v2022_06_22
+- term: TaxFormW2
+  description: Pinwheel TaxFormW2 object.
+  type: object
+  usedIn:
+  - components/schemas/TaxFormW2
+- term: box_a
+  description: Employee's social security number. Box a IRS Form W-2.
+  type: string
+  usedIn:
+  - TaxFormW2.box_a
+- term: box_b
+  description: Employer identification number (EIN). Box b IRS Form W-2.
+  type: string
+  usedIn:
+  - TaxFormW2.box_b
+- term: box_c
+  description: Employer's name and address. Box c IRS Form W-2.
+  usedIn:
+  - TaxFormW2.box_c
+- term: box_d
+  description: Control number. Box d IRS Form W-2.
+  type: string
+  usedIn:
+  - TaxFormW2.box_d
+- term: box_e
+  description: Employee's name. Box e IRS Form Form W-2.
+  type: string
+  usedIn:
+  - TaxFormW2.box_e
+- term: box_f
+  description: Employee's address. Box f IRS Form W-2.
+  usedIn:
+  - TaxFormW2.box_f
+- term: box_1
+  description: Wages, tips, other compensation. Box 1 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_1
+- term: box_2
+  description: Federal income tax withheld. Box 2 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_2
+- term: box_3
+  description: Social security wages. Box 3 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_3
+- term: box_4
+  description: Social security tax withheld. Box 4 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_4
+- term: box_5
+  description: Medicare wages and tips. Box 5 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_5
+- term: box_6
+  description: Medicare tax withheld. Box 6 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_6
+- term: box_7
+  description: Social security tips. Box 7 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_7
+- term: box_8
+  description: Allocated tips. Box 8 IRS Form W-2.
+  type: integer
+  usedIn:
+  - TaxFormW2.box_8
+- term: box_9
+  description: This field is intentionally left blank.
+  type: string
+  usedIn:
+  - TaxFormW2.box_9
+- term: box_10
+  description: Dependent care benefits. Box 10 IRS Form W-2.
+  type: string
+  usedIn:
+  - TaxFormW2.box_10
+- term: box_11
+  description: Nonqualified plans. Box 11 IRS Form W-2.
+  type: string
+  usedIn:
+  - TaxFormW2.box_11
+- term: box_12
+  description: Miscellaneous income or tax line items. Box 12 IRS Form W-2.
+  type: array
+  usedIn:
+  - TaxFormW2.box_12
+- term: box_13
+  description: Statutory employee, Retirement plan, or Third-party sick pay options.
+    Box 13 IRS Form W-2.
+  usedIn:
+  - TaxFormW2.box_13
+- term: box_14
+  description: Other. Box 14 IRS Form W-2.
+  type: array
+  usedIn:
+  - TaxFormW2.box_14
+- term: box_15_to_20
+  description: Box 15 to 20 IRS Form W-2. These boxes may contain multiple sets of
+    values if the either the state or the locality of the employee and the employer
+    differ, and are separately taxed.
+  type: array
+  usedIn:
+  - TaxFormW2.box_15_to_20
+- term: TaxObjPublicResponseItem
+  description: Pinwheel TaxObjPublicResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/TaxObjPublicResponseItem
+- term: TimeOffObjPublicResponseItem
+  description: Pinwheel TimeOffObjPublicResponseItem object.
+  type: object
+  usedIn:
+  - components/schemas/TimeOffObjPublicResponseItem
+- term: available_hours
+  description: The total hours of time off available, as of the pay period end date.
+    In the event available_hours is not on the paystub, this value reflects the current
+    available_hours at the time the paystub was retrieved.
+  type: number
+  usedIn:
+  - TimeOffObjPublicResponseItem.available_hours
+  - UploadedTimeOff.available_hours
+- term: earned_hours
+  description: The hours of time off earned during the pay period.
+  type: number
+  usedIn:
+  - TimeOffObjPublicResponseItem.earned_hours
+  - UploadedTimeOff.earned_hours
+- term: used_hours
+  description: The hours of time off used during the pay period.
+  type: number
+  usedIn:
+  - TimeOffObjPublicResponseItem.used_hours
+  - UploadedTimeOff.used_hours
+- term: UploadedBankStatement
+  description: Pinwheel UploadedBankStatement object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedBankStatement
+- term: statement_begin_date
+  description: The beginning date of the bank statement.
+  type: string
+  usedIn:
+  - UploadedBankStatement.statement_begin_date
+- term: statement_end_date
+  description: The end date of the bank statement.
+  type: string
+  usedIn:
+  - UploadedBankStatement.statement_end_date
+- term: statement_holders
+  description: The holders of the bank statement.
+  type: array
+  usedIn:
+  - UploadedBankStatement.statement_holders
+- term: applicant1
+  description: The first applicant associated with this bank statement.
+  usedIn:
+  - UploadedBankStatement.applicant1
+- term: applicant2
+  description: The second applicant associated with this bank statement.
+  usedIn:
+  - UploadedBankStatement.applicant2
+- term: accounts
+  description: The accounts associated with this bank statement.
+  type: array
+  usedIn:
+  - UploadedBankStatement.accounts
+- term: UploadedDeduction
+  description: Pinwheel UploadedDeduction object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedDeduction
+- term: amount_ytd
+  description: The amount ytd of deduction, in cents.
+  type: integer
+  usedIn:
+  - UploadedDeduction.amount_ytd
+  - UploadedEarning.amount_ytd
+  - UploadedTax.amount_ytd
+- term: UploadedEarning
+  description: Pinwheel UploadedEarning object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedEarning
+- term: UploadedPaystub
+  description: Pinwheel UploadedPaystub object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedPaystub
+- term: employer
+  description: Employment details for the employee.
+  usedIn:
+  - UploadedPaystub.employer
+- term: employee
+  description: Personal details for the employee.
+  usedIn:
+  - UploadedPaystub.employee
+  - VerificationReportsVOEObjResponse.employee
+  - VerificationReportsVOIEObjResponse.employee
+- term: UploadedSSIAwardLetter
+  description: Pinwheel UploadedSSIAwardLetter object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedSSIAwardLetter
+- term: applicant
+  description: The applicant associated with award letter.
+  usedIn:
+  - UploadedSSIAwardLetter.applicant
+  - UploadedW2Informed.applicant
+- term: issue_date
+  description: The date the award letter was issued.
+  type: string
+  usedIn:
+  - UploadedSSIAwardLetter.issue_date
+- term: social_security_payment
+  description: The social security payment.
+  type: integer
+  usedIn:
+  - UploadedSSIAwardLetter.social_security_payment
+- term: social_security_deduction
+  description: The social security deduction.
+  type: integer
+  usedIn:
+  - UploadedSSIAwardLetter.social_security_deduction
+- term: social_security_net_payment
+  description: The social security net payment.
+  type: integer
+  usedIn:
+  - UploadedSSIAwardLetter.social_security_net_payment
+- term: supplemental_security_payment
+  description: The supplemental security payment.
+  type: integer
+  usedIn:
+  - UploadedSSIAwardLetter.supplemental_security_payment
+- term: UploadedTax
+  description: Pinwheel UploadedTax object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedTax
+- term: UploadedTimeOff
+  description: Pinwheel UploadedTimeOff object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedTimeOff
+- term: UploadedW2Informed
+  description: Pinwheel UploadedW2Informed object.
+  type: object
+  usedIn:
+  - components/schemas/UploadedW2Informed
+- term: total_wages
+  description: The total wages associated with the W2.
+  usedIn:
+  - UploadedW2Informed.total_wages
+- term: state_wages
+  description: The state wages associated with the W2.
+  usedIn:
+  - UploadedW2Informed.state_wages
+- term: social_security_wages
+  description: The social security wages associated with the W2.
+  usedIn:
+  - UploadedW2Informed.social_security_wages
+- term: medicare_wages
+  description: The medicare wages associated with the W2.
+  usedIn:
+  - UploadedW2Informed.medicare_wages
+- term: federal_taxes
+  description: The federal taxes associated with the W2.
+  usedIn:
+  - UploadedW2Informed.federal_taxes
+- term: state_taxes
+  description: The state taxes associated with the W2.
+  usedIn:
+  - UploadedW2Informed.state_taxes
+- term: social_security_taxes
+  description: The social security taxes associated with the W2.
+  usedIn:
+  - UploadedW2Informed.social_security_taxes
+- term: medicare_taxes
+  description: The medicare taxes associated with the W2.
+  usedIn:
+  - UploadedW2Informed.medicare_taxes
+- term: tax_year
+  description: The tax year associated with the W2.
+  type: string
+  usedIn:
+  - UploadedW2Informed.tax_year
+- term: VerificationReportsVOEObjResponse
+  description: Pinwheel VerificationReportsVOEObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/VerificationReportsVOEObjResponse
+- term: employments
+  description: Employment details for the employee.
+  type: array
+  usedIn:
+  - VerificationReportsVOEObjResponse.employments
+  - VerificationReportsVOIEObjResponse.employments
+- term: report_type
+  description: The type of report created.
+  usedIn:
+  - VerificationReportsVOEObjResponse.report_type
+  - VerificationReportsVOIEObjResponse.report_type
+- term: VerificationReportsVOIEObjResponse
+  description: Pinwheel VerificationReportsVOIEObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/VerificationReportsVOIEObjResponse
+- term: W2Box12
+  description: Pinwheel W2Box12 object.
+  type: object
+  usedIn:
+  - components/schemas/W2Box12
+- term: code
+  description: Code for miscellaneous income or tax line items. Box 12 IRS Form W-2.
+  type: string
+  usedIn:
+  - W2Box12.code
+- term: W2Box13
+  description: Pinwheel W2Box13 object.
+  type: object
+  usedIn:
+  - components/schemas/W2Box13
+- term: statutory_employee
+  description: Statutory employee option. Box 13 IRS Form W-2.
+  type: boolean
+  usedIn:
+  - W2Box13.statutory_employee
+- term: retirement_plan
+  description: Retirement plan option. Box 13 IRS Form W-2.
+  type: boolean
+  usedIn:
+  - W2Box13.retirement_plan
+- term: third_party_sick_pay
+  description: Third-party sick pay option. Box 13 IRS Form W-2.
+  type: boolean
+  usedIn:
+  - W2Box13.third_party_sick_pay
+- term: W2Box15To20
+  description: Pinwheel W2Box15To20 object.
+  type: object
+  usedIn:
+  - components/schemas/W2Box15To20
+- term: box_15_state
+  description: State. Box 15 IRS Form W-2.
+  type: string
+  usedIn:
+  - W2Box15To20.box_15_state
+- term: box_15_employer_state_id
+  description: Employer's state ID number. Box 15 IRS Form W-2.
+  type: string
+  usedIn:
+  - W2Box15To20.box_15_employer_state_id
+- term: box_16
+  description: State wages, tips, etc. Box 16 IRS Form W-2.
+  type: integer
+  usedIn:
+  - W2Box15To20.box_16
+- term: box_17
+  description: State income tax. Box 17 IRS Form W-2.
+  type: integer
+  usedIn:
+  - W2Box15To20.box_17
+- term: box_18
+  description: Local wages, tips, etc. Box 18 IRS Form W-2.
+  type: integer
+  usedIn:
+  - W2Box15To20.box_18
+- term: box_19
+  description: Local income tax. Box 19 IRS Form W-2.
+  type: integer
+  usedIn:
+  - W2Box15To20.box_19
+- term: box_20
+  description: Locality name. Box 20 IRS Form W-2.
+  type: string
+  usedIn:
+  - W2Box15To20.box_20
+- term: W2BoxC
+  description: Pinwheel W2BoxC object.
+  type: object
+  usedIn:
+  - components/schemas/W2BoxC
+- term: WebhookCreate_v2023_04_18
+  description: Pinwheel WebhookCreate_v2023_04_18 object.
+  type: object
+  usedIn:
+  - components/schemas/WebhookCreate_v2023_04_18
+- term: url
+  description: The URL of the webhook endpoints. Must be 'https://'.
+  type: string
+  usedIn:
+  - WebhookCreate_v2023_04_18.url
+  - WebhookObjResponse.url
+  - WebhookUpdate.url
+- term: enabled_events
+  description: The list of events enabled for this webhook.
+  type: array
+  usedIn:
+  - WebhookCreate_v2023_04_18.enabled_events
+  - WebhookObjResponse.enabled_events
+  - WebhookUpdate.enabled_events
+- term: version
+  description: The webhook's version, which determines the format of the webhook event
+    payloads.
+  usedIn:
+  - WebhookCreate_v2023_04_18.version
+  - WebhookObjResponse.version
+- term: WebhookObjResponse
+  description: Pinwheel WebhookObjResponse object.
+  type: object
+  usedIn:
+  - components/schemas/WebhookObjResponse
+- term: WebhookUpdate
+  description: Pinwheel WebhookUpdate object.
+  type: object
+  usedIn:
+  - components/schemas/WebhookUpdate
+- term: post_v1_link_tokens_post
+  description: Create a token used to launch a Link modal.
+  type: operation
+  usedIn:
+  - POST /link_tokens
+- term: get_jobs_v1_jobs_get
+  description: List all completed jobs which were initiated by Link (i.e., excluding
+    refresh jobs for monitoring). This is a paginated endpoint; see how Pinwheel implements
+    pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /jobs
+- term: get_v1_employers_get
+  description: List all employers supported by Link. This is a paginated endpoint;
+    see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /employers
+- term: get_employers_lookup_v1_employers_lookup_get
+  description: Look up an employer by criteria such as EIN. Returns the full employer
+    object.
+  type: operation
+  usedIn:
+  - GET /employers/lookup
+- term: get_employer_v1_employers__employer_id__get
+  description: Get an Employer given the employer ID.
+  type: operation
+  usedIn:
+  - GET /employers/{employer_id}
+- term: get_v1_webhooks_get
+  description: List all webhooks. This is a paginated endpoint; see how Pinwheel implements
+    pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /webhooks
+- term: post_v1_webhooks_post
+  description: Create a webhook to use for callbacks from Pinwheel jobs.
+  type: operation
+  usedIn:
+  - POST /webhooks
+- term: get_webhook_by_id_v1_webhooks__webhook_id__get
+  description: Get webhook by id.
+  type: operation
+  usedIn:
+  - GET /webhooks/{webhook_id}
+- term: put_v1_webhooks__webhook_id__put
+  description: Update webhook.
+  type: operation
+  usedIn:
+  - PUT /webhooks/{webhook_id}
+- term: delete_v1_webhooks__webhook_id__delete
+  description: Delete a webhook.
+  type: operation
+  usedIn:
+  - DELETE /webhooks/{webhook_id}
+- term: get_platform_v1_platforms__platform_id__get
+  description: Get a payroll platform supported by Link.
+  type: operation
+  usedIn:
+  - GET /platforms/{platform_id}
+- term: list_platforms_v1_platforms_get
+  description: List all payroll platforms supported by Link. This is a paginated endpoint;
+    see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /platforms
+- term: get_v1_search_get
+  description: Search all employers and platforms supported by Link.
+  type: operation
+  usedIn:
+  - GET /search
+- term: get_end_user_accounts_v1_end_users__end_user_id__accounts_get
+  description: Get all payroll accounts associated with your end user ID. This is
+    a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /end_users/{end_user_id}/accounts
+- term: get_end_user_document_v1_end_users__end_user_id__documents__document_id__get
+  description: Get a specific document for your end user ID.
+  type: operation
+  usedIn:
+  - GET /end_users/{end_user_id}/documents/{document_id}
+- term: get_end_user_documents_v1_end_users__end_user_id__documents_get
+  description: Lists all documents associated with your end user ID. This is a paginated
+    endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /end_users/{end_user_id}/documents
+- term: update_bill_navigator_user_status_v1_end_users__end_user_id__bill_navigator_status_put
+  description: The Bill Navigator end user status API allows you to update the status
+    of an end user's account.
+  type: operation
+  usedIn:
+  - PUT /end_users/{end_user_id}/bill_navigator/status
+- term: get_earnings_stream_payouts_v1_end_users__end_user_id__earnings_stream_payouts_get
+  description: Get an Earnings Stream of payout objects representing discrete cash
+    flow events. This is a paginated endpoint; see how Pinwheel implements pagination
+    <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /end_users/{end_user_id}/earnings_stream/payouts
+- term: get_end_user_verification_reports_voie_v1_end_users__end_user_id__verification_reports_voie_get
+  description: Get a Verification of Income and Employment (VOIE) report associated
+    with your end user ID.
+  type: operation
+  usedIn:
+  - GET /end_users/{end_user_id}/verification_reports/voie
+- term: get_end_user_verification_reports_voe_v1_end_users__end_user_id__verification_reports_voe_get
+  description: Get a Verification of Employment (VOE) report associated with your
+    end user ID.
+  type: operation
+  usedIn:
+  - GET /end_users/{end_user_id}/verification_reports/voe
+- term: get_direct_deposit_allocations_v1_accounts__account_id__direct_deposit_allocations_get
+  description: The Direct Deposit Allocations endpoint returns the current direct
+    deposit allocations configured for the specified account.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/direct_deposit_allocations
+- term: get_employment_v1_accounts__account_id__employment_get
+  description: Get the current employment information of the account owner.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/employment
+- term: get_identity_v1_accounts__account_id__identity_get
+  description: Get the current identity information of the account owner.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/identity
+- term: get_income_v1_accounts__account_id__income_get
+  description: Get the current income information of the account owner.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/income
+- term: list_accounts_v1_accounts_get
+  description: List all payroll accounts. This is a paginated endpoint; see how Pinwheel
+    implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /accounts
+- term: get_account_v1_accounts__account_id__get
+  description: Get a single payroll account.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}
+- term: disable_monitoring_v1_accounts__account_id__disable_monitoring_post
+  description: Disable monitoring for an account so that refresh jobs will no longer
+    be scheduled to retrieve payroll data.
+  type: operation
+  usedIn:
+  - POST /accounts/{account_id}/disable_monitoring
+- term: disconnect_v1_accounts__account_id__disconnect_post
+  description: Disconnect an account. This is permanent and irreversible. Once complete,
+    an account will no longer support Earnings Streams or Recurring Access, e.g.,
+    On Demand Updates will no longer work and Monitoring will no longer be performed.
+    However, old data will remain accessible. As mentioned above, this excludes derived
+    data products e.g. Earnings Stream.
+  type: operation
+  usedIn:
+  - POST /accounts/{account_id}/disconnect
+- term: list_paystubs_v1_accounts__account_id__paystubs_get
+  description: The paystubs endpoint allows you to query for payouts to an end user.
+    Each paystub contains broken out and aggregated earnings information, as well
+    as relevant dates. Paystubs are returned in reverse chronological order by `pay_date`.
+    This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/paystubs
+- term: get_paystub_v1_accounts__account_id__paystubs__paystub_id__get
+  description: Get a single paystub.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/paystubs/{paystub_id}
+- term: list_shifts_v1_accounts__account_id__shifts_get
+  description: The shifts endpoint allows you to query for ongoing and completed work
+    performed by an end user. It includes details about shift dates, timestamps, the
+    type of work, and associated earnings. Shifts are returned in reverse chronological
+    order by `end_date`. This is a paginated endpoint; see how Pinwheel implements
+    pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/shifts
+- term: list_tax_forms_v1_accounts__account_id__tax_forms_get
+  description: Lists all tax forms associated with a payroll account. Each tax form
+    contains metadata like year, form type, and form ID. Tax forms are returned in
+    reverse chronological order by year. This is a paginated endpoint; see how Pinwheel
+    implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/tax_forms
+- term: get_tax_form_v1_accounts__account_id__tax_forms__tax_form_id__get
+  description: Gets a specific tax form with document data.
+  type: operation
+  usedIn:
+  - GET /accounts/{account_id}/tax_forms/{tax_form_id}
+- term: get_v1_company_connections__company_connection_id__census_get
+  description: List all employee census data reported by the payroll platform. This
+    is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /company_connections/{company_connection_id}/census
+- term: list_v1_company_connections_get
+  description: List all Company Connections. This is a paginated endpoint; see how
+    Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /company_connections
+- term: post_v1_company_connections_post
+  description: Create a Company Connection used to get income & employment data from
+    your target company.
+  type: operation
+  usedIn:
+  - POST /company_connections
+- term: get_v1_company_connections__company_connection_id__get
+  description: Get Company Connection.
+  type: operation
+  usedIn:
+  - GET /company_connections/{company_connection_id}
+- term: get_v1_company_connections__company_connection_id__employments_get
+  description: List all employments data reported by the payroll platform. This is
+    a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /company_connections/{company_connection_id}/employments
+- term: get_v1_company_connections__company_connection_id__incomes_get
+  description: List all employee income data reported by the payroll platform. This
+    is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /company_connections/{company_connection_id}/incomes
+- term: get_v1_company_connections__company_connection_id__paystubs__employee_external_id__get
+  description: List employee paystubs data reported by the payroll platform. This
+    is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1'
+    target='_blank'>here</a>.
+  type: operation
+  usedIn:
+  - GET /company_connections/{company_connection_id}/paystubs/{employee_external_id}
+- term: post_v1_company_connect_link_tokens_post
+  description: Create a Company Connect link token used to launch a Link modal.
+  type: operation
+  usedIn:
+  - POST /company_connect/link_tokens
+- term: patch_monitoring_status_v1_sandbox_accounts__account_id__patch
+  description: Manually override a sandbox account's monitoring status.
+  type: operation
+  usedIn:
+  - PATCH /sandbox/accounts/{account_id}
+- term: auth_v1_admin_token_post
+  description: Authenticate against the Admin API.
+  type: operation
+  usedIn:
+  - POST /admin/token
+- term: list_keys_v1_admin_api_keys_get
+  description: List all keys for this workspace.
+  type: operation
+  usedIn:
+  - GET /admin/api_keys
+- term: create_key_v1_admin_api_keys_post
+  description: Creates an API Key.
+  type: operation
+  usedIn:
+  - POST /admin/api_keys
+- term: revoke_key_v1_admin_api_keys__api_key__revoke_post
+  description: Revokes an API Key.
+  type: operation
+  usedIn:
+  - POST /admin/api_keys/{api_key}/revoke

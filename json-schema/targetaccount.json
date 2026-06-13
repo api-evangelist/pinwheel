@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "account_name": {
+      "type": "string",
+      "title": "account_name",
+      "description": "The account name (if any) for this allocation."
+    },
+    "account_type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "checking",
+            "savings"
+          ]
+        }
+      ],
+      "description": "The account type for this allocation."
+    },
+    "last_four_account_number": {
+      "type": "string",
+      "title": "last_four_account_number",
+      "description": "The last four digits of the account number for this allocation."
+    }
+  },
+  "type": "object",
+  "title": "TargetAccount",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/TargetAccount.json"
+}

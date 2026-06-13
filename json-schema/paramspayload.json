@@ -1,0 +1,185 @@
+{
+  "properties": {
+    "batch_size": {
+      "type": "integer",
+      "title": "batch_size",
+      "description": "The number of paystubs to process in each batch."
+    },
+    "batch_number": {
+      "type": "integer",
+      "title": "batch_number",
+      "description": "The number of the batch to process."
+    },
+    "total_employees": {
+      "type": "integer",
+      "title": "total_employees",
+      "description": "The total number of employees in the company."
+    },
+    "document_type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "paystub",
+            "W-2",
+            "1099",
+            "direct_deposit_form",
+            "verification_report",
+            "1040",
+            "bank_statement",
+            "ssi_award_letter",
+            "w2",
+            "verification_photo"
+          ]
+        }
+      ],
+      "description": "The type of the document."
+    },
+    "pay_date": {
+      "type": "string",
+      "title": "pay_date",
+      "description": "The date when the check amount is paid to the employee."
+    },
+    "year": {
+      "type": "integer",
+      "title": "year",
+      "description": "The tax year of the form."
+    },
+    "count": {
+      "type": "integer",
+      "title": "count",
+      "description": "The number of available data objects fetched in the job."
+    },
+    "from_pay_date": {
+      "type": "string",
+      "format": "date",
+      "title": "from_pay_date",
+      "description": "The earliest pay date for the set of available paystubs in the paystubs job."
+    },
+    "to_pay_date": {
+      "type": "string",
+      "format": "date",
+      "title": "to_pay_date",
+      "description": "The latest pay date for the set of available paystubs in the paystubs job."
+    },
+    "has_potential_paystubs_documents": {
+      "type": "boolean",
+      "title": "has_potential_paystubs_documents",
+      "description": "Indicates whether a paystubs documents job will attempt to run."
+    },
+    "sync_status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "in_progress",
+            "complete"
+          ]
+        }
+      ],
+      "description": "The current synchronization status of the payroll platforms data with Pinwheel's data."
+    },
+    "bill_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "bill_id",
+      "description": "UUID of the user's recurring bill. This corresponds to the `id` field in the Bill Detection webhooks (e.g. `bill.added`)."
+    },
+    "type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "ach",
+            "card"
+          ]
+        }
+      ],
+      "description": "The type of payment that was used in a bill switch job."
+    },
+    "payment": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/MerchantPayment"
+        }
+      ],
+      "title": "payment",
+      "description": "The payment that was updated during a bill switch job."
+    },
+    "frequency": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "weekly",
+            "bi-weekly",
+            "monthly",
+            "bi-monthly",
+            "quarterly",
+            "semi-yearly",
+            "yearly",
+            "other"
+          ]
+        }
+      ],
+      "description": "How often the recurring bill is paid."
+    },
+    "next_payment_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "next_payment_date",
+      "description": "Next payment date for the bill (if known)."
+    },
+    "next_payment_amount_cents": {
+      "type": "integer",
+      "title": "next_payment_amount_cents",
+      "description": "Next predicted payment amount in cents."
+    },
+    "is_integrated_switch": {
+      "type": "boolean",
+      "title": "is_integrated_switch",
+      "description": "Whether this is an integrated switch flow (true) or guided flow (false)."
+    },
+    "is_integrated_cancellation": {
+      "type": "boolean",
+      "title": "is_integrated_cancellation",
+      "description": "Whether this is an integrated cancellation flow (true) or guided flow (false)."
+    },
+    "detection_method": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "manual",
+            "external_plaid",
+            "first_party"
+          ]
+        }
+      ],
+      "description": "Whether this bill was detected from an external account (`external-plaid`), uploaded transaction data (`first-party`), or created manually by the user (`manual`)."
+    },
+    "reported_platform_name": {
+      "type": "string",
+      "title": "reported_platform_name",
+      "description": "For platforms not tracked by Pinwheel, the reported name of the merchant/platform associated with the recurring bill or subscription."
+    },
+    "reserved_platform_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "reserved_platform_id",
+      "description": "For platforms not tracked by Pinwheel, the reserved platform ID if we track it in the future."
+    },
+    "amount": {
+      "type": "integer",
+      "title": "amount",
+      "description": "The amount to allocate per paycheck in the direct_deposit_switch jobs."
+    }
+  },
+  "type": "object",
+  "title": "object",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/ParamsPayload.json"
+}

@@ -1,0 +1,61 @@
+{
+  "properties": {
+    "token": {
+      "type": "string",
+      "format": "uuid",
+      "title": "token",
+      "description": "Short-lived token that is used to authorize Admin API endpoints."
+    },
+    "expiration": {
+      "type": "string",
+      "format": "date-time",
+      "title": "expiration",
+      "description": "Timestamp of when the Admin API token expires."
+    },
+    "workspace_name": {
+      "type": "string",
+      "title": "workspace_name",
+      "description": "Name of the workspace the Admin API token is authorized for."
+    },
+    "mode": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "sandbox",
+            "development",
+            "production"
+          ]
+        }
+      ],
+      "description": "The mode that the Admin API token is authorized for."
+    },
+    "user_role": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "owner",
+            "administrator",
+            "developer"
+          ]
+        }
+      ],
+      "description": "The role of the developer-dashboard user the Admin API token was authenticated with."
+    }
+  },
+  "type": "object",
+  "required": [
+    "token",
+    "expiration",
+    "workspace_name",
+    "mode",
+    "user_role"
+  ],
+  "title": "object",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CreateAdminTokenResponseData.json"
+}

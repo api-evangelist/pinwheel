@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "name",
+      "description": "Name of employer, e.g., Apple, Disney, Walmart."
+    },
+    "address": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/AddressGetResponseItem"
+        }
+      ],
+      "title": "address",
+      "description": "The address of the employer."
+    }
+  },
+  "type": "object",
+  "title": "EmployerNameAndAddress",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/EmployerNameAndAddress.json"
+}

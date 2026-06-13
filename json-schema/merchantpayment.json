@@ -1,0 +1,43 @@
+{
+  "properties": {
+    "card_name": {
+      "type": "string",
+      "title": "card_name",
+      "description": "The name of the new card added in a bill switch job."
+    },
+    "last_four_card_number": {
+      "type": "string",
+      "title": "last_four_card_number",
+      "description": "The last four digits of the card number added in a bill switch job."
+    },
+    "account_name": {
+      "type": "string",
+      "title": "account_name",
+      "description": "The account name (if any) for this payment."
+    },
+    "account_type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "checking",
+            "savings"
+          ]
+        }
+      ],
+      "description": "The account type for this payment."
+    },
+    "last_four_account_number": {
+      "type": "string",
+      "title": "last_four_account_number",
+      "description": "The last four digits of the account number for this payment."
+    }
+  },
+  "type": "object",
+  "title": "MerchantPayment",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/MerchantPayment.json"
+}

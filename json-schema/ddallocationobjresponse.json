@@ -1,0 +1,50 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "Unique identifier of the Direct Deposit Allocations object."
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "account_id",
+      "description": "UUID of the payroll account."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "created_at",
+      "description": "ISO 8601 timestamp of created time."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "updated_at",
+      "description": "ISO 8601 timestamp of the last update to this object."
+    },
+    "allocations": {
+      "items": {
+        "$ref": "#/components/schemas/AllocationAccountObjResponse"
+      },
+      "type": "array",
+      "title": "allocations",
+      "description": "List of current allocations for this payroll account."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "account_id",
+    "created_at",
+    "updated_at",
+    "allocations"
+  ],
+  "title": "Direct Deposit Allocations",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/DDAllocationObjResponse.json"
+}

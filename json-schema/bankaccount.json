@@ -1,0 +1,82 @@
+{
+  "properties": {
+    "account_number": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "account_number",
+      "description": "The account number of the bank account."
+    },
+    "account_name": {
+      "type": "string",
+      "title": "account_name",
+      "description": "The name of the bank account."
+    },
+    "bank_account_type": {
+      "type": "string",
+      "title": "bank_account_type",
+      "description": "The type of the bank account."
+    },
+    "is_joint_account": {
+      "type": "boolean",
+      "title": "is_joint_account",
+      "description": "Whether the bank account is a joint account."
+    },
+    "total_deposits": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "total_deposits",
+      "description": "The total deposits of the bank account."
+    },
+    "beginning_balance": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "beginning_balance",
+      "description": "The beginning balance of the bank account."
+    },
+    "ending_balance": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "ending_balance",
+      "description": "The ending balance of the bank account."
+    },
+    "transactions": {
+      "items": {
+        "$ref": "#/components/schemas/BankAccountTransaction"
+      },
+      "type": "array",
+      "title": "transactions",
+      "description": "The transactions of the bank account."
+    }
+  },
+  "type": "object",
+  "title": "BankAccount",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/BankAccount.json"
+}

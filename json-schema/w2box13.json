@@ -1,0 +1,26 @@
+{
+  "properties": {
+    "statutory_employee": {
+      "type": "boolean",
+      "title": "statutory_employee",
+      "description": "Statutory employee option. Box 13 IRS Form W-2."
+    },
+    "retirement_plan": {
+      "type": "boolean",
+      "title": "retirement_plan",
+      "description": "Retirement plan option. Box 13 IRS Form W-2."
+    },
+    "third_party_sick_pay": {
+      "type": "boolean",
+      "title": "third_party_sick_pay",
+      "description": "Third-party sick pay option. Box 13 IRS Form W-2."
+    }
+  },
+  "type": "object",
+  "title": "W2Box13",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/W2Box13.json"
+}

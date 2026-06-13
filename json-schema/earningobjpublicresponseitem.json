@@ -1,0 +1,72 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "name",
+      "description": "The name of the earning."
+    },
+    "category": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "salary",
+            "hourly",
+            "overtime",
+            "double_overtime",
+            "premium",
+            "bonus",
+            "commission",
+            "tips",
+            "vacation",
+            "holiday",
+            "pto",
+            "sick",
+            "employer_contribution",
+            "other",
+            "fare",
+            "unpaid",
+            "parental",
+            "shift_differential",
+            "bereavement",
+            "life_insurance",
+            "stock",
+            "retirement",
+            "medical",
+            "meal_comp",
+            "disability",
+            "retro_pay"
+          ]
+        }
+      ],
+      "description": "The category of earning."
+    },
+    "amount": {
+      "type": "integer",
+      "title": "amount",
+      "description": "The amount of earning, in cents."
+    },
+    "rate": {
+      "type": "integer",
+      "title": "rate",
+      "description": "The amount earned per hour, in cents."
+    },
+    "hours": {
+      "type": "number",
+      "title": "hours",
+      "description": "The hours worked."
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "category",
+    "amount"
+  ],
+  "title": "Earning",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/EarningObjPublicResponseItem.json"
+}

@@ -1,0 +1,57 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "Unique identifier for the object."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "created_at",
+      "description": "ISO 8601 timestamp of created time."
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "account_id",
+      "description": "UUID of the payroll account."
+    },
+    "form_type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "W-2",
+            "W-2C",
+            "1099-NEC",
+            "1099-MISC",
+            "1099-K",
+            "1040"
+          ]
+        }
+      ],
+      "description": "The type of form."
+    },
+    "year": {
+      "type": "integer",
+      "title": "year",
+      "description": "The tax year of the form."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "account_id",
+    "form_type",
+    "year"
+  ],
+  "title": "TaxForm",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/TaxFormObjResponseNoDocument_v2022_06_22.json"
+}

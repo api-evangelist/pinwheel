@@ -1,0 +1,59 @@
+{
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "ssi_award_letter"
+      ],
+      "title": "document_type",
+      "description": "The type of the document.",
+      "default": "ssi_award_letter"
+    },
+    "applicant": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/ApplicantNameAndAddress"
+        }
+      ],
+      "title": "applicant",
+      "description": "The applicant associated with award letter."
+    },
+    "issue_date": {
+      "type": "string",
+      "title": "issue_date",
+      "description": "The date the award letter was issued."
+    },
+    "pay_date": {
+      "type": "string",
+      "title": "pay_date",
+      "description": "The date the award letter was paid."
+    },
+    "social_security_payment": {
+      "type": "integer",
+      "title": "social_security_payment",
+      "description": "The social security payment."
+    },
+    "social_security_deduction": {
+      "type": "integer",
+      "title": "social_security_deduction",
+      "description": "The social security deduction."
+    },
+    "social_security_net_payment": {
+      "type": "integer",
+      "title": "social_security_net_payment",
+      "description": "The social security net payment."
+    },
+    "supplemental_security_payment": {
+      "type": "integer",
+      "title": "supplemental_security_payment",
+      "description": "The supplemental security payment."
+    }
+  },
+  "type": "object",
+  "title": "UploadedSSIAwardLetter",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/UploadedSSIAwardLetter.json"
+}

@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "expires_at",
+      "description": "Timestamp used to set when this key automatically expires."
+    }
+  },
+  "type": "object",
+  "title": "object",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CreateAPIKeyOptions.json"
+}

@@ -1,0 +1,22 @@
+{
+  "properties": {
+    "monitoring_status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "user_action_required"
+          ]
+        }
+      ],
+      "description": "Monitoring status describes the the automated ability of Pinwheel to retrieve new account information."
+    }
+  },
+  "type": "object",
+  "title": "object",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/PayrollAccountPatchMonitoringStatus.json"
+}

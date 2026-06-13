@@ -1,0 +1,51 @@
+{
+  "properties": {
+    "name": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/EmployeeName"
+        }
+      ],
+      "title": "name",
+      "description": "The name of the employee."
+    },
+    "date_of_birth": {
+      "type": "string",
+      "format": "date",
+      "title": "date_of_birth",
+      "description": "The date the employee was born."
+    },
+    "last_four_ssn": {
+      "type": "string",
+      "title": "last_four_ssn",
+      "description": "The last four digits of the employee's social security number (SSN)."
+    },
+    "address": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/AddressGetResponseItem"
+        }
+      ],
+      "title": "address",
+      "description": "The address of the employee."
+    },
+    "phone_numbers": {
+      "items": {
+        "$ref": "#/components/schemas/PhoneNumberGetResponseItem"
+      },
+      "type": "array",
+      "title": "phone_numbers",
+      "description": "The phone numbers of the employee."
+    }
+  },
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "title": "EmployeeResponseObj",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/EmployeeResponseObj.json"
+}

@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "data": {
+      "$ref": "#/components/schemas/CreateAPIKeyResponseData"
+    }
+  },
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CreateAPIKeyResponse.json",
+  "title": "CreateAPIKeyResponse"
+}

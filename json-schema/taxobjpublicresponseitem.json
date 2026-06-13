@@ -1,0 +1,42 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "name",
+      "description": "The name of the tax."
+    },
+    "category": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "federal_income",
+            "social_security",
+            "medicare",
+            "state_income",
+            "local_income",
+            "other"
+          ]
+        }
+      ],
+      "description": "The category of tax."
+    },
+    "amount": {
+      "type": "integer",
+      "title": "amount",
+      "description": "The amount of tax, in cents."
+    }
+  },
+  "type": "object",
+  "required": [
+    "name",
+    "category",
+    "amount"
+  ],
+  "title": "Tax",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/TaxObjPublicResponseItem.json"
+}

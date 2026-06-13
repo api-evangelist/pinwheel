@@ -1,0 +1,135 @@
+{
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "w2"
+      ],
+      "title": "document_type",
+      "description": "The type of the document.",
+      "default": "w2"
+    },
+    "applicant": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/ApplicantNameAndAddress"
+        }
+      ],
+      "title": "applicant",
+      "description": "The applicant associated with the W2."
+    },
+    "employer_name": {
+      "type": "string",
+      "title": "employer_name",
+      "description": "The employer name associated with the W2."
+    },
+    "total_wages": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "total_wages",
+      "description": "The total wages associated with the W2."
+    },
+    "state_wages": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "state_wages",
+      "description": "The state wages associated with the W2."
+    },
+    "social_security_wages": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "social_security_wages",
+      "description": "The social security wages associated with the W2."
+    },
+    "medicare_wages": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "medicare_wages",
+      "description": "The medicare wages associated with the W2."
+    },
+    "federal_taxes": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "federal_taxes",
+      "description": "The federal taxes associated with the W2."
+    },
+    "state_taxes": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "state_taxes",
+      "description": "The state taxes associated with the W2."
+    },
+    "social_security_taxes": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "social_security_taxes",
+      "description": "The social security taxes associated with the W2."
+    },
+    "medicare_taxes": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "medicare_taxes",
+      "description": "The medicare taxes associated with the W2."
+    },
+    "tax_year": {
+      "type": "string",
+      "title": "tax_year",
+      "description": "The tax year associated with the W2."
+    }
+  },
+  "type": "object",
+  "title": "UploadedW2Informed",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/UploadedW2Informed.json"
+}

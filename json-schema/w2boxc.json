@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "name",
+      "description": "Employer's name. Box c IRS Form W-2."
+    },
+    "address": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/AddressGetResponseItem"
+        }
+      ],
+      "title": "address",
+      "description": "Employer's address. Box c IRS Form W-2."
+    }
+  },
+  "type": "object",
+  "title": "W2BoxC",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/W2BoxC.json"
+}

@@ -1,0 +1,47 @@
+{
+  "properties": {
+    "direct_deposit_allocations": {
+      "type": "string",
+      "format": "date-time",
+      "title": "direct_deposit_allocations",
+      "description": "ISO 8601 timestamp of when direct deposit allocations data most recently changed."
+    },
+    "income": {
+      "type": "string",
+      "format": "date-time",
+      "title": "income",
+      "description": "ISO 8601 timestamp of when income data most recently changed."
+    },
+    "employment": {
+      "type": "string",
+      "format": "date-time",
+      "title": "employment",
+      "description": "ISO 8601 timestamp of when employment data most recently changed."
+    },
+    "identity": {
+      "type": "string",
+      "format": "date-time",
+      "title": "identity",
+      "description": "ISO 8601 timestamp of when identity data most recently changed."
+    },
+    "shifts": {
+      "type": "string",
+      "format": "date-time",
+      "title": "shifts",
+      "description": "ISO 8601 timestamp of when shifts data most recently changed."
+    },
+    "paystubs": {
+      "type": "string",
+      "format": "date-time",
+      "title": "paystubs",
+      "description": "ISO 8601 timestamp of when paystubs data most recently changed."
+    }
+  },
+  "type": "object",
+  "title": "PayrollAccountDataUpdated",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/PayrollAccountDataUpdated.json"
+}

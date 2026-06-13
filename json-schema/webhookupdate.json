@@ -1,0 +1,77 @@
+{
+  "properties": {
+    "url": {
+      "type": "string",
+      "title": "url",
+      "description": "The URL of the webhook endpoints. Must be 'https://'."
+    },
+    "status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "active",
+            "paused"
+          ]
+        }
+      ],
+      "description": "The status of the webhook."
+    },
+    "enabled_events": {
+      "items": {
+        "type": "string",
+        "enum": [
+          "paystubs.thirty_days_synced",
+          "paystubs.ninety_days_synced",
+          "direct_deposit_switch.added",
+          "verification_reports.refreshed",
+          "paystubs.documents.added",
+          "paystubs.added",
+          "company_connect.employments.added",
+          "shifts.added",
+          "bill.added",
+          "shifts.thirty_days_synced",
+          "account.monitoring_status.updated",
+          "paystubs.seven_days_synced",
+          "earnings_stream.payouts.refreshed",
+          "bill.updated",
+          "company_connect.status.updated",
+          "income.added",
+          "shifts.seven_days_synced",
+          "paystubs.fully_synced",
+          "identity.added",
+          "employment.added",
+          "shifts.fully_synced",
+          "company_connect.incomes.added",
+          "account.additional_connections_recommended",
+          "bill_switch.added",
+          "account.added",
+          "company_connect.census.added",
+          "paycheck_viewer.added",
+          "direct_deposit_allocations.added",
+          "bill_switch.cancelled",
+          "bill.reminder",
+          "tax_forms.added",
+          "documents.added",
+          "bill.removed",
+          "shifts.ninety_days_synced"
+        ]
+      },
+      "type": "array",
+      "minItems": 1,
+      "description": "The list of events enabled for this webhook."
+    },
+    "customer_id": {
+      "type": "string",
+      "title": "customer_id",
+      "description": "Banking platforms webhooks only: the customer ID associated with the platform's customer."
+    }
+  },
+  "type": "object",
+  "title": "WebhookPatchBody",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/WebhookUpdate.json"
+}

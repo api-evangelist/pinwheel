@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "Unique identifier of the document object."
+    },
+    "download_url": {
+      "type": "string",
+      "title": "download_url",
+      "description": "URL from which the document may be downloaded."
+    },
+    "download_url_expiration": {
+      "type": "string",
+      "format": "date-time",
+      "title": "download_url_expiration",
+      "description": "ISO 8601 timestamp of when the download URL will no longer be valid."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "title": "Document",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/DocumentObjPublicResponseItem.json"
+}

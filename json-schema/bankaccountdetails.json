@@ -1,0 +1,43 @@
+{
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "name",
+      "description": "Name of the bank account."
+    },
+    "type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "checking",
+            "savings"
+          ]
+        }
+      ],
+      "description": "Bank account type, checking or savings. Required if requesting direct_deposit_switch jobs."
+    },
+    "routing_number": {
+      "type": "string",
+      "maxLength": 9,
+      "minLength": 9,
+      "pattern": "^[0-9]*$",
+      "title": "routing_number",
+      "description": "Routing number of bank. Required if requesting direct_deposit_switch jobs."
+    },
+    "account_number": {
+      "type": "string",
+      "minLength": 5,
+      "pattern": "^[0-9]*$",
+      "title": "account_number",
+      "description": "Bank account number. Required if requesting direct_deposit_switch jobs."
+    }
+  },
+  "type": "object",
+  "title": "BankAccountDetails",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/BankAccountDetails.json"
+}

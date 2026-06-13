@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "estimated",
+            "processed"
+          ]
+        }
+      ],
+      "description": "Status of the payout, either `estimated` or `processed`. `estimated` represents income that has been earned but not finalized in the payroll system. `processed` represents income that has a finalized paystub issued in the payroll system."
+    },
+    "pay_date": {
+      "type": "string",
+      "format": "date",
+      "title": "pay_date",
+      "description": "Date that the payout will arrive in a user's account. This date includes a buffer for ACH settlement time. For estimated payouts, this is projected from historical pay dates and may differ by a few days from actual settlement. For processed payouts, this is taken directly from the paystub."
+    },
+    "net_pay": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/NetPayObjResponse"
+        }
+      ],
+      "title": "net_pay",
+      "description": "Object representing how much someone will receive in net pay (i.e., the pay that will be disbursed to user-directed accounts) for the work they completed that day. This is equivalent to (gross pay - deductions). E.g., gross pay minus income tax, healthcare, 401k contributions, or other withholdings that are not included in the user's payout."
+    },
+    "earnings": {
+      "items": {},
+      "type": "array",
+      "title": "earnings",
+      "description": "List of objects representing income earned on a given day. All earnings roll up into specific payouts."
+    }
+  },
+  "type": "object",
+  "required": [
+    "status",
+    "pay_date",
+    "earnings"
+  ],
+  "title": "EarningsStreamPayoutsResponse",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/EarningsStreamPayoutObjResponse_v2023_04_18.json"
+}

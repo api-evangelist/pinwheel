@@ -1,0 +1,96 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "Unique identifier for the object."
+    },
+    "name": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "direct_deposit_allocations",
+            "bill_cancellation",
+            "direct_deposit_switch",
+            "paycheck_viewer",
+            "paystubs",
+            "bill_switch",
+            "identity",
+            "direct_deposit_payment",
+            "income",
+            "employment",
+            "tax_forms",
+            "shifts"
+          ]
+        }
+      ],
+      "description": "Name of the completed job."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "title": "timestamp",
+      "description": "ISO 8601 timestamp of job completion."
+    },
+    "outcome": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "success",
+            "pending",
+            "error"
+          ]
+        }
+      ],
+      "description": "The outcome of the job."
+    },
+    "error_code": {
+      "type": "string",
+      "title": "error_code",
+      "description": "On error, an explicit code describing the error."
+    },
+    "error_type": {
+      "type": "string",
+      "title": "error_type",
+      "description": "On error, a high level classification of the error."
+    },
+    "link_token_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "link_token_id",
+      "description": "UUID of the link token triggering the job."
+    },
+    "params": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/ParamsPayload_v2023_11_22"
+        }
+      ],
+      "title": "params",
+      "description": "Input parameters to the job."
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "account_id",
+      "description": "UUID of the payroll account."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "timestamp",
+    "outcome",
+    "link_token_id"
+  ],
+  "title": "Job",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/JobObjResponse_v2023_11_22.json"
+}

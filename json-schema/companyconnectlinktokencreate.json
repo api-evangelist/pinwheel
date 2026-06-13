@@ -1,0 +1,67 @@
+{
+  "properties": {
+    "required_jobs": {
+      "items": {
+        "type": "string",
+        "enum": [
+          "company_employments",
+          "company_census",
+          "company_incomes"
+        ]
+      },
+      "type": "array",
+      "description": "List of job types to be performed on the Company Connection. Platforms that do not support ALL of these jobs will not be visible to the user."
+    },
+    "org_name": {
+      "type": "string",
+      "maxLength": 30,
+      "minLength": 3,
+      "title": "org_name",
+      "description": "Organization or app name that is displayed to the user."
+    },
+    "skip_intro_screen": {
+      "type": "boolean",
+      "title": "skip_intro_screen",
+      "description": "If set to true, intro screen is not shown to user.",
+      "default": false
+    },
+    "platform_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "platform_id",
+      "description": "UUID of a platform. If set, user is taken directly to Link login screen."
+    },
+    "language": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "en",
+            "es"
+          ]
+        }
+      ],
+      "description": "IETF code denoting which language to display in Link.",
+      "default": "en"
+    },
+    "company_connect": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/CompanyConnect"
+        }
+      ],
+      "title": "company_connect",
+      "description": "Configuration used to specify a Company Connection."
+    }
+  },
+  "type": "object",
+  "required": [
+    "org_name"
+  ],
+  "title": "LinkTokenPostBody",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CompanyConnectLinkTokenCreate.json"
+}

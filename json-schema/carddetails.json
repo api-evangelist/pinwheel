@@ -1,0 +1,134 @@
+{
+  "properties": {
+    "card_name": {
+      "type": "string",
+      "maxLength": 30,
+      "minLength": 2,
+      "title": "card_name",
+      "description": "Name of the card. Required if requesting `bill_switch` job."
+    },
+    "card_number": {
+      "type": "string",
+      "maxLength": 19,
+      "minLength": 8,
+      "pattern": "^[0-9]*$",
+      "title": "card_number",
+      "description": "Card number. Required if requesting `bill_switch` job."
+    },
+    "cvc": {
+      "type": "string",
+      "maxLength": 4,
+      "minLength": 3,
+      "title": "cvc",
+      "description": "Card verification code or other security code of the card. Required if requesting `bill_switch` job."
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date",
+      "title": "expiration_date",
+      "description": "Expiration date of the card in MM/YY format. Required if requesting `bill_switch` job."
+    },
+    "name_on_card": {
+      "type": "string",
+      "title": "name_on_card",
+      "description": "Full name displayed on the card. Required if requesting `bill_switch` job."
+    },
+    "card_zip_code": {
+      "type": "string",
+      "maxLength": 5,
+      "minLength": 5,
+      "pattern": "^[0-9]*$",
+      "title": "card_zip_code",
+      "description": "Zip code for the card. Required if requesting `bill_switch` job."
+    },
+    "billing_address": {
+      "type": "string",
+      "title": "billing_address",
+      "description": "Billing address line one of the card. Required if requesting `bill_switch` job."
+    },
+    "billing_address_two": {
+      "type": "string",
+      "title": "billing_address_two",
+      "description": "Billing address line two of the card. Required if requesting `bill_switch` job."
+    },
+    "city": {
+      "type": "string",
+      "title": "city",
+      "description": "City of the card. Required if requesting `bill_switch` job."
+    },
+    "state": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "AL",
+            "AK",
+            "AZ",
+            "AR",
+            "CA",
+            "CO",
+            "CT",
+            "DE",
+            "FL",
+            "GA",
+            "HI",
+            "ID",
+            "IL",
+            "IN",
+            "IA",
+            "KS",
+            "KY",
+            "LA",
+            "ME",
+            "MD",
+            "MA",
+            "MI",
+            "MN",
+            "MS",
+            "MO",
+            "MT",
+            "NE",
+            "NV",
+            "NH",
+            "NJ",
+            "NM",
+            "NY",
+            "NC",
+            "ND",
+            "OH",
+            "OK",
+            "OR",
+            "PA",
+            "RI",
+            "SC",
+            "SD",
+            "TN",
+            "TX",
+            "UT",
+            "VT",
+            "VA",
+            "WA",
+            "WV",
+            "WI",
+            "WY"
+          ]
+        }
+      ],
+      "description": "Two letter state code of the card, e.g. `NY`. Required if requesting `bill_switch` job."
+    }
+  },
+  "type": "object",
+  "required": [
+    "card_name",
+    "card_number",
+    "expiration_date",
+    "name_on_card",
+    "card_zip_code"
+  ],
+  "title": "object",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CardDetails.json"
+}

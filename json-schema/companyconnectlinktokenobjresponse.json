@@ -1,0 +1,47 @@
+{
+  "properties": {
+    "mode": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "sandbox",
+            "development",
+            "production"
+          ]
+        }
+      ],
+      "description": "Token mode, i.e. `sandbox`, `development`, or `production`."
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "UUID of the link token."
+    },
+    "token": {
+      "type": "string",
+      "title": "token",
+      "description": "Short-lived token that is used to initialize Pinwheel Link."
+    },
+    "expires": {
+      "type": "string",
+      "format": "date-time",
+      "title": "expires",
+      "description": "The token will be invalid after this timestamp."
+    }
+  },
+  "type": "object",
+  "required": [
+    "mode",
+    "id",
+    "token",
+    "expires"
+  ],
+  "title": "CompanyConnect Link Token Response Data",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CompanyConnectLinkTokenObjResponse.json"
+}

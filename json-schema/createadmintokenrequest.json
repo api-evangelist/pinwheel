@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "username": {
+      "type": "string",
+      "title": "username",
+      "description": "Username or email of the Developer Dashboard user used to create an Admin API token."
+    },
+    "password": {
+      "type": "string",
+      "title": "password",
+      "description": "Password of the Developer Dashboard user used to create an Admin API token."
+    }
+  },
+  "type": "object",
+  "required": [
+    "username",
+    "password"
+  ],
+  "title": "object",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/CreateAdminTokenRequest.json"
+}

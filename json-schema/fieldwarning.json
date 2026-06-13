@@ -1,0 +1,37 @@
+{
+  "properties": {
+    "field": {
+      "type": "string",
+      "title": "field",
+      "description": "The response field associated with this warning. Nested values are delimited with a `.`, i.e. `parsed_data.box_13.statutory_employee`."
+    },
+    "status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "unparsable"
+          ]
+        }
+      ],
+      "description": "The status type of this warning."
+    },
+    "message": {
+      "type": "string",
+      "title": "message",
+      "description": "A full description of the warning."
+    }
+  },
+  "type": "object",
+  "required": [
+    "field",
+    "status",
+    "message"
+  ],
+  "title": "FieldWarning",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/FieldWarning.json"
+}

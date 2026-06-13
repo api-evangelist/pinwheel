@@ -1,0 +1,52 @@
+{
+  "properties": {
+    "amount": {
+      "type": "integer",
+      "title": "amount",
+      "description": "The year to date earnings amount for an earning category, in cents."
+    },
+    "category": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "salary",
+            "hourly",
+            "overtime",
+            "double_overtime",
+            "premium",
+            "bonus",
+            "commission",
+            "tips",
+            "vacation",
+            "holiday",
+            "pto",
+            "sick",
+            "employer_contribution",
+            "other",
+            "fare",
+            "unpaid",
+            "parental",
+            "shift_differential",
+            "bereavement",
+            "life_insurance",
+            "stock",
+            "retirement",
+            "medical",
+            "meal_comp",
+            "disability",
+            "retro_pay"
+          ]
+        }
+      ],
+      "description": "The category of earning."
+    }
+  },
+  "type": "object",
+  "title": "EarningsYtds",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/EarningsYtds.json"
+}

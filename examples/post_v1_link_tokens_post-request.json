@@ -1,0 +1,16 @@
+{
+  "org_name": "string",
+  "skip_intro_screen": false,
+  "employer_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "disable_direct_deposit_splitting": false,
+  "platform_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "language": "en",
+  "end_user_id": "string",
+  "account_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "tags": {},
+  "cards": [],
+  "reseller_customer_id": "string",
+  "features": [
+    "direct_deposit_allocations"
+  ]
+}

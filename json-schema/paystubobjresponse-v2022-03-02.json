@@ -1,0 +1,342 @@
+{
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "id",
+      "description": "Unique identifier for the object."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "created_at",
+      "description": "ISO 8601 timestamp of created time."
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "account_id",
+      "description": "UUID of the payroll account."
+    },
+    "pay_date": {
+      "type": "string",
+      "format": "date",
+      "title": "pay_date",
+      "description": "The date when the check amount is paid to the employee."
+    },
+    "pay_period_start": {
+      "type": "string",
+      "format": "date",
+      "title": "pay_period_start",
+      "description": "The date when the pay period begins. Some platforms, like unemployment portals, do not have fixed pay periods."
+    },
+    "pay_period_end": {
+      "type": "string",
+      "format": "date",
+      "title": "pay_period_end",
+      "description": "The date when the pay period ends. Some platforms, like unemployment portals, do not have fixed pay periods."
+    },
+    "currency": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "AED",
+            "AFN",
+            "ALL",
+            "AMD",
+            "ANG",
+            "AOA",
+            "ARS",
+            "AUD",
+            "AWG",
+            "AZN",
+            "BAM",
+            "BBD",
+            "BDT",
+            "BGN",
+            "BHD",
+            "BIF",
+            "BMD",
+            "BND",
+            "BOB",
+            "BOV",
+            "BRL",
+            "BSD",
+            "BTN",
+            "BWP",
+            "BYR",
+            "BZD",
+            "CAD",
+            "CDF",
+            "CHE",
+            "CHF",
+            "CHW",
+            "CLF",
+            "CLP",
+            "CNY",
+            "COP",
+            "COU",
+            "CRC",
+            "CUC",
+            "CUP",
+            "CVE",
+            "CZK",
+            "DJF",
+            "DKK",
+            "DOP",
+            "DZD",
+            "EGP",
+            "ERN",
+            "ETB",
+            "EUR",
+            "FJD",
+            "FKP",
+            "GBP",
+            "GEL",
+            "GHS",
+            "GIP",
+            "GMD",
+            "GNF",
+            "GTQ",
+            "GYD",
+            "HKD",
+            "HNL",
+            "HRK",
+            "HTG",
+            "HUF",
+            "IDR",
+            "ILS",
+            "INR",
+            "IQD",
+            "IRR",
+            "ISK",
+            "JMD",
+            "JOD",
+            "JPY",
+            "KES",
+            "KGS",
+            "KHR",
+            "KMF",
+            "KPW",
+            "KRW",
+            "KWD",
+            "KYD",
+            "KZT",
+            "LAK",
+            "LBP",
+            "LKR",
+            "LRD",
+            "LSL",
+            "LTL",
+            "LVL",
+            "LYD",
+            "MAD",
+            "MDL",
+            "MGA",
+            "MKD",
+            "MMK",
+            "MNT",
+            "MOP",
+            "MRO",
+            "MUR",
+            "MVR",
+            "MWK",
+            "MXN",
+            "MXV",
+            "MYR",
+            "MZN",
+            "NAD",
+            "NGN",
+            "NIO",
+            "NOK",
+            "NPR",
+            "NZD",
+            "OMR",
+            "PAB",
+            "PEN",
+            "PGK",
+            "PHP",
+            "PKR",
+            "PLN",
+            "PYG",
+            "QAR",
+            "RON",
+            "RSD",
+            "RUB",
+            "RWF",
+            "SAR",
+            "SBD",
+            "SCR",
+            "SDG",
+            "SEK",
+            "SGD",
+            "SHP",
+            "SLL",
+            "SOS",
+            "SRD",
+            "SSP",
+            "STD",
+            "SYP",
+            "SZL",
+            "THB",
+            "TJS",
+            "TMT",
+            "TND",
+            "TOP",
+            "TRY",
+            "TTD",
+            "TWD",
+            "TZS",
+            "UAH",
+            "UGX",
+            "USD",
+            "USN",
+            "USS",
+            "UYI",
+            "UYU",
+            "UZS",
+            "VEF",
+            "VND",
+            "VUV",
+            "WST",
+            "XAF",
+            "XAG",
+            "XAU",
+            "XBA",
+            "XBB",
+            "XBC",
+            "XBD",
+            "XCD",
+            "XDR",
+            "XOF",
+            "XPD",
+            "XPF",
+            "XPT",
+            "XTS",
+            "XXX",
+            "YER",
+            "ZAR",
+            "ZMW"
+          ]
+        }
+      ],
+      "description": "Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD."
+    },
+    "gross_pay_amount": {
+      "type": "integer",
+      "title": "gross_pay_amount",
+      "description": "The total earnings before any deductions are made, in cents."
+    },
+    "net_pay_amount": {
+      "type": "integer",
+      "title": "net_pay_amount",
+      "description": "The total earnings after all taxes and deductions are removed, in cents."
+    },
+    "check_amount": {
+      "type": "integer",
+      "title": "check_amount",
+      "description": "The amount paid to the employee in this payout, in cents."
+    },
+    "gross_pay_ytd": {
+      "type": "integer",
+      "title": "gross_pay_ytd",
+      "description": "The cumulative year to date total earnings before any taxes or deductions are removed, in cents."
+    },
+    "net_pay_ytd": {
+      "type": "integer",
+      "title": "net_pay_ytd",
+      "description": "The cumulative year to date total earnings after all taxes and deductions are removed, in cents."
+    },
+    "total_taxes": {
+      "type": "integer",
+      "title": "total_taxes",
+      "description": "The total taxes for this pay period, in cents."
+    },
+    "total_deductions": {
+      "type": "integer",
+      "title": "total_deductions",
+      "description": "The total deductions for this pay period, in cents."
+    },
+    "total_reimbursements": {
+      "type": "integer",
+      "title": "total_reimbursements",
+      "description": "The total reimbursements for this pay period, in cents."
+    },
+    "external_paystub_id": {
+      "type": "string",
+      "title": "external_paystub_id",
+      "description": "The external id of a single paystub from the payroll provider."
+    },
+    "employer_name": {
+      "type": "string",
+      "title": "employer_name",
+      "description": "The name of the employer that issued the paystub."
+    },
+    "taxes": {
+      "items": {
+        "$ref": "#/components/schemas/TaxObjPublicResponseItem"
+      },
+      "type": "array",
+      "title": "taxes",
+      "description": "The taxes for this pay period, in cents."
+    },
+    "deductions": {
+      "items": {
+        "$ref": "#/components/schemas/DeductionObjPublicResponseItem"
+      },
+      "type": "array",
+      "title": "deductions",
+      "description": "The deductions for this pay period, in cents."
+    },
+    "earnings": {
+      "items": {
+        "$ref": "#/components/schemas/EarningObjPublicResponseItem"
+      },
+      "type": "array",
+      "title": "earnings",
+      "description": "The earnings for this pay period, in cents."
+    },
+    "time_off": {
+      "items": {
+        "$ref": "#/components/schemas/TimeOffObjPublicResponseItem"
+      },
+      "type": "array",
+      "title": "time_off",
+      "description": "The user's time off balances for this pay period. To enable time off balances, please contact Pinwheel support."
+    },
+    "document": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/DocumentObjPublicResponseItem"
+        }
+      ],
+      "title": "document",
+      "description": "The document for this paystub."
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "account_id",
+    "pay_date",
+    "currency",
+    "gross_pay_amount",
+    "net_pay_amount",
+    "check_amount",
+    "total_taxes",
+    "total_deductions",
+    "total_reimbursements",
+    "taxes",
+    "deductions",
+    "earnings",
+    "time_off"
+  ],
+  "title": "Paystub",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/PaystubObjResponse_v2022_03_02.json"
+}

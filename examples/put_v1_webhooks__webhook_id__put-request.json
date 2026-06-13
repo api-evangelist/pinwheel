@@ -1,0 +1,7 @@
+{
+  "url": "string",
+  "enabled_events": [
+    "paystubs.thirty_days_synced"
+  ],
+  "customer_id": "string"
+}

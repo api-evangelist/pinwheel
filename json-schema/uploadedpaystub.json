@@ -1,0 +1,105 @@
+{
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "paystub"
+      ],
+      "title": "document_type",
+      "description": "The type of the document.",
+      "default": "paystub"
+    },
+    "pay_date": {
+      "type": "string",
+      "title": "pay_date",
+      "description": "The date when the check amount is paid to the employee."
+    },
+    "pay_period_start": {
+      "type": "string",
+      "title": "pay_period_start",
+      "description": "The date when the pay period begins. Some platforms, like unemployment portals, do not have fixed pay periods."
+    },
+    "pay_period_end": {
+      "type": "string",
+      "title": "pay_period_end",
+      "description": "The date when the pay period ends. Some platforms, like unemployment portals, do not have fixed pay periods."
+    },
+    "gross_pay_amount": {
+      "type": "integer",
+      "title": "gross_pay_amount",
+      "description": "The total earnings before any deductions are made, in cents."
+    },
+    "gross_pay_ytd": {
+      "type": "integer",
+      "title": "gross_pay_ytd",
+      "description": "The cumulative year to date total earnings before any taxes or deductions are removed, in cents."
+    },
+    "net_pay_amount": {
+      "type": "integer",
+      "title": "net_pay_amount",
+      "description": "The total earnings after all taxes and deductions are removed, in cents."
+    },
+    "net_pay_ytd": {
+      "type": "integer",
+      "title": "net_pay_ytd",
+      "description": "The cumulative year to date total earnings after all taxes and deductions are removed, in cents."
+    },
+    "earnings": {
+      "items": {
+        "$ref": "#/components/schemas/UploadedEarning"
+      },
+      "type": "array",
+      "title": "earnings",
+      "description": "The earnings for this pay period, in cents."
+    },
+    "taxes": {
+      "items": {
+        "$ref": "#/components/schemas/UploadedTax"
+      },
+      "type": "array",
+      "title": "taxes",
+      "description": "The taxes for this pay period, in cents."
+    },
+    "deductions": {
+      "items": {
+        "$ref": "#/components/schemas/UploadedDeduction"
+      },
+      "type": "array",
+      "title": "deductions",
+      "description": "The deductions for this pay period, in cents."
+    },
+    "employer": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/EmployerNameAndAddress"
+        }
+      ],
+      "title": "employer",
+      "description": "Employment details for the employee."
+    },
+    "employee": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/EmployeeNameAndAddress"
+        }
+      ],
+      "title": "employee",
+      "description": "Personal details for the employee."
+    },
+    "time_off": {
+      "items": {
+        "$ref": "#/components/schemas/UploadedTimeOff"
+      },
+      "type": "array",
+      "title": "time_off",
+      "description": "The user's time off balances for this pay period. To enable time off balances, please contact Pinwheel support."
+    }
+  },
+  "type": "object",
+  "title": "UploadedPaystub",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/UploadedPaystub.json"
+}

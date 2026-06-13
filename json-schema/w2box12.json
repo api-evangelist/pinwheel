@@ -1,0 +1,21 @@
+{
+  "properties": {
+    "code": {
+      "type": "string",
+      "title": "code",
+      "description": "Code for miscellaneous income or tax line items. Box 12 IRS Form W-2."
+    },
+    "amount": {
+      "type": "integer",
+      "title": "amount",
+      "description": "Amount for miscellaneous income or tax line items. Box 12 IRS Form W-2."
+    }
+  },
+  "type": "object",
+  "title": "W2Box12",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/W2Box12.json"
+}

@@ -1,0 +1,84 @@
+{
+  "properties": {
+    "employer_name": {
+      "type": "string",
+      "title": "employer_name",
+      "description": "Name of employer, e.g., Apple, Disney, Walmart."
+    },
+    "employer_address": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/AddressGetResponseItem"
+        }
+      ],
+      "title": "employer_address",
+      "description": "The address of the employer."
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "title": "start_date",
+      "description": "The date the employee began their job."
+    },
+    "employment_duration_months": {
+      "type": "integer",
+      "title": "employment_duration_months",
+      "description": "The length of time, in months, the employee has been active with the employer."
+    },
+    "employment_status": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "employed",
+            "terminated",
+            "furloughed"
+          ]
+        }
+      ],
+      "description": "The employment status of the employee."
+    },
+    "employment_type": {
+      "type": "string",
+      "title": "employment_type",
+      "description": "The employment type e.g. full time, part time, seasonal, contractor."
+    },
+    "termination_date": {
+      "type": "string",
+      "format": "date",
+      "title": "termination_date",
+      "description": "The date the employee was terminated."
+    },
+    "title": {
+      "type": "string",
+      "title": "title",
+      "description": "The job title of the employee."
+    },
+    "most_recent_pay_date": {
+      "type": "string",
+      "format": "date",
+      "title": "most_recent_pay_date",
+      "description": "The latest date when the employee received regular pay."
+    },
+    "income": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/IncomeResponseObj"
+        }
+      ],
+      "title": "income",
+      "description": "Income details for the employment."
+    }
+  },
+  "type": "object",
+  "required": [
+    "employer_name",
+    "income"
+  ],
+  "title": "IncomeAndEmploymentResponseObj",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/IncomeAndEmploymentResponseObj.json"
+}

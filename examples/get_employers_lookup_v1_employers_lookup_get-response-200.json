@@ -1,0 +1,18 @@
+{
+  "data": {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "string",
+    "last_updated": "2024-01-15T10:30:00Z",
+    "logo_url": "https://example.com",
+    "supported_jobs": [
+      "direct_deposit_allocations"
+    ],
+    "fractional_amount_supported": true,
+    "amount_supported": true,
+    "min_amount": 0.0,
+    "max_amount": 0.0,
+    "min_percentage": 0.0,
+    "max_percentage": 0.0,
+    "percentage_supported": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "properties": {
+    "value": {
+      "type": "string",
+      "title": "value",
+      "description": "The E.164 formatted phone number."
+    },
+    "type": {
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "home",
+            "work",
+            "mobile"
+          ]
+        }
+      ],
+      "description": "home, mobile, work, etc."
+    }
+  },
+  "type": "object",
+  "required": [
+    "value"
+  ],
+  "title": "Phone",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/PhoneNumberGetResponseItem.json"
+}

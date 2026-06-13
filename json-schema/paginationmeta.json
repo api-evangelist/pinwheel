@@ -1,0 +1,21 @@
+{
+  "properties": {
+    "count": {
+      "type": "integer",
+      "title": "count",
+      "description": "Number of objects returned."
+    },
+    "next_cursor": {
+      "type": "string",
+      "title": "next_cursor",
+      "description": "Pointer to the next page of results."
+    }
+  },
+  "type": "object",
+  "title": "PaginationMeta",
+  "x-tags": [
+    "Schemas"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.pinwheelapi.com/PaginationMeta.json"
+}
