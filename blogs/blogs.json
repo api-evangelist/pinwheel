@@ -2,6 +2,12 @@
   "repo": "pinwheel",
   "feeds": [
     {
+      "source": "https://www.pinwheelapi.com/resources",
+      "feed_url": "",
+      "saved": 1,
+      "method": "agent-scrape"
+    },
+    {
       "source": "https://www.linkedin.com/company/pinwheelhq/",
       "feed_url": "https://www.linkedin.com/company/pinwheelhq/",
       "title": "",
@@ -9,6 +15,7 @@
       "method": "none"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 26,
+  "fetched": "2026-06-27T13:01:49Z",
+  "agent_pulled": "2026-06-27"
 }
