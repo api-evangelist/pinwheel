@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/pinwheel-pinwheel-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: apiSecret
+  type: apiKey
+  in: header
+  parameter: X-API-SECRET
+  description: API Secret
+  sources:
+  - openapi/pinwheel-pinwheel-api-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token
+  sources:
+  - openapi/pinwheel-pinwheel-api-openapi.yml

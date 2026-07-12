@@ -58,6 +58,12 @@ apis:
       - type: JSONLDContext
         url: json-ld/pinwheel-context.jsonld
 common:
+  - type: TrustCenter
+    url: security/pinwheel-trust-center.yml
+  - type: DomainSecurity
+    url: security/pinwheel-domain-security.yml
+  - type: Authentication
+    url: authentication/pinwheel-authentication.yml
   - type: Website
     url: https://www.pinwheelapi.com
   - type: Documentation
