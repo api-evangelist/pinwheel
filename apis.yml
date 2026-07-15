@@ -58,6 +58,8 @@ apis:
       - type: JSONLDContext
         url: json-ld/pinwheel-context.jsonld
 common:
+  - type: AgenticAccess
+    url: agentic-access/pinwheel-agentic-access.yml
   - type: TrustCenter
     url: security/pinwheel-trust-center.yml
   - type: DomainSecurity
