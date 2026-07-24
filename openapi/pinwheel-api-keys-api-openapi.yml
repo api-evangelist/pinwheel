@@ -1,0 +1,505 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts API Keys API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: API Keys
+paths:
+  /admin/token:
+    post:
+      tags:
+      - API Keys
+      summary: Admin API Authentication
+      description: Authenticate against the Admin API.
+      operationId: auth_v1_admin_token_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdminTokenRequest'
+            examples:
+              example:
+                value:
+                  username: bob@example.com
+                  password: '!pa55w0rd'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CreateAdminTokenResponseData'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      token: 665ffb0f-3b65-483d-97be-2aeddfd54467
+                      expiration: '2023-03-24 21:37:00.650846+00:00'
+                      workspace_name: Acme, Inc.
+                      mode: production
+                      user_role: administrator
+      parameters:
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      security: []
+  /admin/api_keys:
+    get:
+      tags:
+      - API Keys
+      summary: List API Keys
+      description: List all keys for this workspace.
+      operationId: list_keys_v1_admin_api_keys_get
+      parameters:
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - description: Admin API bearer token.
+        required: false
+        schema:
+          type: string
+          description: Admin API bearer token.
+        name: authorization
+        in: header
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ListAPIKeyResponseData'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - mode: production
+                      key: 412cb238ff82788ae1678fbdb3623a75b44059aa07a6e915c3d99a750e7953b2
+                      expires_at: null
+                      created_at: '2023-03-24 21:37:00.650846+00:00'
+                      last_used_at: '2023-03-24'
+                      is_active: true
+                      revoked_at: null
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - API Keys
+      summary: Create an API Key
+      description: Creates an API Key.
+      operationId: create_key_v1_admin_api_keys_post
+      parameters:
+      - description: Admin API bearer token.
+        required: false
+        schema:
+          type: string
+          description: Admin API bearer token.
+        name: authorization
+        in: header
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAPIKeyOptions'
+            examples:
+              example:
+                value:
+                  expires_at: '2023-03-23 12:34:56'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CreateAPIKeyResponseData'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      mode: production
+                      key: 412cb238ff82788ae1678fbdb3623a75b44059aa07a6e915c3d99a750e7953b2
+                      secret: 23252c3d516ec1cf92822d8db03b04f59c22ac4810fb20752b5511e43340e771
+                      expires_at: null
+                      created_at: '2023-03-24 21:37:00.650846+00:00'
+      security:
+      - bearerAuth: []
+  /admin/api_keys/{api_key}/revoke:
+    post:
+      tags:
+      - API Keys
+      summary: Revoke an API Key
+      description: Revokes an API Key.
+      operationId: revoke_key_v1_admin_api_keys__api_key__revoke_post
+      parameters:
+      - description: The public token that refers to your API key, as distinct from the API Secret.
+        required: true
+        schema:
+          type: string
+          description: The public token that refers to your API key, as distinct from the API Secret.
+        name: api_key
+        in: path
+      - description: Admin API bearer token.
+        required: false
+        schema:
+          type: string
+          description: Admin API bearer token.
+        name: authorization
+        in: header
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RevokeAPIKeyResponseData'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      mode: production
+                      key: 412cb238ff82788ae1678fbdb3623a75b44059aa07a6e915c3d99a750e7953b2
+                      expires_at: null
+                      created_at: '2023-03-20 13:02:21.987347+00:00'
+                      revoked_at: '2023-03-24 21:37:00.768426+00:00'
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
+    CreateAdminTokenResponseData:
+      properties:
+        token:
+          type: string
+          format: uuid
+          title: token
+          description: Short-lived token that is used to authorize Admin API endpoints.
+        expiration:
+          type: string
+          format: date-time
+          title: expiration
+          description: Timestamp of when the Admin API token expires.
+        workspace_name:
+          type: string
+          title: workspace_name
+          description: Name of the workspace the Admin API token is authorized for.
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: The mode that the Admin API token is authorized for.
+        user_role:
+          allOf:
+          - type: string
+            enum:
+            - owner
+            - administrator
+            - developer
+          description: The role of the developer-dashboard user the Admin API token was authenticated with.
+      type: object
+      required:
+      - token
+      - expiration
+      - workspace_name
+      - mode
+      - user_role
+      title: object
+      x-tags:
+      - Schemas
+    ListAPIKeyResponseData:
+      properties:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: The mode that the Admin API token is authorized for.
+        key:
+          type: string
+          title: key
+          description: The public token that refers to your API key, as distinct from the API Secret.
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        last_used_at:
+          type: string
+          format: date
+          title: last_used_at
+          description: Date the API key was last used in a Pinwheel API request. Null if the key hasn't been used.
+        is_active:
+          type: boolean
+          title: is_active
+          description: If true, the API key can be used in Pinwheel API requests. Otherwise, the key is no longer useable.
+        revoked_at:
+          type: string
+          format: date-time
+          title: revoked_at
+          description: Timestamp of when this key was revoked.
+      type: object
+      required:
+      - mode
+      - key
+      - created_at
+      - is_active
+      title: object
+      x-tags:
+      - Schemas
+    CreateAPIKeyResponseData:
+      properties:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: The mode that the Admin API token is authorized for.
+        key:
+          type: string
+          title: key
+          description: The public token that refers to your API key, as distinct from the API Secret.
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        secret:
+          type: string
+          title: secret
+          description: The secret token part of the API key used to authorize requests to the Pinwheel API.
+      type: object
+      required:
+      - mode
+      - key
+      - created_at
+      - secret
+      title: object
+      x-tags:
+      - Schemas
+    RevokeAPIKeyResponseData:
+      properties:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: The mode that the Admin API token is authorized for.
+        key:
+          type: string
+          title: key
+          description: The public token that refers to your API key, as distinct from the API Secret.
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        revoked_at:
+          type: string
+          format: date-time
+          title: revoked_at
+          description: Timestamp of when this key was revoked.
+      type: object
+      required:
+      - mode
+      - key
+      - created_at
+      - revoked_at
+      title: object
+      x-tags:
+      - Schemas
+    CreateAPIKeyOptions:
+      properties:
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+      type: object
+      title: object
+      x-tags:
+      - Schemas
+    CreateAdminTokenRequest:
+      properties:
+        username:
+          type: string
+          title: username
+          description: Username or email of the Developer Dashboard user used to create an Admin API token.
+        password:
+          type: string
+          title: password
+          description: Password of the Developer Dashboard user used to create an Admin API token.
+      type: object
+      required:
+      - username
+      - password
+      title: object
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

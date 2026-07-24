@@ -1,0 +1,1297 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Verification Reports API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Verification Reports
+paths:
+  /end_users/{end_user_id}/verification_reports/voie:
+    get:
+      tags:
+      - Verification Reports
+      summary: Get Verification of Income and Employment Report
+      description: Get a Verification of Income and Employment (VOIE) report associated with your end user ID.
+      operationId: get_end_user_verification_reports_voie_v1_end_users__end_user_id__verification_reports_voie_get
+      parameters:
+      - description: User ID provided by you, to associate Pinwheel users with your user model.
+        required: true
+        schema:
+          type: string
+          description: User ID provided by you, to associate Pinwheel users with your user model.
+        name: end_user_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/VerificationReportsVOIEObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: aea8cc55-93fa-452d-8eac-b83c80b19a41
+                      updated_at: '2021-01-06T15:59:13.530178+00:00'
+                      refreshed_at: '2021-01-06T15:59:13.530178+00:00'
+                      employee:
+                        name:
+                          first_name: Alicia
+                          middle_name: ''
+                          last_name: Green
+                          full_name: Alicia Green
+                        address:
+                          city: Washington
+                          country: US
+                          line1: 1234 Home Road
+                          line2: null
+                          postal_code: '20017'
+                          raw: 1234 Home Road, Washington, DC, 20017, USA
+                          state: DC
+                        last_four_ssn: 0090
+                        date_of_birth: '1987-02-01'
+                        phone_numbers:
+                        - type: mobile
+                          value: '+14155552671'
+                      report_type: voie
+                      employments:
+                      - employer_name: Acme Corporation
+                        employer_address:
+                          city: Washington
+                          country: US
+                          line1: 1234 Main St
+                          line2: Suite 3
+                          postal_code: '20036'
+                          raw: 1234 Main St, Suite 3, Washington, DC, 20036, USA
+                          state: DC
+                        start_date: '2020-06-01'
+                        employment_duration_months: 23
+                        employment_status: employed
+                        employment_type: full time
+                        termination_date: null
+                        title: Engineer
+                        most_recent_pay_date: '2021-01-05'
+                        income:
+                          pay_frequency: bi-weekly
+                          compensation_unit: hourly
+                          compensation_amount: 4000
+                          currency: USD
+                          annual_incomes:
+                          - year: '2022'
+                            gross_pay_ytd: 11000
+                            net_pay_ytd: 9950
+                            total_deductions_ytd: 64704
+                            total_reimbursements_ytd: 7000
+                            total_taxes_ytd: 94407
+                            earnings_ytds:
+                            - amount: 10000
+                              category: salary
+                            - amount: 1000
+                              category: bonus
+                          paystubs:
+                          - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                            account_id: 5c1952df-3a84-4f28-8318-58291452061f
+                            gross_pay_amount: 480720
+                            gross_pay_ytd: 6971151
+                            net_pay_amount: 321609
+                            net_pay_ytd: 4357992
+                            pay_date: '2022-01-05'
+                            pay_period_end: '2021-12-24'
+                            pay_period_start: '2021-12-10'
+                            earnings:
+                            - amount: 380720
+                              category: hourly
+                              hours: 80.0
+                              name: Regular
+                              rate: 4759
+                            - amount: 100000
+                              category: bonus
+                              hours: null
+                              name: Bonus
+                              rate: null
+                            total_deductions: 64704
+                            total_reimbursements: 7000
+                            total_taxes: 94407
+                            currency: USD
+                            created_at: '2021-01-10T19:54:45.745660+00:00'
+                            check_amount: 328609
+                            employer_name: Acme Corporation
+                            external_paystub_id: 821b7d1b-c115-470c-9411-be132f51c19d
+                          - id: 497f6eca-6276-4993-bfeb-53cbbbda6f53
+                            account_id: 5c1952df-3a84-4f28-8318-58291452061f
+                            gross_pay_amount: 480720
+                            gross_pay_ytd: 6490431
+                            net_pay_amount: 321609
+                            net_pay_ytd: 4036383
+                            pay_date: '2021-12-22'
+                            pay_period_end: '2021-12-09'
+                            pay_period_start: '2021-11-26'
+                            earnings:
+                            - amount: 380720
+                              category: hourly
+                              hours: 80.0
+                              name: Regular
+                              rate: 4759
+                            - amount: 100000
+                              category: bonus
+                              hours: null
+                              name: Bonus
+                              rate: null
+                            total_deductions: 64704
+                            total_reimbursements: 7000
+                            total_taxes: 94407
+                            currency: USD
+                            created_at: '2021-01-10T19:54:45.745660+00:00'
+                            check_amount: 328609
+                            employer_name: Acme Corporation
+                            external_paystub_id: 50df7fe0-b818-414f-84b9-b9f5bba06a09
+                      document:
+                        id: 353fb6fb-e704-4112-990a-30058efe2737
+                        download_url: https://pinwheel-cdn.s3.amazonaws.com/assets/pdfs/voie_report.pdf
+                        download_url_expiration: '2024-01-06T17:47:52.782334+00:00'
+  /end_users/{end_user_id}/verification_reports/voe:
+    get:
+      tags:
+      - Verification Reports
+      summary: Get Verification of Employment Report
+      description: Get a Verification of Employment (VOE) report associated with your end user ID.
+      operationId: get_end_user_verification_reports_voe_v1_end_users__end_user_id__verification_reports_voe_get
+      parameters:
+      - description: User ID provided by you, to associate Pinwheel users with your user model.
+        required: true
+        schema:
+          type: string
+          description: User ID provided by you, to associate Pinwheel users with your user model.
+        name: end_user_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/VerificationReportsVOEObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: aea8cc55-93fa-452d-8eac-b83c80b19a41
+                      updated_at: '2021-01-06T15:59:13.530178+00:00'
+                      refreshed_at: '2021-01-06T15:59:13.530178+00:00'
+                      employee:
+                        name:
+                          first_name: Alicia
+                          middle_name: ''
+                          last_name: Green
+                          full_name: Alicia Green
+                        address:
+                          city: Washington
+                          country: US
+                          line1: 1234 Home Road
+                          line2: null
+                          postal_code: '20017'
+                          raw: 1234 Home Road, Washington, DC, 20017, USA
+                          state: DC
+                        last_four_ssn: 0090
+                        date_of_birth: '1987-02-01'
+                        phone_numbers:
+                        - type: mobile
+                          value: '+14155552671'
+                      report_type: voe
+                      employments:
+                      - employer_name: Acme Corporation
+                        employer_address:
+                          city: Washington
+                          country: US
+                          line1: 1234 Main St
+                          line2: Suite 3
+                          postal_code: '20036'
+                          raw: 1234 Main St, Suite 3, Washington, DC, 20036, USA
+                          state: DC
+                        start_date: '2020-06-01'
+                        employment_duration_months: 23
+                        employment_status: employed
+                        employment_type: full time
+                        termination_date: null
+                        title: Engineer
+                        most_recent_pay_date: '2021-01-05'
+                      document:
+                        id: 15bbb566-fb4e-4835-9967-b308c164269e
+                        download_url: https://pinwheel-cdn.s3.amazonaws.com/assets/pdfs/voe_report.pdf
+                        download_url_expiration: '2024-01-06T17:47:52.782334+00:00'
+components:
+  schemas:
+    PaystubWithEarningsResponseObj:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        pay_date:
+          type: string
+          format: date
+          title: pay_date
+          description: The date when the check amount is paid to the employee.
+        pay_period_start:
+          type: string
+          format: date
+          title: pay_period_start
+          description: The date when the pay period begins. Some platforms, like unemployment portals, do not have fixed pay periods.
+        pay_period_end:
+          type: string
+          format: date
+          title: pay_period_end
+          description: The date when the pay period ends. Some platforms, like unemployment portals, do not have fixed pay periods.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        gross_pay_amount:
+          type: integer
+          title: gross_pay_amount
+          description: The total earnings before any deductions are made, in cents.
+        net_pay_amount:
+          type: integer
+          title: net_pay_amount
+          description: The total earnings after all taxes and deductions are removed, in cents.
+        check_amount:
+          type: integer
+          title: check_amount
+          description: The amount paid to the employee in this payout, in cents.
+        gross_pay_ytd:
+          type: integer
+          title: gross_pay_ytd
+          description: The cumulative year to date total earnings before any taxes or deductions are removed, in cents.
+        net_pay_ytd:
+          type: integer
+          title: net_pay_ytd
+          description: The cumulative year to date total earnings after all taxes and deductions are removed, in cents.
+        total_taxes:
+          type: integer
+          title: total_taxes
+          description: The total taxes for this pay period, in cents.
+        total_deductions:
+          type: integer
+          title: total_deductions
+          description: The total deductions for this pay period, in cents.
+        total_reimbursements:
+          type: integer
+          title: total_reimbursements
+          description: The total reimbursements for this pay period, in cents.
+        external_paystub_id:
+          type: string
+          title: external_paystub_id
+          description: The external id of a single paystub from the payroll provider.
+        employer_name:
+          type: string
+          title: employer_name
+          description: The name of the employer that issued the paystub.
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningObjPublicResponseItem'
+          type: array
+          title: earnings
+          description: The earnings for this pay period, in cents.
+      type: object
+      required:
+      - id
+      - created_at
+      - account_id
+      - pay_date
+      - currency
+      - gross_pay_amount
+      - net_pay_amount
+      - check_amount
+      - total_taxes
+      - total_deductions
+      - total_reimbursements
+      - earnings
+      title: PaystubWithEarningsResponseObj
+      x-tags:
+      - Schemas
+    AnnualIncomeResponseObj:
+      properties:
+        year:
+          type: string
+          title: year
+          description: Year for which the income represents.
+        gross_pay_ytd:
+          type: integer
+          title: gross_pay_ytd
+          description: The cumulative year to date total earnings before any taxes or deductions are removed, in cents.
+        net_pay_ytd:
+          type: integer
+          title: net_pay_ytd
+          description: The cumulative year to date total earnings after all taxes and deductions are removed, in cents.
+        total_deductions_ytd:
+          type: integer
+          title: total_deductions_ytd
+          description: The cumulative year to date total deductions, in cents.
+        total_reimbursements_ytd:
+          type: integer
+          title: total_reimbursements_ytd
+          description: The cumulative year to date total reimbursements, in cents.
+        total_taxes_ytd:
+          type: integer
+          title: total_taxes_ytd
+          description: The cumulative year to date total taxes, in cents.
+        earnings_ytds:
+          items:
+            $ref: '#/components/schemas/EarningsYtds'
+          type: array
+          title: earnings_ytds
+          description: The cumulative year to date amount for all earnings, in cents.
+      type: object
+      required:
+      - year
+      - gross_pay_ytd
+      - net_pay_ytd
+      - total_deductions_ytd
+      - total_reimbursements_ytd
+      - total_taxes_ytd
+      - earnings_ytds
+      title: AnnualIncomeResponseObj
+      x-tags:
+      - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
+    VerificationReportsVOIEObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        employee:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeResponseObj'
+          title: employee
+          description: Personal details for the employee.
+        employments:
+          items:
+            $ref: '#/components/schemas/IncomeAndEmploymentResponseObj'
+          type: array
+          title: employments
+          description: Income and Employment details for the employee.
+        document:
+          allOf:
+          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
+          title: document
+          description: A document.
+        report_type:
+          allOf:
+          - type: string
+            enum:
+            - voe
+            - voie
+            - base
+          description: The type of report created.
+      type: object
+      required:
+      - id
+      - updated_at
+      - refreshed_at
+      - employee
+      - employments
+      - report_type
+      title: Verification of Income and Employment Report for an end user
+      x-tags:
+      - Schemas
+    EmployeeName:
+      properties:
+        first_name:
+          type: string
+          title: first_name
+          description: The first name of the employee.
+        middle_name:
+          type: string
+          title: middle_name
+          description: The middle name of the employee.
+        last_name:
+          type: string
+          title: last_name
+          description: The last name of the employee.
+        full_name:
+          type: string
+          title: full_name
+          description: The full name of the employee.
+      type: object
+      required:
+      - full_name
+      title: EmployeeName
+      x-tags:
+      - Schemas
+    PhoneNumberGetResponseItem:
+      properties:
+        value:
+          type: string
+          title: value
+          description: The E.164 formatted phone number.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
+      type: object
+      required:
+      - value
+      title: Phone
+      x-tags:
+      - Schemas
+    EmploymentResponseObj:
+      properties:
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        employment_duration_months:
+          type: integer
+          title: employment_duration_months
+          description: The length of time, in months, the employee has been active with the employer.
+        employment_status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        employment_type:
+          type: string
+          title: employment_type
+          description: The employment type e.g. full time, part time, seasonal, contractor.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+        most_recent_pay_date:
+          type: string
+          format: date
+          title: most_recent_pay_date
+          description: The latest date when the employee received regular pay.
+      type: object
+      required:
+      - employer_name
+      title: EmploymentResponseObj
+      x-tags:
+      - Schemas
+    IncomeAndEmploymentResponseObj:
+      properties:
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        employment_duration_months:
+          type: integer
+          title: employment_duration_months
+          description: The length of time, in months, the employee has been active with the employer.
+        employment_status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        employment_type:
+          type: string
+          title: employment_type
+          description: The employment type e.g. full time, part time, seasonal, contractor.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+        most_recent_pay_date:
+          type: string
+          format: date
+          title: most_recent_pay_date
+          description: The latest date when the employee received regular pay.
+        income:
+          allOf:
+          - $ref: '#/components/schemas/IncomeResponseObj'
+          title: income
+          description: Income details for the employment.
+      type: object
+      required:
+      - employer_name
+      - income
+      title: IncomeAndEmploymentResponseObj
+      x-tags:
+      - Schemas
+    DocumentObjPublicResponseItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        download_url:
+          type: string
+          title: download_url
+          description: URL from which the document may be downloaded.
+        download_url_expiration:
+          type: string
+          format: date-time
+          title: download_url_expiration
+          description: ISO 8601 timestamp of when the download URL will no longer be valid.
+      type: object
+      required:
+      - id
+      title: Document
+      x-tags:
+      - Schemas
+    EarningsYtds:
+      properties:
+        amount:
+          type: integer
+          title: amount
+          description: The year to date earnings amount for an earning category, in cents.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+      type: object
+      title: EarningsYtds
+      x-tags:
+      - Schemas
+    EmployeeResponseObj:
+      properties:
+        name:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeName'
+          title: name
+          description: The name of the employee.
+        date_of_birth:
+          type: string
+          format: date
+          title: date_of_birth
+          description: The date the employee was born.
+        last_four_ssn:
+          type: string
+          title: last_four_ssn
+          description: The last four digits of the employee's social security number (SSN).
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employee.
+        phone_numbers:
+          items:
+            $ref: '#/components/schemas/PhoneNumberGetResponseItem'
+          type: array
+          title: phone_numbers
+          description: The phone numbers of the employee.
+      type: object
+      required:
+      - name
+      title: EmployeeResponseObj
+      x-tags:
+      - Schemas
+    EarningObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the earning.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        rate:
+          type: integer
+          title: rate
+          description: The amount earned per hour, in cents.
+        hours:
+          type: number
+          title: hours
+          description: The hours worked.
+      type: object
+      required:
+      - name
+      - category
+      - amount
+      title: Earning
+      x-tags:
+      - Schemas
+    IncomeResponseObj:
+      properties:
+        pay_frequency:
+          allOf:
+          - type: string
+            enum:
+            - daily
+            - weekly
+            - bi-weekly
+            - monthly
+            - semi-monthly
+            - variable
+          description: Describes how often the employee is paid.
+        compensation_unit:
+          allOf:
+          - type: string
+            enum:
+            - hourly
+            - daily
+            - weekly
+            - bi-weekly
+            - semi-weekly
+            - monthly
+            - semi-monthly
+            - annually
+            - variable
+            - per_mile
+          description: The compensation time frame.
+        compensation_amount:
+          type: integer
+          title: compensation_amount
+          description: The amount per compensation unit, in cents.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        annual_incomes:
+          items:
+            $ref: '#/components/schemas/AnnualIncomeResponseObj'
+          type: array
+          title: annual_incomes
+          description: Annualized pay details for the user. Starting with the current year and going back at most 2 years.
+        paystubs:
+          items:
+            $ref: '#/components/schemas/PaystubWithEarningsResponseObj'
+          type: array
+          title: paystubs
+          description: Up to 2 most recent paystubs for the employee's income.
+      type: object
+      required:
+      - compensation_unit
+      - compensation_amount
+      - currency
+      - annual_incomes
+      - paystubs
+      title: IncomeResponseObj
+      x-tags:
+      - Schemas
+    VerificationReportsVOEObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        employee:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeResponseObj'
+          title: employee
+          description: Personal details for the employee.
+        employments:
+          items:
+            $ref: '#/components/schemas/EmploymentResponseObj'
+          type: array
+          title: employments
+          description: Employment details for the employee.
+        document:
+          allOf:
+          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
+          title: document
+          description: A document.
+        report_type:
+          allOf:
+          - type: string
+            enum:
+            - voe
+            - voie
+            - base
+          description: The type of report created.
+      type: object
+      required:
+      - id
+      - updated_at
+      - refreshed_at
+      - employee
+      - employments
+      - report_type
+      title: Verification of Employment Report for an end user
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

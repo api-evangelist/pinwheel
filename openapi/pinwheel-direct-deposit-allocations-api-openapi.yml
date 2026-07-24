@@ -1,0 +1,407 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Direct Deposit Allocations API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Direct Deposit Allocations
+paths:
+  /accounts/{account_id}/direct_deposit_allocations:
+    get:
+      tags:
+      - Direct Deposit Allocations
+      summary: Get Direct Deposit Allocations
+      description: The Direct Deposit Allocations endpoint returns the current direct deposit allocations configured for the specified account.
+      operationId: get_direct_deposit_allocations_v1_accounts__account_id__direct_deposit_allocations_get
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DDAllocationObjResponse'
+                  meta:
+                    $ref: '#/components/schemas/RefreshableMeta'
+                type: object
+                required:
+                - data
+                - meta
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 07814454-9163-40b5-9aaa-8a738fa7080b
+                      account_id: c0a343a6-4e33-49cf-9bfc-46f770709452
+                      created_at: '2021-01-06T00:00:00.000000+00:00'
+                      updated_at: '2021-01-12T00:00:00.000000+00:00'
+                      allocations:
+                      - account_name: My Checking Account
+                        account_type: checking
+                        allocation_type: amount
+                        amount: 50000
+                        bank_name: Chase
+                        currency: USD
+                        masked_account_number: '53'
+                        percentage: null
+                        priority: 1
+                        routing_number: '540622601'
+                      - account_name: BoA Savings
+                        account_type: savings
+                        allocation_type: amount
+                        amount: 5000
+                        bank_name: Bank of America
+                        currency: USD
+                        masked_account_number: '3953'
+                        percentage: null
+                        priority: 2
+                        routing_number: '021000322'
+                      - account_name: Neobank
+                        account_type: checking
+                        allocation_type: remainder
+                        amount: null
+                        bank_name: null
+                        currency: USD
+                        masked_account_number: '83'
+                        percentage: null
+                        priority: 3
+                        routing_number: '434957982'
+components:
+  schemas:
+    AllocationAccountObjResponse:
+      properties:
+        account_name:
+          type: string
+          title: account_name
+          description: The name of the account, as entered by the user or presented by the platform.
+        account_type:
+          allOf:
+          - type: string
+            enum:
+            - checking
+            - savings
+            - debit_card
+            - pay_card
+          description: The type of account.
+        allocation_type:
+          allOf:
+          - type: string
+            enum:
+            - amount
+            - percentage
+            - remainder
+          description: The type of allocation.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of this allocation, in cents. Required if `allocation_type` is `amount`.
+        bank_name:
+          type: string
+          title: bank_name
+          description: The name of the bank associated with `allocation.routing_number`, if available.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        masked_account_number:
+          type: string
+          maxLength: 4
+          minLength: 2
+          title: masked_account_number
+          description: Either the last two or four digits associated with the allocation, dependent on what is displayed by the platform.
+        percentage:
+          type: number
+          title: percentage
+          description: The percentage of this allocation. Required if `allocation_type` is `percentage`.
+        priority:
+          type: integer
+          title: priority
+          description: The priority of this allocation. Lower priority allocations are filled first.
+        routing_number:
+          type: string
+          title: routing_number
+          description: Either the full routing number or last four digits of the routing number associated with the allocation, dependent on what is displayed by the platform.
+      type: object
+      required:
+      - allocation_type
+      - currency
+      title: Allocation
+      x-tags:
+      - Schemas
+    RefreshableMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+      type: object
+      title: RefreshableMeta
+      x-tags:
+      - Schemas
+    DDAllocationObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the Direct Deposit Allocations object.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        allocations:
+          items:
+            $ref: '#/components/schemas/AllocationAccountObjResponse'
+          type: array
+          title: allocations
+          description: List of current allocations for this payroll account.
+      type: object
+      required:
+      - id
+      - account_id
+      - created_at
+      - updated_at
+      - allocations
+      title: Direct Deposit Allocations
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

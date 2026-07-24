@@ -1,0 +1,386 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Earnings Stream API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Earnings Stream
+paths:
+  /end_users/{end_user_id}/earnings_stream/payouts:
+    get:
+      tags:
+      - Earnings Stream
+      summary: Get Earnings Stream Payouts
+      description: Get an Earnings Stream of payout objects representing discrete cash flow events. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_earnings_stream_payouts_v1_end_users__end_user_id__earnings_stream_payouts_get
+      parameters:
+      - description: User ID provided by you, to associate Pinwheel users with your user model.
+        required: true
+        schema:
+          type: string
+          description: User ID provided by you, to associate Pinwheel users with your user model.
+        name: end_user_id
+        in: path
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/FreshnessPaginationListMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/EarningsStreamPayoutObjResponse_v2023_04_18'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - status: estimated
+                      pay_date: '2022-05-15'
+                      earnings:
+                      - date: '2022-05-05'
+                        confidence_score: 0.5
+                        net_pay:
+                          amount: 10000
+                          currency: USD
+                      - date: '2022-05-04'
+                        confidence_score: 0.5
+                        net_pay:
+                          amount: 5000
+                          currency: USD
+                      - date: '2022-05-03'
+                        confidence_score: 0.7
+                        net_pay:
+                          amount: 7500
+                          currency: USD
+                      - date: '2022-05-02'
+                        confidence_score: 0.7
+                        net_pay:
+                          amount: 5000
+                          currency: USD
+                      - date: '2022-05-01'
+                        confidence_score: 0.7
+                        net_pay:
+                          amount: 10000
+                          currency: USD
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+components:
+  schemas:
+    NetPayObjResponse:
+      properties:
+        amount:
+          type: integer
+          title: amount
+          description: Amount of net pay, denominated in the smallest unit for the currency, e.g. for USD, 10000 represents $100 since the smallest unit is cents. See ISO 4217.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+      type: object
+      required:
+      - amount
+      - currency
+      title: NetPayObjResponse
+      x-tags:
+      - Schemas
+    FreshnessPaginationListMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: FreshnessPaginationListMeta
+      x-tags:
+      - Schemas
+    EarningsStreamPayoutObjResponse_v2023_04_18:
+      properties:
+        status:
+          allOf:
+          - type: string
+            enum:
+            - estimated
+            - processed
+          description: Status of the payout, either `estimated` or `processed`. `estimated` represents income that has been earned but not finalized in the payroll system. `processed` represents income that has a finalized paystub issued in the payroll system.
+        pay_date:
+          type: string
+          format: date
+          title: pay_date
+          description: Date that the payout will arrive in a user's account. This date includes a buffer for ACH settlement time. For estimated payouts, this is projected from historical pay dates and may differ by a few days from actual settlement. For processed payouts, this is taken directly from the paystub.
+        net_pay:
+          allOf:
+          - $ref: '#/components/schemas/NetPayObjResponse'
+          title: net_pay
+          description: Object representing how much someone will receive in net pay (i.e., the pay that will be disbursed to user-directed accounts) for the work they completed that day. This is equivalent to (gross pay - deductions). E.g., gross pay minus income tax, healthcare, 401k contributions, or other withholdings that are not included in the user's payout.
+        earnings:
+          items: {}
+          type: array
+          title: earnings
+          description: List of objects representing income earned on a given day. All earnings roll up into specific payouts.
+      type: object
+      required:
+      - status
+      - pay_date
+      - earnings
+      title: EarningsStreamPayoutsResponse
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

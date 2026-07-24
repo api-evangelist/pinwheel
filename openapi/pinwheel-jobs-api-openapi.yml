@@ -1,0 +1,473 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Jobs API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Jobs
+paths:
+  /jobs:
+    get:
+      tags:
+      - Jobs
+      summary: List Completed Jobs
+      description: List all completed jobs which were initiated by Link (i.e., excluding refresh jobs for monitoring). This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_jobs_v1_jobs_get
+      parameters:
+      - description: UUID of the link token triggering the job.
+        required: false
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the link token triggering the job.
+        name: link_token_id
+        in: query
+      - description: UUID of the payroll account.
+        required: false
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: query
+      - description: List of job types. May be expanded to include new enum values (see our Change Management policy).
+        required: false
+        schema:
+          items:
+            type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          type: array
+          description: List of job types. May be expanded to include new enum values (see our Change Management policy).
+        name: job_types
+        in: query
+      - description: The outcome of the job.
+        required: false
+        schema:
+          allOf:
+          - type: string
+            enum:
+            - success
+            - pending
+            - error
+          description: The outcome of the job.
+        name: outcome
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: Return results after this ISO 8601 timestamp.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: Return results after this ISO 8601 timestamp.
+        name: from_timestamp
+        in: query
+      - description: Return results to this ISO 8601 timestamp.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: Return results to this ISO 8601 timestamp.
+        name: to_timestamp
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/JobObjResponse_v2023_11_22'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      account_id: 449e7a5c-69d3-4b8a-aaaf-5c9b713ebc65
+                      platform_id: fce3eee0-285b-496f-9b36-30e976194736
+                      platform_name: ADP
+                      link_token_id: 4787acbc-11cf-4db3-998c-5ea7c4feebcd
+                      name: direct_deposit_switch
+                      timestamp: '2021-01-12T02:36:01.287148+00:00'
+                      outcome: success
+                      params:
+                        action: partial_switch
+                        allocation:
+                          type: amount
+                          value: 50
+                          target:
+                            account_name: My Checking Account
+                            account_type: checking
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+components:
+  schemas:
+    JobObjResponse_v2023_11_22:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        name:
+          allOf:
+          - type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          description: Name of the completed job.
+        timestamp:
+          type: string
+          format: date-time
+          title: timestamp
+          description: ISO 8601 timestamp of job completion.
+        outcome:
+          allOf:
+          - type: string
+            enum:
+            - success
+            - pending
+            - error
+          description: The outcome of the job.
+        error_code:
+          type: string
+          title: error_code
+          description: On error, an explicit code describing the error.
+        error_type:
+          type: string
+          title: error_type
+          description: On error, a high level classification of the error.
+        link_token_id:
+          type: string
+          format: uuid
+          title: link_token_id
+          description: UUID of the link token triggering the job.
+        params:
+          allOf:
+          - $ref: '#/components/schemas/ParamsPayload_v2023_11_22'
+          title: params
+          description: Input parameters to the job.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+      type: object
+      required:
+      - id
+      - name
+      - timestamp
+      - outcome
+      - link_token_id
+      title: Job
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
+    TargetAccount:
+      properties:
+        account_name:
+          type: string
+          title: account_name
+          description: The account name (if any) for this allocation.
+        account_type:
+          allOf:
+          - type: string
+            enum:
+            - checking
+            - savings
+          description: The account type for this allocation.
+        last_four_account_number:
+          type: string
+          title: last_four_account_number
+          description: The last four digits of the account number for this allocation.
+      type: object
+      title: TargetAccount
+      x-tags:
+      - Schemas
+    DirectDepositAllocationDetail:
+      properties:
+        type:
+          allOf:
+          - type: string
+            enum:
+            - amount
+            - percentage
+            - remainder
+          description: Indicates what type of allocation this is.
+        value:
+          type: integer
+          title: value
+          description: The value (if any) for this allocation.  Will be set if the type is `percentage` or `amount`.
+        target:
+          allOf:
+          - $ref: '#/components/schemas/TargetAccount'
+          title: target
+          description: The target account for this allocation.
+      type: object
+      title: DirectDepositAllocationDetail
+      x-tags:
+      - Schemas
+    MerchantPayment:
+      properties:
+        card_name:
+          type: string
+          title: card_name
+          description: The name of the new card added in a bill switch job.
+        last_four_card_number:
+          type: string
+          title: last_four_card_number
+          description: The last four digits of the card number added in a bill switch job.
+        account_name:
+          type: string
+          title: account_name
+          description: The account name (if any) for this payment.
+        account_type:
+          allOf:
+          - type: string
+            enum:
+            - checking
+            - savings
+          description: The account type for this payment.
+        last_four_account_number:
+          type: string
+          title: last_four_account_number
+          description: The last four digits of the account number for this payment.
+      type: object
+      title: MerchantPayment
+      x-tags:
+      - Schemas
+    ParamsPayload_v2023_11_22:
+      properties:
+        document_type:
+          allOf:
+          - type: string
+            enum:
+            - paystub
+            - W-2
+            - '1099'
+            - direct_deposit_form
+            - verification_report
+            - '1040'
+            - bank_statement
+            - ssi_award_letter
+            - w2
+            - verification_photo
+          description: The type of the document.
+        pay_date:
+          type: string
+          title: pay_date
+          description: The date when the check amount is paid to the employee.
+        year:
+          type: integer
+          title: year
+          description: The tax year of the form.
+        count:
+          type: integer
+          title: count
+          description: The number of available data objects fetched in the job.
+        from_pay_date:
+          type: string
+          format: date
+          title: from_pay_date
+          description: The earliest pay date for the set of available paystubs in the paystubs job.
+        to_pay_date:
+          type: string
+          format: date
+          title: to_pay_date
+          description: The latest pay date for the set of available paystubs in the paystubs job.
+        has_potential_paystubs_documents:
+          type: boolean
+          title: has_potential_paystubs_documents
+          description: Indicates whether a paystubs documents job will attempt to run.
+        sync_status:
+          allOf:
+          - type: string
+            enum:
+            - in_progress
+            - complete
+          description: The current synchronization status of the payroll platforms data with Pinwheel's data.
+        bill_id:
+          type: string
+          format: uuid
+          title: bill_id
+          description: UUID of the user's recurring bill. This corresponds to the `id` field in the Bill Detection webhooks (e.g. `bill.added`).
+        type:
+          allOf:
+          - type: string
+            enum:
+            - ach
+            - card
+          description: The type of payment that was used in a bill switch job.
+        payment:
+          allOf:
+          - $ref: '#/components/schemas/MerchantPayment'
+          title: payment
+          description: The payment that was updated during a bill switch job.
+        frequency:
+          allOf:
+          - type: string
+            enum:
+            - weekly
+            - bi-weekly
+            - monthly
+            - bi-monthly
+            - quarterly
+            - semi-yearly
+            - yearly
+            - other
+          description: How often the recurring bill is paid.
+        next_payment_date:
+          type: string
+          format: date-time
+          title: next_payment_date
+          description: Next payment date for the bill (if known).
+        next_payment_amount_cents:
+          type: integer
+          title: next_payment_amount_cents
+          description: Next predicted payment amount in cents.
+        is_integrated_switch:
+          type: boolean
+          title: is_integrated_switch
+          description: Whether this is an integrated switch flow (true) or guided flow (false).
+        is_integrated_cancellation:
+          type: boolean
+          title: is_integrated_cancellation
+          description: Whether this is an integrated cancellation flow (true) or guided flow (false).
+        detection_method:
+          allOf:
+          - type: string
+            enum:
+            - manual
+            - external_plaid
+            - first_party
+          description: Whether this bill was detected from an external account (`external-plaid`), uploaded transaction data (`first-party`), or created manually by the user (`manual`).
+        reported_platform_name:
+          type: string
+          title: reported_platform_name
+          description: For platforms not tracked by Pinwheel, the reported name of the merchant/platform associated with the recurring bill or subscription.
+        reserved_platform_id:
+          type: string
+          format: uuid
+          title: reserved_platform_id
+          description: For platforms not tracked by Pinwheel, the reserved platform ID if we track it in the future.
+        card_name:
+          type: string
+          title: card_name
+          description: The name of the new card added in a card switch job.
+        action:
+          allOf:
+          - type: string
+            enum:
+            - full_switch
+            - partial_switch
+          description: Indicates whether the `direct_deposit_switch` was a full or partial switch.
+        allocation:
+          allOf:
+          - $ref: '#/components/schemas/DirectDepositAllocationDetail'
+          title: allocation
+          description: The allocation that was created/updated during a `direct_deposit_switch`.
+      type: object
+      title: ParamsPayload_v2023_11_22
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

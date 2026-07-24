@@ -1,0 +1,935 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Employers and Platforms API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Employers and Platforms
+paths:
+  /employers:
+    get:
+      tags:
+      - Employers and Platforms
+      summary: List Employers
+      description: List all employers supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_v1_employers_get
+      parameters:
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - description: Filter for results updated more recently than `last_updated`. ISO 8601 timestamp.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: Filter for results updated more recently than `last_updated`. ISO 8601 timestamp.
+        name: last_updated
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/EmployerObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: 13a9ee8c-815d-451b-b2d0-496731ec29d3
+                      name: Acme Corporation
+                      last_updated: '2020-11-06T15:59:13.530178+00:00'
+                      logo_url: https://cdn.getpinwheel.com/acme.svg
+                      supported_jobs:
+                      - direct_deposit_switch
+                      fractional_amount_supported: false
+                      amount_supported: true
+                      min_amount: 1.0
+                      max_amount: 9999.0
+                      percentage_supported: true
+                      min_percentage: 1
+                      max_percentage: 99
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /employers/lookup:
+    get:
+      tags:
+      - Employers and Platforms
+      summary: Look up Employer
+      description: Look up an employer by criteria such as EIN. Returns the full employer object.
+      operationId: get_employers_lookup_v1_employers_lookup_get
+      parameters:
+      - description: Employer Identification Number (exactly 9 digits).
+        required: false
+        schema:
+          type: string
+          description: Employer Identification Number (exactly 9 digits).
+        name: ein
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmployerObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 13a9ee8c-815d-451b-b2d0-496731ec29d3
+                      name: Acme Corporation
+                      last_updated: '2020-11-06T15:59:13.530178+00:00'
+                      logo_url: https://cdn.getpinwheel.com/acme.svg
+                      supported_jobs:
+                      - direct_deposit_switch
+                      fractional_amount_supported: false
+                      amount_supported: true
+                      min_amount: 1.0
+                      max_amount: 9999.0
+                      percentage_supported: true
+                      min_percentage: 1
+                      max_percentage: 99
+  /employers/{employer_id}:
+    get:
+      tags:
+      - Employers and Platforms
+      summary: Get Employer
+      description: Get an Employer given the employer ID.
+      operationId: get_employer_v1_employers__employer_id__get
+      parameters:
+      - description: UUID of the employer.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the employer.
+        name: employer_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmployerObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 13a9ee8c-815d-451b-b2d0-496731ec29d3
+                      name: Acme Corporation
+                      last_updated: '2020-11-06T15:59:13.530178+00:00'
+                      logo_url: https://cdn.getpinwheel.com/acme.svg
+                      supported_jobs:
+                      - direct_deposit_switch
+                      fractional_amount_supported: false
+                      amount_supported: true
+                      min_amount: 1.0
+                      max_amount: 9999.0
+                      percentage_supported: true
+                      min_percentage: 1
+                      max_percentage: 99
+  /platforms/{platform_id}:
+    get:
+      tags:
+      - Employers and Platforms
+      summary: Get Platform
+      description: Get a payroll platform supported by Link.
+      operationId: get_platform_v1_platforms__platform_id__get
+      parameters:
+      - description: UUID of the platform.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the platform.
+        name: platform_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PlatformObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: fce3eee0-285b-496f-9b36-30e976194736
+                      name: Acme Payroll
+                      type: payroll
+                      last_updated: '2020-11-06T15:59:13.530178+00:00'
+                      logo_url: https://cdn.getpinwheel.com/acme.svg
+                      supported_jobs:
+                      - direct_deposit_switch
+                      amount_supported: true
+                      fractional_amount_supported: false
+                      min_amount: 1.0
+                      max_amount: 9999.0
+                      percentage_supported: true
+                      min_percentage: 1
+                      max_percentage: 99
+                      merchant_category: video_streaming
+  /platforms:
+    get:
+      tags:
+      - Employers and Platforms
+      summary: List Platforms
+      description: List all payroll platforms supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: list_platforms_v1_platforms_get
+      parameters:
+      - description: ESP (employer-specific platform) is a term that is used to describe an Employer that uses a unique, dedicated payroll portal to serve their employees. Eg. - Walmart employees will authenticate via a Walmart payroll portal, whereas employees at Hilton will authenticate via ADP. ESPs can be thought of as both employers and platforms, so you can use this flag to include ESPs in the set of supported payroll platforms if desired.
+        required: false
+        schema:
+          type: boolean
+          description: ESP (employer-specific platform) is a term that is used to describe an Employer that uses a unique, dedicated payroll portal to serve their employees. Eg. - Walmart employees will authenticate via a Walmart payroll portal, whereas employees at Hilton will authenticate via ADP. ESPs can be thought of as both employers and platforms, so you can use this flag to include ESPs in the set of supported payroll platforms if desired.
+          default: false
+        name: include_esps
+        in: query
+      - description: The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation.
+        required: false
+        schema:
+          allOf:
+          - type: string
+            enum:
+            - payroll
+            - time_and_attendance
+            - tax
+            - merchant
+          description: The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation.
+        name: type
+        in: query
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - description: Filter for results updated more recently than `last_updated`. ISO 8601 timestamp.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          description: Filter for results updated more recently than `last_updated`. ISO 8601 timestamp.
+        name: last_updated
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/PlatformObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: fce3eee0-285b-496f-9b36-30e976194736
+                      name: Acme Payroll
+                      type: payroll
+                      last_updated: '2020-11-06T15:59:13.530178+00:00'
+                      logo_url: https://cdn.getpinwheel.com/acme.svg
+                      supported_jobs:
+                      - direct_deposit_switch
+                      amount_supported: true
+                      fractional_amount_supported: false
+                      min_amount: 1.0
+                      max_amount: 9999.0
+                      percentage_supported: true
+                      min_percentage: 1
+                      max_percentage: 99
+                      merchant_category: video_streaming
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /search:
+    get:
+      tags:
+      - Employers and Platforms
+      summary: Search Employers and Platforms
+      description: Search all employers and platforms supported by Link.
+      operationId: get_v1_search_get
+      parameters:
+      - description: Search query on the employer/platform name.
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          description: Search query on the employer/platform name.
+        name: q
+        in: query
+      - description: Filter on supported jobs. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy).
+        required: false
+        schema:
+          items:
+            type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          type: array
+          description: Filter on supported jobs. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy).
+        example:
+        - direct_deposit_switch
+        name: supported_jobs
+        in: query
+      - description: Filter on response type. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy).
+        required: false
+        schema:
+          items:
+            type: string
+            enum:
+            - employer
+            - platform
+          type: array
+          description: Filter on response type. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy).
+        example:
+        - platform
+        name: response_types
+        in: query
+      - description: Filter on amount_supported. If true, results that support setting a specific dollar amount for direct deposit switches will be returned. If false, results that support setting a specific dollar amount for direct deposit switches will be excluded.
+        required: false
+        schema:
+          type: boolean
+          description: Filter on amount_supported. If true, results that support setting a specific dollar amount for direct deposit switches will be returned. If false, results that support setting a specific dollar amount for direct deposit switches will be excluded.
+        name: amount_supported
+        in: query
+      - description: The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation.
+        required: false
+        schema:
+          allOf:
+          - type: string
+            enum:
+            - payroll
+            - time_and_attendance
+            - tax
+            - merchant
+          description: The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation.
+        name: platform_type
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ListMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/SearchResultObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: fce3eee0-285b-496f-9b36-30e976194736
+                      name: Acme Payroll
+                      platform_type: payroll
+                      last_updated: '2020-11-06T15:59:13.530178+00:00'
+                      logo_url: https://cdn.getpinwheel.com/acme.svg
+                      supported_jobs:
+                      - direct_deposit_switch
+                      fractional_amount_supported: false
+                      amount_supported: true
+                      min_amount: 1.0
+                      max_amount: 9999.0
+                      response_type: platform
+                      percentage_supported: true
+                      min_percentage: 1
+                      max_percentage: 99
+                    - id: 13a9ee8c-815d-451b-b2d0-496731ec29d3
+                      name: Acme Corporation
+                      last_updated: '2020-11-06T15:59:13.530178+00:00'
+                      logo_url: https://cdn.getpinwheel.com/acme.svg
+                      supported_jobs:
+                      - direct_deposit_switch
+                      fractional_amount_supported: false
+                      amount_supported: true
+                      min_amount: 1.0
+                      max_amount: 9999.0
+                      response_type: employer
+                      percentage_supported: false
+                      min_percentage: 1
+                      max_percentage: 99
+                    meta:
+                      count: 2
+components:
+  schemas:
+    SearchResultObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        name:
+          type: string
+          title: name
+          description: Name of result.
+        platform_type:
+          allOf:
+          - type: string
+            enum:
+            - payroll
+            - time_and_attendance
+            - tax
+            - merchant
+          description: The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation.
+        last_updated:
+          type: string
+          format: date-time
+          title: last_updated
+          description: ISO 8601 timestamp of the last update to this object.
+        logo_url:
+          type: string
+          maxLength: 65536
+          minLength: 1
+          format: uri
+          title: logo_url
+          description: The URL of the employer or platform logo.
+        supported_jobs:
+          items:
+            type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          type: array
+          description: Array of supported jobs.
+        fractional_amount_supported:
+          type: boolean
+          title: fractional_amount_supported
+          description: Whether or not the platform accepts decimal values for `direct_deposit_switch`.
+        amount_supported:
+          type: boolean
+          title: amount_supported
+          description: Whether a direct deposit job supports specific amount.
+        min_amount:
+          type: number
+          title: min_amount
+          description: Minimum amount, if any, platform accepts for `direct_deposit_switch`.
+        max_amount:
+          type: number
+          title: max_amount
+          description: Maximum amount, if any, platform accepts for `direct_deposit_switch`.
+        response_type:
+          allOf:
+          - type: string
+            enum:
+            - employer
+            - platform
+          description: Type of search result, either platform or employer.
+        min_percentage:
+          type: integer
+          title: min_percentage
+          description: Minimum percentage allowed for `direct_deposit_switch`.
+          maximum: true
+          minimum: true
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+        max_percentage:
+          type: integer
+          title: max_percentage
+          description: Maximum percentage allowed for `direct_deposit_switch`.
+          maximum: true
+          minimum: true
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+        percentage_supported:
+          type: boolean
+          title: percentage_supported
+          description: Whether a direct deposit job supports percentage switching.
+      type: object
+      required:
+      - id
+      - name
+      - last_updated
+      - supported_jobs
+      - fractional_amount_supported
+      - amount_supported
+      - min_amount
+      - max_amount
+      - response_type
+      - min_percentage
+      - max_percentage
+      - percentage_supported
+      title: SearchResult
+      x-tags:
+      - Schemas
+    EmployerObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: UUID of the employer.
+        name:
+          type: string
+          title: name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        last_updated:
+          type: string
+          format: date-time
+          title: last_updated
+          description: ISO 8601 timestamp of the last update to this object.
+        logo_url:
+          type: string
+          maxLength: 65536
+          minLength: 1
+          format: uri
+          title: logo_url
+          description: The URL of the employer logo.
+        supported_jobs:
+          items:
+            type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          type: array
+          description: Array of supported jobs.
+        fractional_amount_supported:
+          type: boolean
+          title: fractional_amount_supported
+          description: Whether or not the platform accepts decimal values for `direct_deposit_switch`.
+        amount_supported:
+          type: boolean
+          title: amount_supported
+          description: Whether a direct deposit job supports specific amount.
+        min_amount:
+          type: number
+          title: min_amount
+          description: Minimum amount, if any, platform accepts for `direct_deposit_switch`.
+        max_amount:
+          type: number
+          title: max_amount
+          description: Maximum amount, if any, platform accepts for `direct_deposit_switch`.
+        min_percentage:
+          type: integer
+          title: min_percentage
+          description: Minimum percentage allowed for `direct_deposit_switch`.
+          maximum: true
+          minimum: true
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+        max_percentage:
+          type: integer
+          title: max_percentage
+          description: Maximum percentage allowed for `direct_deposit_switch`.
+          maximum: true
+          minimum: true
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+        percentage_supported:
+          type: boolean
+          title: percentage_supported
+          description: Whether a direct deposit job supports percentage switching.
+      type: object
+      required:
+      - id
+      - name
+      - last_updated
+      - supported_jobs
+      - fractional_amount_supported
+      - amount_supported
+      - min_percentage
+      - max_percentage
+      - percentage_supported
+      title: Employer
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
+    PlatformObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: UUID of the platform.
+        name:
+          type: string
+          title: name
+          description: Name of platform, e.g., ADP Portal, Gusto, Paylocity.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - payroll
+            - time_and_attendance
+            - tax
+            - merchant
+          description: The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation.
+        fractional_amount_supported:
+          type: boolean
+          title: fractional_amount_supported
+          description: Whether or not the platform accepts decimal values for `direct_deposit_switch`.
+        min_amount:
+          type: number
+          title: min_amount
+          description: Minimum amount, if any, platform accepts for `direct_deposit_switch`.
+          minimum: true
+          exclusiveMinimum: true
+        max_amount:
+          type: number
+          title: max_amount
+          description: Maximum amount, if any, platform accepts for `direct_deposit_switch`.
+          minimum: true
+          exclusiveMinimum: true
+        last_updated:
+          type: string
+          format: date-time
+          title: last_updated
+          description: ISO 8601 timestamp of the last update to this object.
+        logo_url:
+          type: string
+          maxLength: 65536
+          minLength: 1
+          format: uri
+          title: logo_url
+          description: The URL of the platform logo.
+        percentage_supported:
+          type: boolean
+          title: percentage_supported
+          description: Whether a direct deposit job supports percentage switching.
+        min_percentage:
+          type: integer
+          title: min_percentage
+          description: Minimum percentage allowed for `direct_deposit_switch`.
+          maximum: true
+          minimum: true
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+        max_percentage:
+          type: integer
+          title: max_percentage
+          description: Maximum percentage allowed for `direct_deposit_switch`.
+          maximum: true
+          minimum: true
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+        merchant_category:
+          allOf:
+          - type: string
+            enum:
+            - automotive
+            - buy_now_pay_later
+            - charity_and_donations
+            - education
+            - entertainment_and_recreation
+            - financial_services
+            - fitness
+            - food_and_delivery
+            - gaming
+            - health_and_wellness
+            - home_and_household_services
+            - insurance
+            - internet_and_telecom
+            - loan
+            - media
+            - music_and_audio_streaming
+            - news
+            - other
+            - productivity_and_saas_tools
+            - professional_services
+            - rent
+            - shopping_and_retail
+            - social_and_dating
+            - sports
+            - travel_and_transportation
+            - utilities
+            - video_streaming
+          description: The business category of the merchant, used to classify the type of service provided.
+        supported_jobs:
+          items:
+            type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          type: array
+          description: Array of supported jobs.
+        amount_supported:
+          type: boolean
+          title: amount_supported
+          description: Whether a direct deposit job supports specific amount.
+      type: object
+      required:
+      - id
+      - name
+      - type
+      - fractional_amount_supported
+      - last_updated
+      - percentage_supported
+      - min_percentage
+      - max_percentage
+      - supported_jobs
+      - amount_supported
+      title: Platform
+      x-tags:
+      - Schemas
+    ListMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+      type: object
+      title: ListMeta
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

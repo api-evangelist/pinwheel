@@ -1,0 +1,1171 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts End Users API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: End Users
+paths:
+  /end_users/{end_user_id}/accounts:
+    get:
+      tags:
+      - End Users
+      summary: Get all end user accounts
+      description: Get all payroll accounts associated with your end user ID. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_end_user_accounts_v1_end_users__end_user_id__accounts_get
+      parameters:
+      - description: User ID provided by you, to associate Pinwheel users with your user model.
+        required: true
+        schema:
+          type: string
+          description: User ID provided by you, to associate Pinwheel users with your user model.
+        name: end_user_id
+        in: path
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/PayrollAccountObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: eb240ec6-a227-47ca-b7c7-fbbdfe7170a0
+                      created_at: '2021-01-06T15:59:13.530178+00:00'
+                      link_token_id: bd2c09e7-1303-46d5-87c0-0ffa572d7ae4
+                      platform_id: fce3eee0-285b-496f-9b36-30e976194736
+                      connected: true
+                      monitoring_status: active
+                      data_updated_at:
+                        direct_deposit_allocations: '2021-01-08T00:00:00.000000+00:00'
+                      data_refreshed_at:
+                        direct_deposit_allocations: '2021-01-09T00:00:00.000000+00:00'
+                      end_user_id: my_user_12345
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /end_users/{end_user_id}/documents/{document_id}:
+    get:
+      tags:
+      - End Users
+      summary: Get Document
+      description: Get a specific document for your end user ID.
+      operationId: get_end_user_document_v1_end_users__end_user_id__documents__document_id__get
+      parameters:
+      - description: Unique identifier of the document object.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: Unique identifier of the document object.
+        name: document_id
+        in: path
+      - description: User ID provided by you, to associate Pinwheel users with your user model.
+        required: true
+        schema:
+          type: string
+          description: User ID provided by you, to associate Pinwheel users with your user model.
+        name: end_user_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EndUserDocumentObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      created_at: '2021-01-06T15:59:13.530178+00:00'
+                      end_user_id: end-user-id
+                      id: 07814454-9163-40b5-9aba-8a738fa7080c
+                      document:
+                        id: 07814454-9163-40b5-9aba-8a738fa7080c
+                        download_url: https://amazonaws.com/s3/bucket/file.pdf
+                        download_url_expiration: '2021-01-06T15:59:13.530178+00:00'
+                      document_type: w2
+                      parsed_data:
+                        document_type: w2
+                        applicant:
+                          name: Jo Boren
+                          ssn: '681123906'
+                          address:
+                            line1: 8717 S 4th Ave
+                            line2: null
+                            city: Inglewood
+                            state: CA
+                            postal_code: '90305'
+                            raw: 8717 S 4th Ave Inglewood CA 90305
+                        employer_name: Informed, Inc.
+                        total_wages: 6500100
+                        state_wages: 6500100
+                        social_security_wages: 5307787
+                        medicare_wages: 6500100
+                        federal_taxes: 1172215
+                        state_taxes: 521660
+                        social_security_taxes: 329083
+                        medicare_taxes: 94251
+                        tax_year: '2020'
+                      warnings:
+                      - field: parsed_data.box_11
+                        status: unparsable
+                        message: This field could not be parsed.
+                      - field: parsed_data.box_13.third_party_sick_pay
+                        status: unparsable
+                        message: This field could not be parsed
+                      fraud:
+                        status: not_suspected
+  /end_users/{end_user_id}/documents:
+    get:
+      tags:
+      - End Users
+      summary: List Documents
+      description: Lists all documents associated with your end user ID. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_end_user_documents_v1_end_users__end_user_id__documents_get
+      parameters:
+      - description: User ID provided by you, to associate Pinwheel users with your user model.
+        required: true
+        schema:
+          type: string
+          description: User ID provided by you, to associate Pinwheel users with your user model.
+        name: end_user_id
+        in: path
+      - description: The type of the document.
+        required: false
+        schema:
+          allOf:
+          - type: string
+            enum:
+            - direct_deposit_form
+          description: The type of the document.
+        name: type
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/EndUserDocumentObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - created_at: '2021-01-06T15:59:13.530178+00:00'
+                      end_user_id: end-user-id
+                      id: 07814454-9163-40b5-9aba-8a738fa7080c
+                      document:
+                        id: 07814454-9163-40b5-9aba-8a738fa7080c
+                        download_url: https://amazonaws.com/s3/bucket/file.pdf
+                        download_url_expiration: '2021-01-06T15:59:13.530178+00:00'
+                      document_type: w2
+                      parsed_data:
+                        document_type: w2
+                        applicant:
+                          name: Jo Boren
+                          ssn: '681123906'
+                          address:
+                            line1: 8717 S 4th Ave
+                            line2: null
+                            city: Inglewood
+                            state: CA
+                            postal_code: '90305'
+                            raw: 8717 S 4th Ave Inglewood CA 90305
+                        employer_name: Informed, Inc.
+                        total_wages: 6500100
+                        state_wages: 6500100
+                        social_security_wages: 5307787
+                        medicare_wages: 6500100
+                        federal_taxes: 1172215
+                        state_taxes: 521660
+                        social_security_taxes: 329083
+                        medicare_taxes: 94251
+                        tax_year: '2020'
+                      warnings:
+                      - field: parsed_data.box_11
+                        status: unparsable
+                        message: This field could not be parsed.
+                      - field: parsed_data.box_13.third_party_sick_pay
+                        status: unparsable
+                        message: This field could not be parsed
+                      fraud:
+                        status: not_suspected
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /end_users/{end_user_id}/bill_navigator/status:
+    put:
+      tags:
+      - End Users
+      summary: Update end user Bill Navigator status
+      description: The Bill Navigator end user status API allows you to update the status of an end user's account.
+      operationId: update_bill_navigator_user_status_v1_end_users__end_user_id__bill_navigator_status_put
+      parameters:
+      - description: User ID provided by you, to associate Pinwheel users with your user model.
+        required: true
+        schema:
+          type: string
+          description: User ID provided by you, to associate Pinwheel users with your user model.
+        name: end_user_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillNavigatorStatusUpdateRequest'
+            examples:
+              example:
+                value:
+                  action: deactivated
+                  reason: User no longer wants to use bill navigator
+        required: true
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    PayrollAccountDataRefreshed:
+      properties:
+        direct_deposit_allocations:
+          type: string
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of the most recent check of direct deposit allocations data.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of the most recent check of income data.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of the most recent check of employment data.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of the most recent check of identity data.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of the most recent check of shifts data.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of the most recent check of paystubs data.
+      type: object
+      title: PayrollAccountDataRefreshed
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
+    BankAccount:
+      properties:
+        account_number:
+          anyOf:
+          - type: number
+          - type: string
+          title: account_number
+          description: The account number of the bank account.
+        account_name:
+          type: string
+          title: account_name
+          description: The name of the bank account.
+        bank_account_type:
+          type: string
+          title: bank_account_type
+          description: The type of the bank account.
+        is_joint_account:
+          type: boolean
+          title: is_joint_account
+          description: Whether the bank account is a joint account.
+        total_deposits:
+          anyOf:
+          - type: number
+          - type: string
+          title: total_deposits
+          description: The total deposits of the bank account.
+        beginning_balance:
+          anyOf:
+          - type: number
+          - type: string
+          title: beginning_balance
+          description: The beginning balance of the bank account.
+        ending_balance:
+          anyOf:
+          - type: number
+          - type: string
+          title: ending_balance
+          description: The ending balance of the bank account.
+        transactions:
+          items:
+            $ref: '#/components/schemas/BankAccountTransaction'
+          type: array
+          title: transactions
+          description: The transactions of the bank account.
+      type: object
+      title: BankAccount
+      x-tags:
+      - Schemas
+    UploadedEarning:
+      properties:
+        type:
+          type: string
+          title: type
+          description: The category of earning.
+        description:
+          type: string
+          title: description
+          description: The description of the earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        amount_ytd:
+          type: integer
+          title: amount_ytd
+          description: The amount ytd of earning, in cents.
+      type: object
+      title: UploadedEarning
+      x-tags:
+      - Schemas
+    PayrollAccountObjResponse:
+      properties:
+        customer_id:
+          type: string
+          title: customer_id
+          description: 'Banking platforms webhooks only: the customer ID associated with the platform''s customer.'
+        tags:
+          type: object
+          title: tags
+          description: The tags associated with the link token that triggered the job.
+        reseller_customer_id:
+          type: string
+          title: reseller_customer_id
+          description: The reseller customer ID associated with the job. Used exclusively for reseller customers.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        link_token_id:
+          type: string
+          format: uuid
+          title: link_token_id
+          description: UUID of the link token used to create the account.
+        platform_id:
+          type: string
+          format: uuid
+          title: platform_id
+          description: UUID of the platform associated with this account.
+        connected:
+          type: boolean
+          title: connected
+          description: If true, you can retrieve new data for the account using On Demand Updates or automatically via Monitoring.
+        monitoring_status:
+          allOf:
+          - type: string
+            enum:
+            - active
+            - degraded
+            - user_action_required
+            - customer_disabled
+            - unavailable
+          description: Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.
+        end_user_id:
+          type: string
+          title: end_user_id
+          description: User ID provided by you, to associate Pinwheel users with your user model. Required if `account_id` is not provided. This ID will be returned in all webhook events and all account-affiliated API responses. Leading and trailing whitespace will be stripped. Do not include PII in this identifier.
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        data_updated_at:
+          allOf:
+          - $ref: '#/components/schemas/PayrollAccountDataUpdated'
+          title: data_updated_at
+          description: When data last changed for this payroll account.
+        data_refreshed_at:
+          allOf:
+          - $ref: '#/components/schemas/PayrollAccountDataRefreshed'
+          title: data_refreshed_at
+          description: ISO 8601 timestamp of when data was last refreshed for this payroll account.
+      type: object
+      required:
+      - created_at
+      - platform_id
+      - connected
+      - monitoring_status
+      - id
+      - data_updated_at
+      - data_refreshed_at
+      title: Account
+      x-tags:
+      - Schemas
+    UploadedBankStatement:
+      properties:
+        document_type:
+          type: string
+          enum:
+          - bank_statement
+          title: document_type
+          description: The type of the document.
+          default: bank_statement
+        bank_name:
+          type: string
+          title: bank_name
+          description: The name of the bank associated with this bank statement.
+        statement_begin_date:
+          type: string
+          title: statement_begin_date
+          description: The beginning date of the bank statement.
+        statement_end_date:
+          type: string
+          title: statement_end_date
+          description: The end date of the bank statement.
+        statement_holders:
+          items:
+            type: string
+          type: array
+          title: statement_holders
+          description: The holders of the bank statement.
+        applicant1:
+          allOf:
+          - $ref: '#/components/schemas/ApplicantNameAndAddress'
+          title: applicant1
+          description: The first applicant associated with this bank statement.
+        applicant2:
+          allOf:
+          - $ref: '#/components/schemas/ApplicantNameAndAddress'
+          title: applicant2
+          description: The second applicant associated with this bank statement.
+        accounts:
+          items:
+            $ref: '#/components/schemas/BankAccount'
+          type: array
+          title: accounts
+          description: The accounts associated with this bank statement.
+      type: object
+      title: UploadedBankStatement
+      x-tags:
+      - Schemas
+    UploadedTax:
+      properties:
+        type:
+          type: string
+          title: type
+          description: The category of tax.
+        description:
+          type: string
+          title: description
+          description: The description of tax.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of tax, in cents.
+        amount_ytd:
+          type: integer
+          title: amount_ytd
+          description: The amount ytd of tax, in cents.
+      type: object
+      title: UploadedTax
+      x-tags:
+      - Schemas
+    EndUserDocumentObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        end_user_id:
+          type: string
+          title: end_user_id
+          description: User ID provided by you, to associate Pinwheel users with your user model. Required if `account_id` is not provided. This ID will be returned in all webhook events and all account-affiliated API responses. Leading and trailing whitespace will be stripped. Do not include PII in this identifier.
+        document:
+          allOf:
+          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
+          title: document
+          description: A document.
+        document_type:
+          allOf:
+          - type: string
+            enum:
+            - paystub
+            - W-2
+            - '1099'
+            - direct_deposit_form
+            - verification_report
+            - '1040'
+            - bank_statement
+            - ssi_award_letter
+            - w2
+            - verification_photo
+          description: The type of the document.
+        parsed_data:
+          oneOf:
+          - $ref: '#/components/schemas/UploadedPaystub'
+          - $ref: '#/components/schemas/UploadedBankStatement'
+          - $ref: '#/components/schemas/UploadedSSIAwardLetter'
+          - $ref: '#/components/schemas/UploadedW2Informed'
+          title: parsed_data
+          description: The parsed data of the document.
+          discriminator:
+            propertyName: document_type
+            mapping:
+              paystub: '#/components/schemas/UploadedPaystub'
+              bank_statement: '#/components/schemas/UploadedBankStatement'
+              ssi_award_letter: '#/components/schemas/UploadedSSIAwardLetter'
+              w2: '#/components/schemas/UploadedW2Informed'
+        warnings:
+          items:
+            $ref: '#/components/schemas/FieldWarning'
+          type: array
+          title: warnings
+          description: Used to indicate if there are any warnings for fields returned in this response.
+        fraud:
+          allOf:
+          - $ref: '#/components/schemas/SharedFraud'
+          title: fraud
+          description: Used to indicate any fraud indications in this document.
+      type: object
+      required:
+      - id
+      - created_at
+      - end_user_id
+      - document
+      - document_type
+      title: Document for end user
+      x-tags:
+      - Schemas
+    BillNavigatorStatusUpdateRequest:
+      properties:
+        action:
+          allOf:
+          - type: string
+            enum:
+            - deactivate
+            - terminate
+            - deactivated
+            - terminated
+          description: The action to take on the end user's account. Valid actions are `deactivated` and `terminated`. When an end user is set to `deactivated`, the user can reactivate themselves. When an end user is set to `terminated`, the action is irreversible.
+        reason:
+          type: string
+          title: reason
+          description: The reason for taking action on the end user's account.
+      type: object
+      required:
+      - action
+      title: Bill Navigator Status Update Request
+      x-tags:
+      - Schemas
+    EmployeeNameAndAddress:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The full name of the employee.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employee.
+      type: object
+      title: EmployeeNameAndAddress
+      x-tags:
+      - Schemas
+    UploadedSSIAwardLetter:
+      properties:
+        document_type:
+          type: string
+          enum:
+          - ssi_award_letter
+          title: document_type
+          description: The type of the document.
+          default: ssi_award_letter
+        applicant:
+          allOf:
+          - $ref: '#/components/schemas/ApplicantNameAndAddress'
+          title: applicant
+          description: The applicant associated with award letter.
+        issue_date:
+          type: string
+          title: issue_date
+          description: The date the award letter was issued.
+        pay_date:
+          type: string
+          title: pay_date
+          description: The date the award letter was paid.
+        social_security_payment:
+          type: integer
+          title: social_security_payment
+          description: The social security payment.
+        social_security_deduction:
+          type: integer
+          title: social_security_deduction
+          description: The social security deduction.
+        social_security_net_payment:
+          type: integer
+          title: social_security_net_payment
+          description: The social security net payment.
+        supplemental_security_payment:
+          type: integer
+          title: supplemental_security_payment
+          description: The supplemental security payment.
+      type: object
+      title: UploadedSSIAwardLetter
+      x-tags:
+      - Schemas
+    PayrollAccountDataUpdated:
+      properties:
+        direct_deposit_allocations:
+          type: string
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of when direct deposit allocations data most recently changed.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of when income data most recently changed.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of when employment data most recently changed.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of when identity data most recently changed.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of when shifts data most recently changed.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of when paystubs data most recently changed.
+      type: object
+      title: PayrollAccountDataUpdated
+      x-tags:
+      - Schemas
+    UploadedDeduction:
+      properties:
+        type:
+          type: string
+          title: type
+          description: The category of deduction.
+        description:
+          type: string
+          title: description
+          description: The description of deduction.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of deduction, in cents.
+        amount_ytd:
+          type: integer
+          title: amount_ytd
+          description: The amount ytd of deduction, in cents.
+      type: object
+      title: UploadedDeduction
+      x-tags:
+      - Schemas
+    SharedFraud:
+      properties:
+        status:
+          allOf:
+          - type: string
+            enum:
+            - suspected
+            - not_suspected
+            - unavailable
+          description: The suspected fraud status of the document.
+      type: object
+      required:
+      - status
+      title: SharedFraud
+      x-tags:
+      - Schemas
+    DocumentObjPublicResponseItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        download_url:
+          type: string
+          title: download_url
+          description: URL from which the document may be downloaded.
+        download_url_expiration:
+          type: string
+          format: date-time
+          title: download_url_expiration
+          description: ISO 8601 timestamp of when the download URL will no longer be valid.
+      type: object
+      required:
+      - id
+      title: Document
+      x-tags:
+      - Schemas
+    UploadedPaystub:
+      properties:
+        document_type:
+          type: string
+          enum:
+          - paystub
+          title: document_type
+          description: The type of the document.
+          default: paystub
+        pay_date:
+          type: string
+          title: pay_date
+          description: The date when the check amount is paid to the employee.
+        pay_period_start:
+          type: string
+          title: pay_period_start
+          description: The date when the pay period begins. Some platforms, like unemployment portals, do not have fixed pay periods.
+        pay_period_end:
+          type: string
+          title: pay_period_end
+          description: The date when the pay period ends. Some platforms, like unemployment portals, do not have fixed pay periods.
+        gross_pay_amount:
+          type: integer
+          title: gross_pay_amount
+          description: The total earnings before any deductions are made, in cents.
+        gross_pay_ytd:
+          type: integer
+          title: gross_pay_ytd
+          description: The cumulative year to date total earnings before any taxes or deductions are removed, in cents.
+        net_pay_amount:
+          type: integer
+          title: net_pay_amount
+          description: The total earnings after all taxes and deductions are removed, in cents.
+        net_pay_ytd:
+          type: integer
+          title: net_pay_ytd
+          description: The cumulative year to date total earnings after all taxes and deductions are removed, in cents.
+        earnings:
+          items:
+            $ref: '#/components/schemas/UploadedEarning'
+          type: array
+          title: earnings
+          description: The earnings for this pay period, in cents.
+        taxes:
+          items:
+            $ref: '#/components/schemas/UploadedTax'
+          type: array
+          title: taxes
+          description: The taxes for this pay period, in cents.
+        deductions:
+          items:
+            $ref: '#/components/schemas/UploadedDeduction'
+          type: array
+          title: deductions
+          description: The deductions for this pay period, in cents.
+        employer:
+          allOf:
+          - $ref: '#/components/schemas/EmployerNameAndAddress'
+          title: employer
+          description: Employment details for the employee.
+        employee:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeNameAndAddress'
+          title: employee
+          description: Personal details for the employee.
+        time_off:
+          items:
+            $ref: '#/components/schemas/UploadedTimeOff'
+          type: array
+          title: time_off
+          description: The user's time off balances for this pay period. To enable time off balances, please contact Pinwheel support.
+      type: object
+      title: UploadedPaystub
+      x-tags:
+      - Schemas
+    UploadedTimeOff:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the time off.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - pto
+            - sick
+            - other
+          description: The category of the time off.
+        available_hours:
+          type: number
+          title: available_hours
+          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
+        earned_hours:
+          type: number
+          title: earned_hours
+          description: The hours of time off earned during the pay period.
+        used_hours:
+          type: number
+          title: used_hours
+          description: The hours of time off used during the pay period.
+      type: object
+      title: UploadedTimeOff
+      x-tags:
+      - Schemas
+    ApplicantNameAndAddress:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The full name of the applicant.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the applicant.
+      type: object
+      title: ApplicantNameAndAddress
+      x-tags:
+      - Schemas
+    UploadedW2Informed:
+      properties:
+        document_type:
+          type: string
+          enum:
+          - w2
+          title: document_type
+          description: The type of the document.
+          default: w2
+        applicant:
+          allOf:
+          - $ref: '#/components/schemas/ApplicantNameAndAddress'
+          title: applicant
+          description: The applicant associated with the W2.
+        employer_name:
+          type: string
+          title: employer_name
+          description: The employer name associated with the W2.
+        total_wages:
+          anyOf:
+          - type: number
+          - type: string
+          title: total_wages
+          description: The total wages associated with the W2.
+        state_wages:
+          anyOf:
+          - type: number
+          - type: string
+          title: state_wages
+          description: The state wages associated with the W2.
+        social_security_wages:
+          anyOf:
+          - type: number
+          - type: string
+          title: social_security_wages
+          description: The social security wages associated with the W2.
+        medicare_wages:
+          anyOf:
+          - type: number
+          - type: string
+          title: medicare_wages
+          description: The medicare wages associated with the W2.
+        federal_taxes:
+          anyOf:
+          - type: number
+          - type: string
+          title: federal_taxes
+          description: The federal taxes associated with the W2.
+        state_taxes:
+          anyOf:
+          - type: number
+          - type: string
+          title: state_taxes
+          description: The state taxes associated with the W2.
+        social_security_taxes:
+          anyOf:
+          - type: number
+          - type: string
+          title: social_security_taxes
+          description: The social security taxes associated with the W2.
+        medicare_taxes:
+          anyOf:
+          - type: number
+          - type: string
+          title: medicare_taxes
+          description: The medicare taxes associated with the W2.
+        tax_year:
+          type: string
+          title: tax_year
+          description: The tax year associated with the W2.
+      type: object
+      title: UploadedW2Informed
+      x-tags:
+      - Schemas
+    EmployerNameAndAddress:
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employer.
+      type: object
+      title: EmployerNameAndAddress
+      x-tags:
+      - Schemas
+    BankAccountTransaction:
+      properties:
+        date:
+          type: string
+          title: date
+          description: The date of the transaction.
+        description:
+          type: string
+          title: description
+          description: The description of the transaction.
+        amount:
+          anyOf:
+          - type: number
+          - type: string
+          title: amount
+          description: The amount of the transaction.
+        base_type:
+          type: string
+          title: base_type
+          description: The base type of the transaction.
+        type:
+          type: string
+          title: type
+          description: The type of the transaction.
+      type: object
+      title: BankAccountTransaction
+      x-tags:
+      - Schemas
+    FieldWarning:
+      properties:
+        field:
+          type: string
+          title: field
+          description: The response field associated with this warning. Nested values are delimited with a `.`, i.e. `parsed_data.box_13.statutory_employee`.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - unparsable
+          description: The status type of this warning.
+        message:
+          type: string
+          title: message
+          description: A full description of the warning.
+      type: object
+      required:
+      - field
+      - status
+      - message
+      title: FieldWarning
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

@@ -1,0 +1,1507 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Company Connect API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Company Connect
+paths:
+  /company_connections/{company_connection_id}/census:
+    get:
+      tags:
+      - Company Connect
+      summary: List Employees
+      description: List all employee census data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_v1_company_connections__company_connection_id__census_get
+      parameters:
+      - description: UUID of the Company Connection.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the Company Connection.
+        name: company_connection_id
+        in: path
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CompanyIdentityObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - created_at: '2023-06-11T20:31:13.530178+00:00'
+                      employee_external_id: '1001331'
+                      full_name: Alicia Rose Green
+                      first_name: Alicia
+                      middle_name: Rose
+                      last_name: Green
+                      date_of_birth: '1987-02-01'
+                      last_four_ssn: 0090
+                      emails:
+                      - alicia.green@email.com
+                      address:
+                        raw: 1234 Home Road, Washington, DC, 20017, USA
+                        line1: 1234 Home Road
+                        line2: null
+                        city: Washington
+                        state: DC
+                        postal_code: '20017'
+                        country: US
+                      phone_numbers:
+                      - value: '+14155552671'
+                        type: mobile
+                      - value: '+14155551234'
+                        type: home
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /company_connections:
+    get:
+      tags:
+      - Company Connect
+      summary: List Company Connections
+      description: List all Company Connections. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: list_v1_company_connections_get
+      parameters:
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CompanyConnectionBase'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: 07814454-9163-40b5-9aaa-8a738fa7080b
+                      created_at: '2023-01-06T00:00:00.000000+00:00'
+                      company_name: Acme, Inc.
+                      status: ready_to_connect
+                      status_updated_at: '2023-01-06T00:00:00.000000+00:00'
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+    post:
+      tags:
+      - Company Connect
+      summary: Create Company Connection
+      description: Create a Company Connection used to get income & employment data from your target company.
+      operationId: post_v1_company_connections_post
+      parameters:
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyConnectionCreate'
+            examples:
+              example:
+                value:
+                  company_name: Acme, Inc.
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CompanyConnectionBase'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 07814454-9163-40b5-9aaa-8a738fa7080b
+                      created_at: '2023-01-06T00:00:00.000000+00:00'
+                      company_name: Acme, Inc.
+                      status: ready_to_connect
+                      status_updated_at: '2023-01-06T00:00:00.000000+00:00'
+  /company_connections/{company_connection_id}:
+    get:
+      tags:
+      - Company Connect
+      summary: Get Company Connection
+      description: Get Company Connection.
+      operationId: get_v1_company_connections__company_connection_id__get
+      parameters:
+      - description: UUID of the Company Connection.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the Company Connection.
+        name: company_connection_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CompanyConnectionBase'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 07814454-9163-40b5-9aaa-8a738fa7080b
+                      created_at: '2023-01-06T00:00:00.000000+00:00'
+                      company_name: Acme, Inc.
+                      status: ready_to_connect
+                      status_updated_at: '2023-01-06T00:00:00.000000+00:00'
+  /company_connections/{company_connection_id}/employments:
+    get:
+      tags:
+      - Company Connect
+      summary: List Employments Data
+      description: List all employments data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_v1_company_connections__company_connection_id__employments_get
+      parameters:
+      - description: UUID of the Company Connection.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the Company Connection.
+        name: company_connection_id
+        in: path
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CompanyEmploymentObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - created_at: '2023-06-11T20:31:13.530178+00:00'
+                      employee_external_id: '1001331'
+                      status: employed
+                      employment_type: full_time
+                      start_date: '2020-06-01'
+                      termination_date: null
+                      employer_name: Acme Corporation
+                      title: Engineer
+                      department: Engineering
+                      manager_external_id: eb240ec6-a227-47ca-b7c7-fbbdfe7170a0
+                      class_code: '1001'
+                      employer_address:
+                        raw: 1234 Main St, Suite 3, Washington, DC, 20036, USA
+                        line1: 1234 Main St
+                        line2: Suite 3
+                        city: Washington
+                        state: DC
+                        postal_code: '20036'
+                        country: US
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /company_connections/{company_connection_id}/incomes:
+    get:
+      tags:
+      - Company Connect
+      summary: List Employee Incomes
+      description: List all employee income data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_v1_company_connections__company_connection_id__incomes_get
+      parameters:
+      - description: UUID of the Company Connection.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the Company Connection.
+        name: company_connection_id
+        in: path
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CompanyIncomeObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - created_at: '2023-06-11T20:31:13.530178+00:00'
+                      employee_external_id: '1001331'
+                      compensation_amount: 400000
+                      compensation_unit: monthly
+                      currency: USD
+                      pay_frequency: monthly
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /company_connections/{company_connection_id}/paystubs/{employee_external_id}:
+    get:
+      tags:
+      - Company Connect
+      summary: List Employee Paystubs
+      description: List employee paystubs data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: get_v1_company_connections__company_connection_id__paystubs__employee_external_id__get
+      parameters:
+      - description: UUID of the Company Connection.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the Company Connection.
+        name: company_connection_id
+        in: path
+      - description: Employee ID as reported by their employer.
+        required: true
+        schema:
+          type: string
+          description: Employee ID as reported by their employer.
+        name: employee_external_id
+        in: path
+      - description: Filter for paystubs with pay dates after this date.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Filter for paystubs with pay dates after this date.
+        name: from_pay_date
+        in: query
+      - description: Filter for paystubs with pay dates before this date.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Filter for paystubs with pay dates before this date.
+        name: to_pay_date
+        in: query
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CompanyPaystubObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      account_id: 5c1952df-3a84-4f28-8318-58291452061f
+                      employee_external_id: '8911172'
+                      pay_date: '2020-12-31'
+                      pay_period_start: '2020-12-10'
+                      pay_period_end: '2020-12-24'
+                      currency: USD
+                      gross_pay_amount: 480720
+                      net_pay_amount: 321609
+                      check_amount: 328609
+                      gross_pay_ytd: 6971151
+                      net_pay_ytd: 4357992
+                      total_taxes: 94407
+                      total_deductions: 64704
+                      total_reimbursements: 7000
+                      created_at: '2021-01-10T19:54:45.745660+00:00'
+                      employer_name: Acme Corporation
+                      external_paystub_id: 821b7d1b-c115-470c-9411-be132f51c19d
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /company_connect/link_tokens:
+    post:
+      tags:
+      - Company Connect
+      summary: Create Link Token
+      description: Create a Company Connect link token used to launch a Link modal.
+      operationId: post_v1_company_connect_link_tokens_post
+      parameters:
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyConnectLinkTokenCreate'
+            examples:
+              example:
+                value:
+                  org_name: Fintech.io
+                  company_connect:
+                    company_connection_id: e3c3ec9e-eea5-42fc-b533-de3cea9c352f
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CompanyConnectLinkTokenObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: bd2c09e7-1303-46d5-87c0-0ffa572d7ae4
+                      token: eyJhbGciOiJIUz....pZ-qZZPO-mA06Dzu-nfUdurwaTUA
+                      expires: '2021-01-09T02:52:26+00:00'
+                      mode: production
+components:
+  schemas:
+    CompanyConnectionBase:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        company_name:
+          type: string
+          title: company_name
+          description: Name of the company used in a Company Connection.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - ready_to_connect
+            - connection_failed
+            - processing
+            - data_available
+            - reconnect_needed
+          description: The status of the Company Connection. <a href='https://docs.pinwheelapi.com/docs/company-connect-technical-implementation#company-connection-status' target='_blank'>See documentation for details</a>.
+        status_updated_at:
+          type: string
+          format: date-time
+          title: status_updated_at
+          description: Timestamp of when the Company Connection's status was last updated.
+      type: object
+      required:
+      - id
+      - created_at
+      - company_name
+      - status
+      - status_updated_at
+      title: CompanyConnectionBase
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
+    CompanyConnectionCreate:
+      properties:
+        company_name:
+          type: string
+          title: company_name
+          description: Name of the company used in a Company Connection.
+      type: object
+      required:
+      - company_name
+      title: CompanyConnectionPostBody
+      x-tags:
+      - Schemas
+    CompanyConnectLinkTokenCreate:
+      properties:
+        required_jobs:
+          items:
+            type: string
+            enum:
+            - company_employments
+            - company_census
+            - company_incomes
+          type: array
+          description: List of job types to be performed on the Company Connection. Platforms that do not support ALL of these jobs will not be visible to the user.
+        org_name:
+          type: string
+          maxLength: 30
+          minLength: 3
+          title: org_name
+          description: Organization or app name that is displayed to the user.
+        skip_intro_screen:
+          type: boolean
+          title: skip_intro_screen
+          description: If set to true, intro screen is not shown to user.
+          default: false
+        platform_id:
+          type: string
+          format: uuid
+          title: platform_id
+          description: UUID of a platform. If set, user is taken directly to Link login screen.
+        language:
+          allOf:
+          - type: string
+            enum:
+            - en
+            - es
+          description: IETF code denoting which language to display in Link.
+          default: en
+        company_connect:
+          allOf:
+          - $ref: '#/components/schemas/CompanyConnect'
+          title: company_connect
+          description: Configuration used to specify a Company Connection.
+      type: object
+      required:
+      - org_name
+      title: LinkTokenPostBody
+      x-tags:
+      - Schemas
+    CompanyConnectLinkTokenObjResponse:
+      properties:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: Token mode, i.e. `sandbox`, `development`, or `production`.
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: UUID of the link token.
+        token:
+          type: string
+          title: token
+          description: Short-lived token that is used to initialize Pinwheel Link.
+        expires:
+          type: string
+          format: date-time
+          title: expires
+          description: The token will be invalid after this timestamp.
+      type: object
+      required:
+      - mode
+      - id
+      - token
+      - expires
+      title: CompanyConnect Link Token Response Data
+      x-tags:
+      - Schemas
+    CompanyConnect:
+      properties:
+        company_connection_id:
+          type: string
+          format: uuid
+          title: company_connection_id
+          description: ID of the Company Connection.
+      type: object
+      title: CompanyConnect
+      description: "This class defines the fields present in the `company_connect` object in\nthe link token.\n\nFor non-Company Connect link tokens, this field is optional. If the object\nis present, it indicates that the link token is a Company Connect link\ntoken.\n\nAttributes:\n    company_connection_id (UUID): This field specifies the ID of the\n        company connection. This ID is generated by Pinwheel. All Company\n        Connect webhooks reference the connection by this ID, and all\n        public CC API endpoints require this ID as well."
+      x-tags:
+      - Schemas
+    PhoneNumberGetResponseItem:
+      properties:
+        value:
+          type: string
+          title: value
+          description: The E.164 formatted phone number.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
+      type: object
+      required:
+      - value
+      title: Phone
+      x-tags:
+      - Schemas
+    CompanyPaystubObjResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        employee_external_id:
+          type: string
+          title: employee_external_id
+          description: Employee ID as reported by their employer.
+        pay_date:
+          type: string
+          format: date
+          title: pay_date
+          description: The date when the check amount is paid to the employee.
+        pay_period_start:
+          type: string
+          format: date
+          title: pay_period_start
+          description: The date when the pay period begins. Some platforms, like unemployment portals, do not have fixed pay periods.
+        pay_period_end:
+          type: string
+          format: date
+          title: pay_period_end
+          description: The date when the pay period ends. Some platforms, like unemployment portals, do not have fixed pay periods.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        gross_pay_amount:
+          type: integer
+          title: gross_pay_amount
+          description: The total earnings before any deductions are made, in cents.
+        net_pay_amount:
+          type: integer
+          title: net_pay_amount
+          description: The total earnings after all taxes and deductions are removed, in cents.
+        check_amount:
+          type: integer
+          title: check_amount
+          description: The amount paid to the employee in this payout, in cents.
+        gross_pay_ytd:
+          type: integer
+          title: gross_pay_ytd
+          description: The cumulative year to date total earnings before any taxes or deductions are removed, in cents.
+        net_pay_ytd:
+          type: integer
+          title: net_pay_ytd
+          description: The cumulative year to date total earnings after all taxes and deductions are removed, in cents.
+        total_taxes:
+          type: integer
+          title: total_taxes
+          description: The total taxes for this pay period, in cents.
+        total_deductions:
+          type: integer
+          title: total_deductions
+          description: The total deductions for this pay period, in cents.
+        total_reimbursements:
+          type: integer
+          title: total_reimbursements
+          description: The total reimbursements for this pay period, in cents.
+        employer_name:
+          type: string
+          title: employer_name
+          description: The name of the employer that issued the paystub.
+      type: object
+      required:
+      - created_at
+      - employee_external_id
+      - pay_date
+      - currency
+      - gross_pay_amount
+      - net_pay_amount
+      - check_amount
+      - total_taxes
+      - total_deductions
+      - total_reimbursements
+      title: CompanyPaystubObjResponse
+      x-tags:
+      - Schemas
+    CompanyIdentityObjResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        employee_external_id:
+          type: string
+          title: employee_external_id
+          description: Employee ID as reported by their employer.
+        date_of_birth:
+          type: string
+          format: date
+          title: date_of_birth
+          description: The date the employee was born.
+        emails:
+          items:
+            type: string
+          type: array
+          title: emails
+          description: The emails associated with the employee.
+        first_name:
+          type: string
+          title: first_name
+          description: The first name of the employee.
+        middle_name:
+          type: string
+          title: middle_name
+          description: The middle name of the employee.
+        last_name:
+          type: string
+          title: last_name
+          description: The last name of the employee.
+        last_four_ssn:
+          type: string
+          title: last_four_ssn
+          description: The last four digits of the employee's social security number (SSN).
+        full_name:
+          type: string
+          title: full_name
+          description: The full name of the employee.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employee.
+        phone_numbers:
+          items:
+            $ref: '#/components/schemas/PhoneNumberGetResponseItem'
+          type: array
+          title: phone_numbers
+          description: The phone numbers of the employee.
+      type: object
+      required:
+      - created_at
+      - employee_external_id
+      - first_name
+      - middle_name
+      - last_name
+      - full_name
+      title: CompanyIdentityObjResponse
+      x-tags:
+      - Schemas
+    CompanyIncomeObjResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        employee_external_id:
+          type: string
+          title: employee_external_id
+          description: Employee ID as reported by their employer.
+        compensation_amount:
+          type: integer
+          title: compensation_amount
+          description: The amount per compensation unit, in cents.
+        compensation_unit:
+          allOf:
+          - type: string
+            enum:
+            - hourly
+            - daily
+            - weekly
+            - bi-weekly
+            - semi-weekly
+            - monthly
+            - semi-monthly
+            - annually
+            - variable
+            - per_mile
+          description: The compensation time frame.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        pay_frequency:
+          allOf:
+          - type: string
+            enum:
+            - daily
+            - weekly
+            - bi-weekly
+            - monthly
+            - semi-monthly
+            - variable
+          description: Describes how often the employee is paid.
+      type: object
+      required:
+      - created_at
+      - employee_external_id
+      - compensation_amount
+      - compensation_unit
+      - currency
+      title: CompanyIncomeObjResponse
+      x-tags:
+      - Schemas
+    CompanyEmploymentObjResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        employee_external_id:
+          type: string
+          title: employee_external_id
+          description: Employee ID as reported by their employer.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        employment_type:
+          allOf:
+          - type: string
+            enum:
+            - full_time
+            - part_time
+            - seasonal
+            - temporary
+            - contractor
+            - self_employed
+            - per_diem
+            - commission
+          description: The employment type e.g. full time, part time, seasonal, contractor.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+        department:
+          type: string
+          title: department
+          description: The department the employee works in.
+        manager_external_id:
+          type: string
+          title: manager_external_id
+          description: The employee's manager's employee ID.
+        class_code:
+          type: string
+          title: class_code
+          description: A three- to four-digit code that identifies types of work, typically used by insurance companies to evaluate risk.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+      type: object
+      required:
+      - created_at
+      - employee_external_id
+      - employer_name
+      title: CompanyEmploymentObjResponse
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

@@ -1,0 +1,527 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Link Tokens API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Link Tokens
+paths:
+  /link_tokens:
+    post:
+      tags:
+      - Link Tokens
+      summary: Create Link Token
+      description: Create a token used to launch a Link modal.
+      operationId: post_v1_link_tokens_post
+      parameters:
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkTokenCreate_v2025_07_08'
+            examples:
+              example:
+                value:
+                  org_name: Fintech.io
+                  solution: Deposit Switch
+                  features:
+                  - direct_deposit_switch
+                  end_user_id: my_user_12345
+                  allocation:
+                    type: amount
+                    value: 123.45
+                    targets:
+                    - name: My Checking Account
+                      type: checking
+                      account_number: '5675249802'
+                      routing_number: '193487629'
+                    - name: My Savings Account
+                      type: savings
+                      account_number: '6675249802'
+                      routing_number: '193487629'
+                  employer_id: e3c3ec9e-eea5-42fc-b533-de3cea9c352f
+                  end_user:
+                    platform_matching:
+                      social_security_number: '123456789'
+                      first_name: Alicia
+                      last_name: Green
+                      mobile_phone_number: '1234567890'
+                      home_address_zip_code: '12345'
+                      date_of_birth: '2023-11-22'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/LinkTokenObjResponse_v2021_07_28'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: bd2c09e7-1303-46d5-87c0-0ffa572d7ae4
+                      token: eyJhbGciOiJIUz....pZ-qZZPO-mA06Dzu-nfUdurwaTUA
+                      expires: '2021-01-09T02:52:26+00:00'
+                      mode: production
+components:
+  schemas:
+    BankAccountDetails:
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of the bank account.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - checking
+            - savings
+          description: Bank account type, checking or savings. Required if requesting direct_deposit_switch jobs.
+        routing_number:
+          type: string
+          maxLength: 9
+          minLength: 9
+          pattern: ^[0-9]*$
+          title: routing_number
+          description: Routing number of bank. Required if requesting direct_deposit_switch jobs.
+        account_number:
+          type: string
+          minLength: 5
+          pattern: ^[0-9]*$
+          title: account_number
+          description: Bank account number. Required if requesting direct_deposit_switch jobs.
+      type: object
+      title: BankAccountDetails
+      x-tags:
+      - Schemas
+    LinkTokenCreate_v2025_07_08:
+      properties:
+        org_name:
+          type: string
+          maxLength: 30
+          minLength: 3
+          title: org_name
+          description: Organization or app name that is displayed to the user.
+        allocation:
+          allOf:
+          - $ref: '#/components/schemas/Allocation'
+          title: allocation
+          description: Allocation specified for the link token.
+        skip_intro_screen:
+          type: boolean
+          title: skip_intro_screen
+          description: If set to true, intro screen is not shown to user.
+          default: false
+        employer_id:
+          type: string
+          format: uuid
+          title: employer_id
+          description: UUID of an employer. If set, user is taken directly to Link login screen.
+        disable_direct_deposit_splitting:
+          type: boolean
+          title: disable_direct_deposit_splitting
+          description: If set to true, user will not be given the option to choose between a full or partial direct deposit switch. Only relevant with job `direct_deposit_switch`. Defaults to false.
+          default: false
+        platform_id:
+          type: string
+          format: uuid
+          title: platform_id
+          description: UUID of a platform. If set, user is taken directly to Link login screen.
+        platform_type:
+          allOf:
+          - type: string
+            enum:
+            - payroll
+            - time_and_attendance
+            - tax
+            - merchant
+          description: The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation.
+        language:
+          allOf:
+          - type: string
+            enum:
+            - en
+            - es
+          description: IETF code denoting which language to display in Link.
+          default: en
+        end_user_id:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: end_user_id
+          description: User ID provided by you, to associate Pinwheel users with your user model. Required if `account_id` is not provided. This ID will be returned in all webhook events and all account-affiliated API responses. Leading and trailing whitespace will be stripped. Do not include PII in this identifier.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        document_uploads:
+          allOf:
+          - type: string
+            enum:
+            - direct
+            - fallback
+            - disabled
+          description: Optional parameter to facilitate pathway into document uploads usage. Defaults to None.
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+          title: tags
+          description: Tags associated with the Link token. These are restricted to string key-value pairs.
+        deposit_forms:
+          allOf:
+          - type: string
+            enum:
+            - direct
+            - fallback
+            - disabled
+          description: Optional parameter to facilitate pathway into deposit forms. Defaults to fallback if deposit forms are enabled for your workspace.
+        use_case:
+          allOf:
+          - type: string
+            enum:
+            - account_onboarding
+            - account_servicing
+            - underwriting
+          description: Field to indicate where in your application Pinwheel is being launched. Required if leveraging Background Identify (PreMatch employee lookup check prior to SDK initialization).
+        end_user:
+          allOf:
+          - $ref: '#/components/schemas/EndUser'
+          title: end_user
+          description: Optional field where data about an end user can be provided to enable products such as automated platform matching.
+        cards:
+          items:
+            $ref: '#/components/schemas/CardDetails'
+          type: array
+          title: cards
+          description: Card details needed to attempt a bill switch.
+        reseller_customer_id:
+          type: string
+          maxLength: 40
+          title: reseller_customer_id
+          description: The identifier for a reseller's customer. This field is required for resellers. For other customers, a non-null value will result in a 400 error. The value supplied must be preregistered with Pinwheel's customer success team.
+        solution:
+          allOf:
+          - type: string
+            enum:
+            - Verify
+            - Bill Switch
+            - Bill Manager
+            - Paycheck Viewer
+            - Switch Kit
+            - Deposit Switch
+          description: The Pinwheel solution to be presented to the user.
+        features:
+          items:
+            type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          type: array
+          description: A list of job types to be performed on the user's account. Platforms/merchants that do not support ALL of these jobs will not be visible to the user. This property is required unless the account_id property is set.
+      type: object
+      required:
+      - org_name
+      - solution
+      title: LinkTokenPostBody
+      x-tags:
+      - Schemas
+    EndUser:
+      properties:
+        platform_matching:
+          allOf:
+          - $ref: '#/components/schemas/LinkUserAuthenticationDataObjCreate'
+          title: platform_matching
+          description: User PII data for enabling partner-based switches.
+      type: object
+      title: EndUser
+      x-tags:
+      - Schemas
+    LinkTokenObjResponse_v2021_07_28:
+      properties:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: Token mode, i.e. `sandbox`, `development`, or `production`.
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: UUID of the link token.
+        token:
+          type: string
+          title: token
+          description: Short-lived token that is used to initialize Pinwheel Link.
+        smart_branch_url:
+          type: string
+          title: smart_branch_url
+          description: URL that will initiate a Pinwheel-hosted smart branch experience, if smart branch is configured for the workspace.
+        expires:
+          type: string
+          format: date-time
+          title: expires
+          description: The token will be invalid after this timestamp.
+      type: object
+      required:
+      - mode
+      - id
+      - token
+      - expires
+      title: LinkToken
+      x-tags:
+      - Schemas
+    CardDetails:
+      properties:
+        card_name:
+          type: string
+          maxLength: 30
+          minLength: 2
+          title: card_name
+          description: Name of the card. Required if requesting `bill_switch` job.
+        card_number:
+          type: string
+          maxLength: 19
+          minLength: 8
+          pattern: ^[0-9]*$
+          title: card_number
+          description: Card number. Required if requesting `bill_switch` job.
+        cvc:
+          type: string
+          maxLength: 4
+          minLength: 3
+          title: cvc
+          description: Card verification code or other security code of the card. Required if requesting `bill_switch` job.
+        expiration_date:
+          type: string
+          format: date
+          title: expiration_date
+          description: Expiration date of the card in MM/YY format. Required if requesting `bill_switch` job.
+        name_on_card:
+          type: string
+          title: name_on_card
+          description: Full name displayed on the card. Required if requesting `bill_switch` job.
+        card_zip_code:
+          type: string
+          maxLength: 5
+          minLength: 5
+          pattern: ^[0-9]*$
+          title: card_zip_code
+          description: Zip code for the card. Required if requesting `bill_switch` job.
+        billing_address:
+          type: string
+          title: billing_address
+          description: Billing address line one of the card. Required if requesting `bill_switch` job.
+        billing_address_two:
+          type: string
+          title: billing_address_two
+          description: Billing address line two of the card. Required if requesting `bill_switch` job.
+        city:
+          type: string
+          title: city
+          description: City of the card. Required if requesting `bill_switch` job.
+        state:
+          allOf:
+          - type: string
+            enum:
+            - AL
+            - AK
+            - AZ
+            - AR
+            - CA
+            - CO
+            - CT
+            - DE
+            - FL
+            - GA
+            - HI
+            - ID
+            - IL
+            - IN
+            - IA
+            - KS
+            - KY
+            - LA
+            - ME
+            - MD
+            - MA
+            - MI
+            - MN
+            - MS
+            - MO
+            - MT
+            - NE
+            - NV
+            - NH
+            - NJ
+            - NM
+            - NY
+            - NC
+            - ND
+            - OH
+            - OK
+            - OR
+            - PA
+            - RI
+            - SC
+            - SD
+            - TN
+            - TX
+            - UT
+            - VT
+            - VA
+            - WA
+            - WV
+            - WI
+            - WY
+          description: Two letter state code of the card, e.g. `NY`. Required if requesting `bill_switch` job.
+      type: object
+      required:
+      - card_name
+      - card_number
+      - expiration_date
+      - name_on_card
+      - card_zip_code
+      title: object
+      x-tags:
+      - Schemas
+    LinkUserAuthenticationDataObjCreate:
+      properties:
+        social_security_number:
+          type: string
+          maxLength: 9
+          minLength: 9
+          pattern: ^[0-9]*$
+          title: social_security_number
+          description: Full 9-digit social security number of the user (required). Using full SSN will improve conversion.
+        social_security_number_last_four:
+          type: string
+          maxLength: 4
+          minLength: 4
+          pattern: ^[0-9]*$
+          title: social_security_number_last_four
+          description: Last four digits of the user's social security number. Use this field only when the full 9-digit SSN (social_security_number) is not available. Passing the full SSN yields over 20% higher match rate compared to using only the last four digits.
+        date_of_birth:
+          type: string
+          format: date
+          title: date_of_birth
+          description: The user's date of birth in `YYYY-MM-DD` format (required).
+        last_name:
+          type: string
+          title: last_name
+          description: The user's last name (required).
+        first_name:
+          type: string
+          title: first_name
+          description: The user's first name (required).
+        mobile_phone_number:
+          type: string
+          maxLength: 10
+          minLength: 10
+          pattern: ^[0-9]*$
+          title: mobile_phone_number
+          description: The users's 10-digit mobile phone number (required). Do not include country code.
+        home_address_zip_code:
+          type: string
+          maxLength: 5
+          minLength: 5
+          pattern: ^[0-9]*$
+          title: home_address_zip_code
+          description: The user's 5-digit home zip code (required).
+        email:
+          type: string
+          format: email
+          title: email
+          description: The user's email (strongly recommended). The email must have valid syntax with an @ and valid domain e.g. `name@example.com`. If provided email is invalid a 400 will be returned. For more details on validation see https://github.com/JoshData/python-email-validator.
+      type: object
+      title: object
+      x-tags:
+      - Schemas
+    Allocation:
+      properties:
+        type:
+          allOf:
+          - type: string
+            enum:
+            - amount
+          description: Type of allocation.
+        value:
+          type: number
+          title: value
+          description: Value of allocation. If type is amount, you must include a value. If type is null, the end-user will be able to select the allocation type and value. If min_amount is also specified for the allocation, must be greater than or equal to min_amount.
+        min_amount:
+          type: number
+          title: min_amount
+          description: Minimum amount for the allocation.
+        targets:
+          items:
+            $ref: '#/components/schemas/BankAccountDetails'
+          type: array
+          title: targets
+          description: List of allowed target accounts for an allocation.
+          default: []
+      type: object
+      title: Allocation
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

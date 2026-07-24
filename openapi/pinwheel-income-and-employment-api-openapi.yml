@@ -1,0 +1,1922 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts Income and Employment API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Income and Employment
+paths:
+  /accounts/{account_id}/employment:
+    get:
+      tags:
+      - Income and Employment
+      summary: Get Employment
+      description: Get the current employment information of the account owner.
+      operationId: get_employment_v1_accounts__account_id__employment_get
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmploymentObjResponse'
+                  meta:
+                    $ref: '#/components/schemas/RefreshableMeta'
+                type: object
+                required:
+                - data
+                - meta
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 9d3309c3-b1d5-47dd-a175-20acf291f419
+                      account_id: eb240ec6-a227-47ca-b7c7-fbbdfe7170a0
+                      created_at: '2021-01-06T15:59:13.530178+00:00'
+                      updated_at: '2021-01-12T00:00:00.000000+00:00'
+                      status: employed
+                      start_date: '2020-06-01'
+                      termination_date: null
+                      employer_name: Acme Corporation
+                      employer_address:
+                        raw: 1234 Main St, Suite 3, Washington, DC, 20036, USA
+                        line1: 1234 Main St
+                        line2: Suite 3
+                        city: Washington
+                        state: DC
+                        postal_code: '20036'
+                        country: US
+                      employer_phone_number:
+                        value: '+14155552671'
+                        type: mobile
+                      title: Engineer
+  /accounts/{account_id}/identity:
+    get:
+      tags:
+      - Income and Employment
+      summary: Get Identity
+      description: Get the current identity information of the account owner.
+      operationId: get_identity_v1_accounts__account_id__identity_get
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IdentityObjResponse'
+                  meta:
+                    $ref: '#/components/schemas/RefreshableMeta'
+                type: object
+                required:
+                - data
+                - meta
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: ffec8d06-5d03-42b9-9f75-6c66cb6efed5
+                      account_id: eb240ec6-a227-47ca-b7c7-fbbdfe7170a0
+                      created_at: '2021-01-06T15:59:13.530178+00:00'
+                      updated_at: '2021-01-12T00:00:00.000000+00:00'
+                      full_name: Alicia Green
+                      date_of_birth: '1987-02-01'
+                      last_four_ssn: 0090
+                      emails:
+                      - alicia.green@email.com
+                      address:
+                        raw: 1234 Home Road, Washington, DC, 20017, USA
+                        line1: 1234 Home Road
+                        line2: null
+                        city: Washington
+                        state: DC
+                        postal_code: '20017'
+                        country: US
+                      phone_numbers:
+                      - value: '+14155552671'
+                        type: mobile
+                      - value: '+14155551234'
+                        type: home
+  /accounts/{account_id}/income:
+    get:
+      tags:
+      - Income and Employment
+      summary: Get Income
+      description: Get the current income information of the account owner.
+      operationId: get_income_v1_accounts__account_id__income_get
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/IncomeObjResponse'
+                  meta:
+                    $ref: '#/components/schemas/RefreshableMeta'
+                type: object
+                required:
+                - data
+                - meta
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 6309e185-9c87-4384-aaae-767c7875775e
+                      account_id: eb240ec6-a227-47ca-b7c7-fbbdfe7170a0
+                      created_at: '2021-01-06T15:59:13.530178+00:00'
+                      updated_at: '2021-01-12T00:00:00.000000+00:00'
+                      compensation_amount: 400000
+                      compensation_unit: monthly
+                      currency: USD
+                      pay_frequency: monthly
+  /accounts/{account_id}/paystubs:
+    get:
+      tags:
+      - Income and Employment
+      summary: List Paystubs
+      description: The paystubs endpoint allows you to query for payouts to an end user. Each paystub contains broken out and aggregated earnings information, as well as relevant dates. Paystubs are returned in reverse chronological order by `pay_date`. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: list_paystubs_v1_accounts__account_id__paystubs_get
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - description: Filter for paystubs with pay dates after this date.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Filter for paystubs with pay dates after this date.
+        name: from_pay_date
+        in: query
+      - description: Filter for paystubs with pay dates before this date.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Filter for paystubs with pay dates before this date.
+        name: to_pay_date
+        in: query
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+        name: limit
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/RefreshablePaginationListMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/PaystubObjResponse_v2022_03_02'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      account_id: 5c1952df-3a84-4f28-8318-58291452061f
+                      pay_date: '2020-12-31'
+                      pay_period_start: '2020-12-10'
+                      pay_period_end: '2020-12-24'
+                      currency: USD
+                      gross_pay_amount: 480720
+                      net_pay_amount: 321609
+                      check_amount: 328609
+                      gross_pay_ytd: 6971151
+                      net_pay_ytd: 4357992
+                      total_taxes: 94407
+                      total_deductions: 64704
+                      total_reimbursements: 7000
+                      employer_name: Acme Corporation
+                      external_paystub_id: 821b7d1b-c115-470c-9411-be132f51c19d
+                      taxes:
+                      - name: Federal Income
+                        category: federal_income
+                        amount: 65158
+                      - name: State Income
+                        category: state_income
+                        amount: 29249
+                      deductions:
+                      - name: 401k
+                        category: retirement
+                        amount: 7012
+                        type: pre_tax
+                      - name: MTA
+                        category: commuter
+                        amount: 57692
+                        type: post_tax
+                      earnings:
+                      - name: Regular
+                        category: salary
+                        amount: 380720
+                        rate: 4759
+                        hours: 80.0
+                      - name: Bonus
+                        category: bonus
+                        amount: 100000
+                        rate: null
+                        hours: null
+                      time_off:
+                      - name: Vacation
+                        category: pto
+                        available_hours: 41.5
+                        earned_hours: 0.0
+                        used_hours: 38.5
+                      - name: Sick Leave
+                        category: sick
+                        available_hours: 41.5
+                        earned_hours: 0.0
+                        used_hours: 38.5
+                      created_at: '2021-01-10T19:54:45.745660+00:00'
+                      document:
+                        id: aea8cc55-93fa-452d-8eac-b83c80b19a41
+                        download_url: https://s3.us-east-1.amazonaws.com/paystub_document
+                        download_url_expiration: '2022-04-04T18:13:55.123450+00:00'
+                    meta:
+                      count: 1
+                      next_cursor: eyJlbXBsb3llciI6ICJVbml0ZWQgUGFyY2VsIFNlcnZpY2UifQ==
+                      refreshed_at: '2021-01-10T19:54:45.745660+00:00'
+  /accounts/{account_id}/paystubs/{paystub_id}:
+    get:
+      tags:
+      - Income and Employment
+      summary: Get Paystub
+      description: Get a single paystub.
+      operationId: get_paystub_v1_accounts__account_id__paystubs__paystub_id__get
+      parameters:
+      - description: The id of the paystub.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The id of the paystub.
+        name: paystub_id
+        in: path
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PaystubObjResponse_v2022_03_02'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      account_id: 5c1952df-3a84-4f28-8318-58291452061f
+                      pay_date: '2020-12-31'
+                      pay_period_start: '2020-12-10'
+                      pay_period_end: '2020-12-24'
+                      currency: USD
+                      gross_pay_amount: 480720
+                      net_pay_amount: 321609
+                      check_amount: 328609
+                      gross_pay_ytd: 6971151
+                      net_pay_ytd: 4357992
+                      total_taxes: 94407
+                      total_deductions: 64704
+                      total_reimbursements: 7000
+                      employer_name: Acme Corporation
+                      external_paystub_id: 821b7d1b-c115-470c-9411-be132f51c19d
+                      taxes:
+                      - name: Federal Income
+                        category: federal_income
+                        amount: 65158
+                      - name: State Income
+                        category: state_income
+                        amount: 29249
+                      deductions:
+                      - name: 401k
+                        category: retirement
+                        amount: 7012
+                        type: pre_tax
+                      - name: MTA
+                        category: commuter
+                        amount: 57692
+                        type: post_tax
+                      earnings:
+                      - name: Regular
+                        category: salary
+                        amount: 380720
+                        rate: 4759
+                        hours: 80.0
+                      - name: Bonus
+                        category: bonus
+                        amount: 100000
+                        rate: null
+                        hours: null
+                      time_off:
+                      - name: Vacation
+                        category: pto
+                        available_hours: 41.5
+                        earned_hours: 0.0
+                        used_hours: 38.5
+                      - name: Sick Leave
+                        category: sick
+                        available_hours: 41.5
+                        earned_hours: 0.0
+                        used_hours: 38.5
+                      created_at: '2021-01-10T19:54:45.745660+00:00'
+                      document:
+                        id: aea8cc55-93fa-452d-8eac-b83c80b19a41
+                        download_url: https://s3.us-east-1.amazonaws.com/paystub_document
+                        download_url_expiration: '2022-04-04T18:13:55.123450+00:00'
+  /accounts/{account_id}/shifts:
+    get:
+      tags:
+      - Income and Employment
+      summary: List Shifts
+      description: The shifts endpoint allows you to query for ongoing and completed work performed by an end user. It includes details about shift dates, timestamps, the type of work, and associated earnings. Shifts are returned in reverse chronological order by `end_date`. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: list_shifts_v1_accounts__account_id__shifts_get
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - description: Return shifts where the `start_date` field is on or after this date. ISO 8601 format.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Return shifts where the `start_date` field is on or after this date. ISO 8601 format.
+        name: from_start_date
+        in: query
+      - description: Return shifts where the `start_date` field is on or before this date. ISO 8601 format.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Return shifts where the `start_date` field is on or before this date. ISO 8601 format.
+        name: to_start_date
+        in: query
+      - description: Return shifts where the `end_date` field is on or after this date. ISO 8601 format.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Return shifts where the `end_date` field is on or after this date. ISO 8601 format.
+        name: from_end_date
+        in: query
+      - description: Return shifts where the `end_date` field is on or before this date. ISO 8601 format.
+        required: false
+        schema:
+          type: string
+          format: date
+          description: Return shifts where the `end_date` field is on or before this date. ISO 8601 format.
+        name: to_end_date
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+        name: limit
+        in: query
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/RefreshablePaginationListMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ShiftObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: c134b9bd-29f8-452b-bfaa-0dbcc6f6f026
+                      account_id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      created_at: '2021-01-29 22:06:06.920124+00:00'
+                      start_date: '2021-01-26'
+                      end_date: '2021-01-26'
+                      type: shift
+                      timezone: America/New_York
+                      timestamps:
+                      - from: '2021-01-26T12:00:00.745660+00:00'
+                        to: '2021-01-26T20:21:00.745660+00:00'
+                      earnings:
+                      - name: Regular Hours
+                        category: hourly
+                        hours: 8.0
+                        rate: 2875
+                        amount: 23000
+                      - name: Overtime
+                        category: overtime
+                        hours: 0.35
+                        rate: 4311
+                        amount: 1509
+                      currency: USD
+                    meta:
+                      count: 1
+                      refreshed_at: '2021-01-12T00:00:00.000000+00:00'
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+components:
+  schemas:
+    TimeOffObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the time off.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - pto
+            - sick
+            - other
+          description: The category of the time off.
+        available_hours:
+          type: number
+          title: available_hours
+          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
+        earned_hours:
+          type: number
+          title: earned_hours
+          description: The hours of time off earned during the pay period.
+        used_hours:
+          type: number
+          title: used_hours
+          description: The hours of time off used during the pay period.
+      type: object
+      required:
+      - name
+      - category
+      title: TimeOff
+      x-tags:
+      - Schemas
+    RefreshableMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+      type: object
+      title: RefreshableMeta
+      x-tags:
+      - Schemas
+    DeductionObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the deduction.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - retirement
+            - medical_insurance
+            - hsa
+            - fsa
+            - dental
+            - vision
+            - life_insurance
+            - disability
+            - child_support
+            - commuter
+            - union_dues
+            - stock
+            - charity
+            - savings
+            - tips
+            - wage_garnishment
+            - lending
+            - company_perk
+            - tax
+            - loan
+            - job_expense
+            - other
+            - fees
+            - reallocation
+            - retro_pay
+          description: The category of deduction.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of deduction, in cents.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - pre_tax
+            - post_tax
+            - unknown
+          description: The type of deduction.
+      type: object
+      required:
+      - name
+      - category
+      - amount
+      - type
+      title: Deduction
+      x-tags:
+      - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
+    EmploymentObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: Unique identifier for the object.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+        employer_phone_number:
+          allOf:
+          - $ref: '#/components/schemas/PhoneNumberGetResponseItem'
+          title: employer_phone_number
+          description: The phone number of the employer.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - account_id
+      - employer_name
+      title: Employment
+      x-tags:
+      - Schemas
+    ShiftTimestamp:
+      properties:
+        from:
+          type: string
+          format: date-time
+          title: from
+          description: Datetime the work began. ISO 8601 format.
+        to:
+          type: string
+          format: date-time
+          title: to
+          description: Datetime the work ended. ISO 8601 format.
+      type: object
+      required:
+      - from
+      - to
+      title: ShiftTimestamp
+      x-tags:
+      - Schemas
+    IdentityObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: Unique identifier for the object.
+        full_name:
+          type: string
+          title: full_name
+          description: The full name of the employee.
+        emails:
+          items:
+            type: string
+          type: array
+          title: emails
+          description: The emails associated with the employee.
+        date_of_birth:
+          type: string
+          format: date
+          title: date_of_birth
+          description: The date the employee was born.
+        last_four_ssn:
+          type: string
+          title: last_four_ssn
+          description: The last four digits of the employee's social security number (SSN).
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employee.
+        phone_numbers:
+          items:
+            $ref: '#/components/schemas/PhoneNumberGetResponseItem'
+          type: array
+          title: phone_numbers
+          description: The phone numbers of the employee.
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - account_id
+      - full_name
+      title: Identity
+      x-tags:
+      - Schemas
+    PhoneNumberGetResponseItem:
+      properties:
+        value:
+          type: string
+          title: value
+          description: The E.164 formatted phone number.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
+      type: object
+      required:
+      - value
+      title: Phone
+      x-tags:
+      - Schemas
+    RefreshablePaginationListMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: RefreshablePaginationListMeta
+      x-tags:
+      - Schemas
+    DocumentObjPublicResponseItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        download_url:
+          type: string
+          title: download_url
+          description: URL from which the document may be downloaded.
+        download_url_expiration:
+          type: string
+          format: date-time
+          title: download_url_expiration
+          description: ISO 8601 timestamp of when the download URL will no longer be valid.
+      type: object
+      required:
+      - id
+      title: Document
+      x-tags:
+      - Schemas
+    ShiftEarningObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the earning.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        rate:
+          type: integer
+          title: rate
+          description: The amount earned per hour, in cents.
+        hours:
+          type: number
+          title: hours
+          description: The hours worked.
+      type: object
+      required:
+      - name
+      - category
+      title: Earning
+      x-tags:
+      - Schemas
+    ShiftObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the Shift object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the Shift started. ISO 8601 format.
+        end_date:
+          type: string
+          format: date
+          title: end_date
+          description: The date the Shift ended. ISO 8601 format.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - shift
+            - rideshare
+            - delivery
+            - other
+          description: The type of the work performed.
+        timezone:
+          type: string
+          title: timezone
+          description: The timezone where the work was completed. Valid names are in the IANA Timezone Database.
+        timestamps:
+          items:
+            $ref: '#/components/schemas/ShiftTimestamp'
+          type: array
+          title: timestamps
+          description: An array of objects that tracks clock in and out times over a shift.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        earnings:
+          items:
+            $ref: '#/components/schemas/ShiftEarningObjPublicResponseItem'
+          type: array
+          title: earnings
+          description: An array of objects that represent a specific earning.
+      type: object
+      required:
+      - id
+      - created_at
+      - account_id
+      - start_date
+      - end_date
+      - type
+      - timestamps
+      - currency
+      - earnings
+      title: Shift
+      x-tags:
+      - Schemas
+    EarningObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the earning.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        rate:
+          type: integer
+          title: rate
+          description: The amount earned per hour, in cents.
+        hours:
+          type: number
+          title: hours
+          description: The hours worked.
+      type: object
+      required:
+      - name
+      - category
+      - amount
+      title: Earning
+      x-tags:
+      - Schemas
+    PaystubObjResponse_v2022_03_02:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        pay_date:
+          type: string
+          format: date
+          title: pay_date
+          description: The date when the check amount is paid to the employee.
+        pay_period_start:
+          type: string
+          format: date
+          title: pay_period_start
+          description: The date when the pay period begins. Some platforms, like unemployment portals, do not have fixed pay periods.
+        pay_period_end:
+          type: string
+          format: date
+          title: pay_period_end
+          description: The date when the pay period ends. Some platforms, like unemployment portals, do not have fixed pay periods.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        gross_pay_amount:
+          type: integer
+          title: gross_pay_amount
+          description: The total earnings before any deductions are made, in cents.
+        net_pay_amount:
+          type: integer
+          title: net_pay_amount
+          description: The total earnings after all taxes and deductions are removed, in cents.
+        check_amount:
+          type: integer
+          title: check_amount
+          description: The amount paid to the employee in this payout, in cents.
+        gross_pay_ytd:
+          type: integer
+          title: gross_pay_ytd
+          description: The cumulative year to date total earnings before any taxes or deductions are removed, in cents.
+        net_pay_ytd:
+          type: integer
+          title: net_pay_ytd
+          description: The cumulative year to date total earnings after all taxes and deductions are removed, in cents.
+        total_taxes:
+          type: integer
+          title: total_taxes
+          description: The total taxes for this pay period, in cents.
+        total_deductions:
+          type: integer
+          title: total_deductions
+          description: The total deductions for this pay period, in cents.
+        total_reimbursements:
+          type: integer
+          title: total_reimbursements
+          description: The total reimbursements for this pay period, in cents.
+        external_paystub_id:
+          type: string
+          title: external_paystub_id
+          description: The external id of a single paystub from the payroll provider.
+        employer_name:
+          type: string
+          title: employer_name
+          description: The name of the employer that issued the paystub.
+        taxes:
+          items:
+            $ref: '#/components/schemas/TaxObjPublicResponseItem'
+          type: array
+          title: taxes
+          description: The taxes for this pay period, in cents.
+        deductions:
+          items:
+            $ref: '#/components/schemas/DeductionObjPublicResponseItem'
+          type: array
+          title: deductions
+          description: The deductions for this pay period, in cents.
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningObjPublicResponseItem'
+          type: array
+          title: earnings
+          description: The earnings for this pay period, in cents.
+        time_off:
+          items:
+            $ref: '#/components/schemas/TimeOffObjPublicResponseItem'
+          type: array
+          title: time_off
+          description: The user's time off balances for this pay period. To enable time off balances, please contact Pinwheel support.
+        document:
+          allOf:
+          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
+          title: document
+          description: The document for this paystub.
+      type: object
+      required:
+      - id
+      - created_at
+      - account_id
+      - pay_date
+      - currency
+      - gross_pay_amount
+      - net_pay_amount
+      - check_amount
+      - total_taxes
+      - total_deductions
+      - total_reimbursements
+      - taxes
+      - deductions
+      - earnings
+      - time_off
+      title: Paystub
+      x-tags:
+      - Schemas
+    TaxObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the tax.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - federal_income
+            - social_security
+            - medicare
+            - state_income
+            - local_income
+            - other
+          description: The category of tax.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of tax, in cents.
+      type: object
+      required:
+      - name
+      - category
+      - amount
+      title: Tax
+      x-tags:
+      - Schemas
+    IncomeObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: Unique identifier for the object.
+        compensation_amount:
+          type: integer
+          title: compensation_amount
+          description: The amount per compensation unit, in cents.
+        compensation_unit:
+          allOf:
+          - type: string
+            enum:
+            - hourly
+            - daily
+            - weekly
+            - bi-weekly
+            - semi-weekly
+            - monthly
+            - semi-monthly
+            - annually
+            - variable
+            - per_mile
+          description: The compensation time frame.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        pay_frequency:
+          allOf:
+          - type: string
+            enum:
+            - daily
+            - weekly
+            - bi-weekly
+            - monthly
+            - semi-monthly
+            - variable
+          description: Describes how often the employee is paid.
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - account_id
+      - compensation_amount
+      - compensation_unit
+      - currency
+      title: Income
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer

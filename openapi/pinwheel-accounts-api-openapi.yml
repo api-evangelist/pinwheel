@@ -1,0 +1,420 @@
+openapi: 3.0.3
+info:
+  title: Pinwheel Accounts API
+  description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
+  version: v2025-07-08
+  contact:
+    name: Support
+    email: support@getpinwheel.com
+    url: https://getpinwheel.com
+servers:
+- url: https://api.getpinwheel.com/v1
+  description: production
+- url: https://sandbox.getpinwheel.com/v1
+  description: sandbox
+- url: https://development.getpinwheel.com/v1
+  description: development
+security:
+- apiSecret: []
+tags:
+- name: Accounts
+paths:
+  /accounts:
+    get:
+      tags:
+      - Accounts
+      summary: List Accounts
+      description: List all payroll accounts. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      operationId: list_accounts_v1_accounts_get
+      parameters:
+      - description: Cursor for the page you want to retrieve.
+        required: false
+        schema:
+          type: string
+          description: Cursor for the page you want to retrieve.
+        name: cursor
+        in: query
+      - description: The maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          description: The maximum number of results to return.
+          default: 25
+        name: limit
+        in: query
+      - description: If included, filter on connected accounts. If true, return only accounts that are connected. If false, return only accounts that are disconnected. Connected accounts are accounts for which you can retrieve new data manually using On Demand Updates or automatically via Monitoring.
+        required: false
+        schema:
+          type: boolean
+          description: If included, filter on connected accounts. If true, return only accounts that are connected. If false, return only accounts that are disconnected. Connected accounts are accounts for which you can retrieve new data manually using On Demand Updates or automatically via Monitoring.
+        name: connected
+        in: query
+      - description: Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.
+        required: false
+        schema:
+          allOf:
+          - type: string
+            enum:
+            - active
+            - degraded
+            - user_action_required
+            - customer_disabled
+            - unavailable
+          description: Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.
+        name: monitoring_status
+        in: query
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  data:
+                    items:
+                      $ref: '#/components/schemas/PayrollAccountObjResponse'
+                    type: array
+                    title: Data
+                type: object
+                required:
+                - meta
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                    - id: eb240ec6-a227-47ca-b7c7-fbbdfe7170a0
+                      created_at: '2021-01-06T15:59:13.530178+00:00'
+                      link_token_id: bd2c09e7-1303-46d5-87c0-0ffa572d7ae4
+                      platform_id: fce3eee0-285b-496f-9b36-30e976194736
+                      connected: true
+                      monitoring_status: active
+                      data_updated_at:
+                        direct_deposit_allocations: '2021-01-08T00:00:00.000000+00:00'
+                      data_refreshed_at:
+                        direct_deposit_allocations: '2021-01-09T00:00:00.000000+00:00'
+                      end_user_id: my_user_12345
+                    meta:
+                      count: 1
+                      next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
+  /accounts/{account_id}:
+    get:
+      tags:
+      - Accounts
+      summary: Get Account
+      description: Get a single payroll account.
+      operationId: get_account_v1_accounts__account_id__get
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PayrollAccountObjResponse'
+                type: object
+                required:
+                - data
+                x-tags:
+                - Schemas
+              examples:
+                example:
+                  value:
+                    data:
+                      id: eb240ec6-a227-47ca-b7c7-fbbdfe7170a0
+                      created_at: '2021-01-06T15:59:13.530178+00:00'
+                      link_token_id: bd2c09e7-1303-46d5-87c0-0ffa572d7ae4
+                      platform_id: fce3eee0-285b-496f-9b36-30e976194736
+                      connected: true
+                      monitoring_status: active
+                      data_updated_at:
+                        direct_deposit_allocations: '2021-01-08T00:00:00.000000+00:00'
+                      data_refreshed_at:
+                        direct_deposit_allocations: '2021-01-09T00:00:00.000000+00:00'
+                      end_user_id: my_user_12345
+  /accounts/{account_id}/disable_monitoring:
+    post:
+      tags:
+      - Accounts
+      summary: Disable monitoring for account
+      description: Disable monitoring for an account so that refresh jobs will no longer be scheduled to retrieve payroll data.
+      operationId: disable_monitoring_v1_accounts__account_id__disable_monitoring_post
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '204':
+          description: No Content
+  /accounts/{account_id}/disconnect:
+    post:
+      tags:
+      - Accounts
+      summary: Disconnect an account
+      description: Disconnect an account. This is permanent and irreversible. Once complete, an account will no longer support Earnings Streams or Recurring Access, e.g., On Demand Updates will no longer work and Monitoring will no longer be performed. However, old data will remain accessible. As mentioned above, this excludes derived data products e.g. Earnings Stream.
+      operationId: disconnect_v1_accounts__account_id__disconnect_post
+      parameters:
+      - description: UUID of the payroll account.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of the payroll account.
+        name: account_id
+        in: path
+      - name: Pinwheel-Version
+        in: header
+        required: true
+        description: Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.
+        schema:
+          enum:
+          - '2025-07-08'
+          - '2023-11-22'
+          - '2023-07-18'
+          - '2023-04-18'
+          - '2022-09-09'
+          - '2022-06-22'
+          - '2022-03-02'
+          default: '2025-07-08'
+          type: string
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    PayrollAccountDataRefreshed:
+      properties:
+        direct_deposit_allocations:
+          type: string
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of the most recent check of direct deposit allocations data.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of the most recent check of income data.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of the most recent check of employment data.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of the most recent check of identity data.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of the most recent check of shifts data.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of the most recent check of paystubs data.
+      type: object
+      title: PayrollAccountDataRefreshed
+      x-tags:
+      - Schemas
+    PayrollAccountDataUpdated:
+      properties:
+        direct_deposit_allocations:
+          type: string
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of when direct deposit allocations data most recently changed.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of when income data most recently changed.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of when employment data most recently changed.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of when identity data most recently changed.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of when shifts data most recently changed.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of when paystubs data most recently changed.
+      type: object
+      title: PayrollAccountDataUpdated
+      x-tags:
+      - Schemas
+    PayrollAccountObjResponse:
+      properties:
+        customer_id:
+          type: string
+          title: customer_id
+          description: 'Banking platforms webhooks only: the customer ID associated with the platform''s customer.'
+        tags:
+          type: object
+          title: tags
+          description: The tags associated with the link token that triggered the job.
+        reseller_customer_id:
+          type: string
+          title: reseller_customer_id
+          description: The reseller customer ID associated with the job. Used exclusively for reseller customers.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        link_token_id:
+          type: string
+          format: uuid
+          title: link_token_id
+          description: UUID of the link token used to create the account.
+        platform_id:
+          type: string
+          format: uuid
+          title: platform_id
+          description: UUID of the platform associated with this account.
+        connected:
+          type: boolean
+          title: connected
+          description: If true, you can retrieve new data for the account using On Demand Updates or automatically via Monitoring.
+        monitoring_status:
+          allOf:
+          - type: string
+            enum:
+            - active
+            - degraded
+            - user_action_required
+            - customer_disabled
+            - unavailable
+          description: Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.
+        end_user_id:
+          type: string
+          title: end_user_id
+          description: User ID provided by you, to associate Pinwheel users with your user model. Required if `account_id` is not provided. This ID will be returned in all webhook events and all account-affiliated API responses. Leading and trailing whitespace will be stripped. Do not include PII in this identifier.
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        data_updated_at:
+          allOf:
+          - $ref: '#/components/schemas/PayrollAccountDataUpdated'
+          title: data_updated_at
+          description: When data last changed for this payroll account.
+        data_refreshed_at:
+          allOf:
+          - $ref: '#/components/schemas/PayrollAccountDataRefreshed'
+          title: data_refreshed_at
+          description: ISO 8601 timestamp of when data was last refreshed for this payroll account.
+      type: object
+      required:
+      - created_at
+      - platform_id
+      - connected
+      - monitoring_status
+      - id
+      - data_updated_at
+      - data_refreshed_at
+      title: Account
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
+  securitySchemes:
+    apiSecret:
+      type: apiKey
+      in: header
+      name: X-API-SECRET
+      description: API Secret
+    bearerAuth:
+      description: Bearer token
+      type: http
+      scheme: bearer
