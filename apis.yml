@@ -9,7 +9,20 @@ description: >-
   primary banking relationships through a single, SOC 2 Type 2 and ISO 27001
   certified integration.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pinwheel.png
 url: https://raw.githubusercontent.com/api-evangelist/pinwheel/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -25,38 +38,288 @@ tags:
   - Bill Switching
   - Financial Data
 apis:
-  - name: Pinwheel API
-    description: >-
-      RESTful API for payroll connectivity enabling direct deposit switching,
-      income and employment data access, paystub retrieval, tax form access, and
-      bill switching across 1,800+ payroll platforms. Supports Deposit Switch,
-      Verify, Bill Switch, Switch Kit, Bill Manager, and Taxes products via
-      JSON over HTTPS with API secret key authentication.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.pinwheelapi.com
-    baseURL: https://api.getpinwheel.com
-    tags:
-      - Payroll Connectivity
-      - Direct Deposit
-      - Income Verification
-      - Employment Data
-      - Tax Forms
-      - Bill Switching
-    properties:
-      - type: Documentation
-        url: https://docs.pinwheelapi.com/public/docs/getting-started
-      - type: OpenAPI
-        url: https://docs.pinwheelapi.com/public/reference/api-overview
-      - type: OpenAPI
-        url: openapi/pinwheel-pinwheel-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/
-      - type: Examples
-        url: examples/
-      - type: Vocabulary
-        url: vocabulary/pinwheel-vocabulary.yml
-      - type: JSONLDContext
-        url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-accounts-api
+  name: Pinwheel Accounts API
+  description: The Accounts API from Pinwheel — 4 operation(s) for accounts.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-api-keys-api
+  name: Pinwheel API Keys API
+  description: The API Keys API from Pinwheel — 3 operation(s) for api keys.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - API Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-api-keys-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-company-connect-api
+  name: Pinwheel Company Connect API
+  description: The Company Connect API from Pinwheel — 7 operation(s) for company connect.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Company Connect
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-company-connect-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-direct-deposit-allocations-api
+  name: Pinwheel Direct Deposit Allocations API
+  description: >-
+    The Direct Deposit Allocations API from Pinwheel — 1 operation(s) for direct deposit allocations.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Direct Deposit Allocations
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-direct-deposit-allocations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-earnings-stream-api
+  name: Pinwheel Earnings Stream API
+  description: The Earnings Stream API from Pinwheel — 1 operation(s) for earnings stream.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Earnings Stream
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-earnings-stream-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-employers-and-platforms-api
+  name: Pinwheel Employers and Platforms API
+  description: >-
+    The Employers and Platforms API from Pinwheel — 6 operation(s) for employers and platforms.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Employers and Platforms
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-employers-and-platforms-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-end-users-api
+  name: Pinwheel End Users API
+  description: The End Users API from Pinwheel — 4 operation(s) for end users.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - End Users
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-end-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-income-and-employment-api
+  name: Pinwheel Income and Employment API
+  description: The Income and Employment API from Pinwheel — 6 operation(s) for income and employment.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Income and Employment
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-income-and-employment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-jobs-api
+  name: Pinwheel Jobs API
+  description: The Jobs API from Pinwheel — 1 operation(s) for jobs.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-link-tokens-api
+  name: Pinwheel Link Tokens API
+  description: The Link Tokens API from Pinwheel — 1 operation(s) for link tokens.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Link Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-link-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-sandbox-api
+  name: Pinwheel Sandbox API
+  description: The Sandbox API from Pinwheel — 1 operation(s) for sandbox.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Sandbox
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-sandbox-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-tax-forms-api
+  name: Pinwheel Tax Forms API
+  description: The Tax Forms API from Pinwheel — 2 operation(s) for tax forms.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Tax Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-tax-forms-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-verification-reports-api
+  name: Pinwheel Verification Reports API
+  description: The Verification Reports API from Pinwheel — 2 operation(s) for verification reports.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Verification Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-verification-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
+- aid: pinwheel:pinwheel-webhooks-api
+  name: Pinwheel Webhooks API
+  description: The Webhooks API from Pinwheel — 2 operation(s) for webhooks.
+  humanURL: https://www.pinwheelapi.com
+  baseURL: https://api.getpinwheel.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/pinwheel-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.pinwheelapi.com/public/docs/getting-started
+  - type: JSONSchema
+    url: json-schema/
+  - type: Examples
+    url: examples/
+  - type: Vocabulary
+    url: vocabulary/pinwheel-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/pinwheel-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/pinwheel-agentic-access.yml
