@@ -1,0 +1,40 @@
+{
+  "provider": "pinwheel",
+  "sources": [
+    "pinwheel-accounts-api-openapi.yml",
+    "pinwheel-api-keys-api-openapi.yml",
+    "pinwheel-company-connect-api-openapi.yml",
+    "pinwheel-direct-deposit-allocations-api-openapi.yml",
+    "pinwheel-earnings-stream-api-openapi.yml",
+    "pinwheel-employers-and-platforms-api-openapi.yml",
+    "pinwheel-end-users-api-openapi.yml",
+    "pinwheel-income-and-employment-api-openapi.yml",
+    "pinwheel-jobs-api-openapi.yml",
+    "pinwheel-link-tokens-api-openapi.yml",
+    "pinwheel-sandbox-api-openapi.yml",
+    "pinwheel-tax-forms-api-openapi.yml",
+    "pinwheel-verification-reports-api-openapi.yml",
+    "pinwheel-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "pinwheel-accounts-api-openapi.yml",
+    "pinwheel-api-keys-api-openapi.yml",
+    "pinwheel-company-connect-api-openapi.yml",
+    "pinwheel-direct-deposit-allocations-api-openapi.yml",
+    "pinwheel-earnings-stream-api-openapi.yml",
+    "pinwheel-employers-and-platforms-api-openapi.yml",
+    "pinwheel-end-users-api-openapi.yml",
+    "pinwheel-income-and-employment-api-openapi.yml",
+    "pinwheel-jobs-api-openapi.yml",
+    "pinwheel-link-tokens-api-openapi.yml",
+    "pinwheel-sandbox-api-openapi.yml",
+    "pinwheel-tax-forms-api-openapi.yml",
+    "pinwheel-verification-reports-api-openapi.yml",
+    "pinwheel-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
