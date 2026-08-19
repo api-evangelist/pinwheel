@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts End Users API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "End Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all end user accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/end_users/:end_user_id/accounts",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "end_user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID provided by you, to associate Pinwheel users with your user model."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "Get all payroll accounts associated with your end user ID. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Get Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/end_users/:end_user_id/documents/:document_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document object."
+              },
+              {
+                "name": "end_user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID provided by you, to associate Pinwheel users with your user model."
+              }
+            ]
+          },
+          "docs": "Get a specific document for your end user ID."
+        },
+        {
+          "info": {
+            "name": "List Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/end_users/:end_user_id/documents",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "end_user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID provided by you, to associate Pinwheel users with your user model."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of the document."
+              }
+            ]
+          },
+          "docs": "Lists all documents associated with your end user ID. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Update end user Bill Navigator status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getpinwheel.com/v1/end_users/:end_user_id/bill_navigator/status",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "end_user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID provided by you, to associate Pinwheel users with your user model."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The Bill Navigator end user status API allows you to update the status of an end user's account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "connected",
+                "value": "",
+                "type": "query",
+                "description": "If included, filter on connected accounts. If true, return only accounts that are connected. If false, return only accounts that are disconnected. Connected accounts are accounts for which you can retrieve new data manually using On Demand Updates or automatically via Monitoring."
+              },
+              {
+                "name": "monitoring_status",
+                "value": "",
+                "type": "query",
+                "description": "Monitoring status describes the the automated ability of Pinwheel to retrieve new account information."
+              }
+            ]
+          },
+          "docs": "List all payroll accounts. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Get Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              }
+            ]
+          },
+          "docs": "Get a single payroll account."
+        },
+        {
+          "info": {
+            "name": "Disable monitoring for account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/disable_monitoring",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              }
+            ]
+          },
+          "docs": "Disable monitoring for an account so that refresh jobs will no longer be scheduled to retrieve payroll data."
+        },
+        {
+          "info": {
+            "name": "Disconnect an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/disconnect",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              }
+            ]
+          },
+          "docs": "Disconnect an account. This is permanent and irreversible. Once complete, an account will no longer support Earnings Streams or Recurring Access, e.g., On Demand Updates will no longer work and Monitoring will no longer be performed. However, old data will remain accessible. As mentioned above, this excludes derived data products e.g. Earnings Stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,829 @@
+{
+  "item": [
+    {
+      "id": "3184206f-df02-4786-90a5-4721a2743d8d",
+      "name": "Income and Employment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8f4396c2-7b2b-4c83-9115-cb021f80c7c3",
+          "name": "Get Employment",
+          "request": {
+            "name": "Get Employment",
+            "description": {
+              "content": "Get the current employment information of the account owner.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "employment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) UUID of the payroll account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1472149b-0061-4ad8-8f44-0176d75d800f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "employment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) UUID of the payroll account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"9d3309c3-b1d5-47dd-a175-20acf291f419\",\n    \"account_id\": \"eb240ec6-a227-47ca-b7c7-fbbdfe7170a0\",\n    \"created_at\": \"2021-01-06T15:59:13.530178+00:00\",\n    \"updated_at\": \"2021-01-12T00:00:00.000000+00:00\",\n    \"status\": \"employed\",\n    \"start_date\": \"2020-06-01\",\n    \"termination_date\": null,\n    \"employer_name\": \"Acme Corporation\",\n    \"employer_address\": {\n      \"raw\": \"1234 Main St, Suite 3, Washington, DC, 20036, USA\",\n      \"line1\": \"1234 Main St\",\n      \"line2\": \"Suite 3\",\n      \"city\": \"Washington\",\n      \"state\": \"DC\",\n      \"postal_code\": \"20036\",\n      \"country\": \"US\"\n    },\n    \"employer_phone_number\": {\n      \"value\": \"+14155552671\",\n      \"type\": \"mobile\"\n    },\n    \"title\": \"Engineer\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5a689b7-c77c-489c-93c3-00e2420da3a8",
+          "name": "Get Identity",
+          "request": {
+            "name": "Get Identity",
+            "description": {
+              "content": "Get the current identity information of the account owner.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "identity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) UUID of the payroll account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5454f084-2258-42da-a51f-19db6bb80fa3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "identity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) UUID of the payroll account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"ffec8d06-5d03-42b9-9f75-6c66cb6efed5\",\n    \"account_id\": \"eb240ec6-a227-47ca-b7c7-fbbdfe7170a0\",\n    \"created_at\": \"2021-01-06T15:59:13.530178+00:00\",\n    \"updated_at\": \"2021-01-12T00:00:00.000000+00:00\",\n    \"full_name\": \"Alicia Green\",\n    \"date_of_birth\": \"1987-02-01\",\n    \"last_four_ssn\": 90,\n    \"emails\": [\n      \"alicia.green@email.com\"\n    ],\n    \"address\": {\n      \"raw\": \"1234 Home Road, Washington, DC, 20017, USA\",\n      \"line1\": \"1234 Home Road\",\n      \"line2\": null,\n      \"city\": \"Washington\",\n      \"state\": \"DC\",\n      \"postal_code\": \"20017\",\n      \"country\": \"US\"\n    },\n    \"phone_numbers\": [\n      {\n        \"value\": \"+14155552671\",\n        \"type\": \"mobile\"\n      },\n      {\n        \"value\": \"+14155551234\",\n        \"type\": \"home\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd32a88f-a7ea-48c4-b0ce-28643baa0a3d",
+          "name": "Get Income",
+          "request": {
+            "name": "Get Income",
+            "description": {
+              "content": "Get the current income information of the account owner.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "income"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) UUID of the payroll account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e7091fc-949a-486b-b107-578b4b58c650",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "income"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) UUID of the payroll account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"6309e185-9c87-4384-aaae-767c7875775e\",\n    \"account_id\": \"eb240ec6-a227-47ca-b7c7-fbbdfe7170a0\",\n    \"created_at\": \"2021-01-06T15:59:13.530178+00:00\",\n    \"updated_at\": \"2021-01-12T00:00:00.000000+00:00\",\n    \"compensation_amount\": 400000,\n    \"compensation_unit\": \"monthly\",\n    \"currency\": \"USD\",\n    \"pay_frequency\": \"monthly\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce2a818d-9a25-4431-8558-5402f4e860c6",
+          "name": "List Paystubs",
+          "request": {
+            "name": "List Paystubs",
+            "description": {
+              "content": "The paystubs endpoint allows you to query for payouts to an end user. Each paystub contains broken out and aggregated earnings information, as well as relevant dates. Paystubs are returned in reverse chronological order by `pay_date`. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "paystubs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_pay_date",
+                  "value": "<date>",
+                  "description": "Filter for paystubs with pay dates after this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_pay_date",
+                  "value": "<date>",
+                  "description": "Filter for paystubs with pay dates before this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) UUID of the payroll account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63c91da2-6ad2-4628-b38e-89548fbf450e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "paystubs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_pay_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to_pay_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) UUID of the payroll account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f08\",\n      \"account_id\": \"5c1952df-3a84-4f28-8318-58291452061f\",\n      \"pay_date\": \"2020-12-31\",\n      \"pay_period_start\": \"2020-12-10\",\n      \"pay_period_end\": \"2020-12-24\",\n      \"currency\": \"USD\",\n      \"gross_pay_amount\": 480720,\n      \"net_pay_amount\": 321609,\n      \"check_amount\": 328609,\n      \"gross_pay_ytd\": 6971151,\n      \"net_pay_ytd\": 4357992,\n      \"total_taxes\": 94407,\n      \"total_deductions\": 64704,\n      \"total_reimbursements\": 7000,\n      \"employer_name\": \"Acme Corporation\",\n      \"external_paystub_id\": \"821b7d1b-c115-470c-9411-be132f51c19d\",\n      \"taxes\": [\n        {\n          \"name\": \"Federal Income\",\n          \"category\": \"federal_income\",\n          \"amount\": 65158\n        },\n        {\n          \"name\": \"State Income\",\n          \"category\": \"state_income\",\n          \"amount\": 29249\n        }\n      ],\n      \"deductions\": [\n        {\n          \"name\": \"401k\",\n          \"category\": \"retirement\",\n          \"amount\": 7012,\n          \"type\": \"pre_tax\"\n        },\n        {\n          \"name\": \"MTA\",\n          \"category\": \"commuter\",\n          \"amount\": 57692,\n          \"type\": \"post_tax\"\n        }\n      ],\n      \"earnings\": [\n        {\n          \"name\": \"Regular\",\n          \"category\": \"salary\",\n          \"amount\": 380720,\n          \"rate\": 4759,\n          \"hours\": 80\n        },\n        {\n          \"name\": \"Bonus\",\n          \"category\": \"bonus\",\n          \"amount\": 100000,\n          \"rate\": null,\n          \"hours\": null\n        }\n      ],\n      \"time_off\": [\n        {\n          \"name\": \"Vacation\",\n          \"category\": \"pto\",\n          \"available_hours\": 41.5,\n          \"earned_hours\": 0,\n          \"used_hours\": 38.5\n        },\n        {\n          \"name\": \"Sick Leave\",\n          \"category\": \"sick\",\n          \"available_hours\": 41.5,\n          \"earned_hours\": 0,\n          \"used_hours\": 38.5\n        }\n      ],\n      \"created_at\": \"2021-01-10T19:54:45.745660+00:00\",\n      \"document\": {\n        \"id\": \"aea8cc55-93fa-452d-8eac-b83c80b19a41\",\n        \"download_url\": \"https://s3.us-east-1.amazonaws.com/paystub_document\",\n        \"download_url_expiration\": \"2022-04-04T18:13:55.123450+00:00\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJlbXBsb3llciI6ICJVbml0ZWQgUGFyY2VsIFNlcnZpY2UifQ==\",\n    \"refreshed_at\": \"2021-01-10T19:54:45.745660+00:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1cf9f249-eaf8-4342-94a9-99ab077d832b",
+          "name": "Get Paystub",
+          "request": {
+            "name": "Get Paystub",
+            "description": {
+              "content": "Get a single paystub.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "paystubs",
+                ":paystub_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "paystub_id",
+                  "description": "(Required) The id of the paystub."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) UUID of the payroll account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f83cc58c-42f3-4341-a467-77183d391968",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "paystubs",
+                    ":paystub_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "paystub_id",
+                      "description": "(Required) The id of the paystub."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) UUID of the payroll account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f08\",\n    \"account_id\": \"5c1952df-3a84-4f28-8318-58291452061f\",\n    \"pay_date\": \"2020-12-31\",\n    \"pay_period_start\": \"2020-12-10\",\n    \"pay_period_end\": \"2020-12-24\",\n    \"currency\": \"USD\",\n    \"gross_pay_amount\": 480720,\n    \"net_pay_amount\": 321609,\n    \"check_amount\": 328609,\n    \"gross_pay_ytd\": 6971151,\n    \"net_pay_ytd\": 4357992,\n    \"total_taxes\": 94407,\n    \"total_deductions\": 64704,\n    \"total_reimbursements\": 7000,\n    \"employer_name\": \"Acme Corporation\",\n    \"external_paystub_id\": \"821b7d1b-c115-470c-9411-be132f51c19d\",\n    \"taxes\": [\n      {\n        \"name\": \"Federal Income\",\n        \"category\": \"federal_income\",\n        \"amount\": 65158\n      },\n      {\n        \"name\": \"State Income\",\n        \"category\": \"state_income\",\n        \"amount\": 29249\n      }\n    ],\n    \"deductions\": [\n      {\n        \"name\": \"401k\",\n        \"category\": \"retirement\",\n        \"amount\": 7012,\n        \"type\": \"pre_tax\"\n      },\n      {\n        \"name\": \"MTA\",\n        \"category\": \"commuter\",\n        \"amount\": 57692,\n        \"type\": \"post_tax\"\n      }\n    ],\n    \"earnings\": [\n      {\n        \"name\": \"Regular\",\n        \"category\": \"salary\",\n        \"amount\": 380720,\n        \"rate\": 4759,\n        \"hours\": 80\n      },\n      {\n        \"name\": \"Bonus\",\n        \"category\": \"bonus\",\n        \"amount\": 100000,\n        \"rate\": null,\n        \"hours\": null\n      }\n    ],\n    \"time_off\": [\n      {\n        \"name\": \"Vacation\",\n        \"category\": \"pto\",\n        \"available_hours\": 41.5,\n        \"earned_hours\": 0,\n        \"used_hours\": 38.5\n      },\n      {\n        \"name\": \"Sick Leave\",\n        \"category\": \"sick\",\n        \"available_hours\": 41.5,\n        \"earned_hours\": 0,\n        \"used_hours\": 38.5\n      }\n    ],\n    \"created_at\": \"2021-01-10T19:54:45.745660+00:00\",\n    \"document\": {\n      \"id\": \"aea8cc55-93fa-452d-8eac-b83c80b19a41\",\n      \"download_url\": \"https://s3.us-east-1.amazonaws.com/paystub_document\",\n      \"download_url_expiration\": \"2022-04-04T18:13:55.123450+00:00\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbff338a-812e-4c22-81ee-4a5afbb3d8fd",
+          "name": "List Shifts",
+          "request": {
+            "name": "List Shifts",
+            "description": {
+              "content": "The shifts endpoint allows you to query for ongoing and completed work performed by an end user. It includes details about shift dates, timestamps, the type of work, and associated earnings. Shifts are returned in reverse chronological order by `end_date`. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "shifts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_start_date",
+                  "value": "<date>",
+                  "description": "Return shifts where the `start_date` field is on or after this date. ISO 8601 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_start_date",
+                  "value": "<date>",
+                  "description": "Return shifts where the `start_date` field is on or before this date. ISO 8601 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "from_end_date",
+                  "value": "<date>",
+                  "description": "Return shifts where the `end_date` field is on or after this date. ISO 8601 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_end_date",
+                  "value": "<date>",
+                  "description": "Return shifts where the `end_date` field is on or before this date. ISO 8601 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) UUID of the payroll account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e763cf11-6f17-4f77-ac7a-76aac677ba9c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "shifts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "from_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) UUID of the payroll account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"c134b9bd-29f8-452b-bfaa-0dbcc6f6f026\",\n      \"account_id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f08\",\n      \"created_at\": \"2021-01-29 22:06:06.920124+00:00\",\n      \"start_date\": \"2021-01-26\",\n      \"end_date\": \"2021-01-26\",\n      \"type\": \"shift\",\n      \"timezone\": \"America/New_York\",\n      \"timestamps\": [\n        {\n          \"from\": \"2021-01-26T12:00:00.745660+00:00\",\n          \"to\": \"2021-01-26T20:21:00.745660+00:00\"\n        }\n      ],\n      \"earnings\": [\n        {\n          \"name\": \"Regular Hours\",\n          \"category\": \"hourly\",\n          \"hours\": 8,\n          \"rate\": 2875,\n          \"amount\": 23000\n        },\n        {\n          \"name\": \"Overtime\",\n          \"category\": \"overtime\",\n          \"hours\": 0.35,\n          \"rate\": 4311,\n          \"amount\": 1509\n        }\n      ],\n      \"currency\": \"USD\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"refreshed_at\": \"2021-01-12T00:00:00.000000+00:00\",\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getpinwheel.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-SECRET"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fb1a51ca-74cd-4d69-ab35-c6fda77713fb",
+    "name": "Pinwheel Accounts Income and Employment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+      "type": "text/plain"
+    }
+  }
+}

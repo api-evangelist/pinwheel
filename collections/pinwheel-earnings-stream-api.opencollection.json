@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts Earnings Stream API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Earnings Stream",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Earnings Stream Payouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/end_users/:end_user_id/earnings_stream/payouts",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "end_user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID provided by you, to associate Pinwheel users with your user model."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "Get an Earnings Stream of payout objects representing discrete cash flow events. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

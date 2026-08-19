@@ -1,0 +1,159 @@
+{
+  "item": [
+    {
+      "id": "27583ca9-8f01-4ba8-81d8-e1f0be3e6c21",
+      "name": "Direct Deposit Allocations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9bd7c8c6-bfbc-467a-85c1-ab62c6b65a50",
+          "name": "Get Direct Deposit Allocations",
+          "request": {
+            "name": "Get Direct Deposit Allocations",
+            "description": {
+              "content": "The Direct Deposit Allocations endpoint returns the current direct deposit allocations configured for the specified account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account_id",
+                "direct_deposit_allocations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) UUID of the payroll account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "248355aa-7ee8-4dbe-b059-bdd149175d5d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account_id",
+                    "direct_deposit_allocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) UUID of the payroll account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"07814454-9163-40b5-9aaa-8a738fa7080b\",\n    \"account_id\": \"c0a343a6-4e33-49cf-9bfc-46f770709452\",\n    \"created_at\": \"2021-01-06T00:00:00.000000+00:00\",\n    \"updated_at\": \"2021-01-12T00:00:00.000000+00:00\",\n    \"allocations\": [\n      {\n        \"account_name\": \"My Checking Account\",\n        \"account_type\": \"checking\",\n        \"allocation_type\": \"amount\",\n        \"amount\": 50000,\n        \"bank_name\": \"Chase\",\n        \"currency\": \"USD\",\n        \"masked_account_number\": \"53\",\n        \"percentage\": null,\n        \"priority\": 1,\n        \"routing_number\": \"540622601\"\n      },\n      {\n        \"account_name\": \"BoA Savings\",\n        \"account_type\": \"savings\",\n        \"allocation_type\": \"amount\",\n        \"amount\": 5000,\n        \"bank_name\": \"Bank of America\",\n        \"currency\": \"USD\",\n        \"masked_account_number\": \"3953\",\n        \"percentage\": null,\n        \"priority\": 2,\n        \"routing_number\": \"021000322\"\n      },\n      {\n        \"account_name\": \"Neobank\",\n        \"account_type\": \"checking\",\n        \"allocation_type\": \"remainder\",\n        \"amount\": null,\n        \"bank_name\": null,\n        \"currency\": \"USD\",\n        \"masked_account_number\": \"83\",\n        \"percentage\": null,\n        \"priority\": 3,\n        \"routing_number\": \"434957982\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getpinwheel.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-SECRET"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0b2b2bb1-18cb-4643-a2e6-568fc8dae7c0",
+    "name": "Pinwheel Accounts Direct Deposit Allocations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+      "type": "text/plain"
+    }
+  }
+}

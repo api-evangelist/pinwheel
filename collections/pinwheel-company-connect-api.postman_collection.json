@@ -1,0 +1,1057 @@
+{
+  "item": [
+    {
+      "id": "60c87ea4-0959-429a-be8f-24b2e342c8a7",
+      "name": "Company Connect",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7ff0d0c3-4a90-4db4-a1df-b8d7b05fbf48",
+          "name": "List Employees",
+          "request": {
+            "name": "List Employees",
+            "description": {
+              "content": "List all employee census data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connections",
+                ":company_connection_id",
+                "census"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "company_connection_id",
+                  "description": "(Required) UUID of the Company Connection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0decccf5-ffee-4321-b056-6780b2c75ebe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connections",
+                    ":company_connection_id",
+                    "census"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "company_connection_id",
+                      "description": "(Required) UUID of the Company Connection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2023-06-11T20:31:13.530178+00:00\",\n      \"employee_external_id\": \"1001331\",\n      \"full_name\": \"Alicia Rose Green\",\n      \"first_name\": \"Alicia\",\n      \"middle_name\": \"Rose\",\n      \"last_name\": \"Green\",\n      \"date_of_birth\": \"1987-02-01\",\n      \"last_four_ssn\": 90,\n      \"emails\": [\n        \"alicia.green@email.com\"\n      ],\n      \"address\": {\n        \"raw\": \"1234 Home Road, Washington, DC, 20017, USA\",\n        \"line1\": \"1234 Home Road\",\n        \"line2\": null,\n        \"city\": \"Washington\",\n        \"state\": \"DC\",\n        \"postal_code\": \"20017\",\n        \"country\": \"US\"\n      },\n      \"phone_numbers\": [\n        {\n          \"value\": \"+14155552671\",\n          \"type\": \"mobile\"\n        },\n        {\n          \"value\": \"+14155551234\",\n          \"type\": \"home\"\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3298329e-dc7f-474d-b1af-827422594f3b",
+          "name": "List Company Connections",
+          "request": {
+            "name": "List Company Connections",
+            "description": {
+              "content": "List all Company Connections. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "647940aa-adbb-4e7e-8f14-164f62309b73",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"07814454-9163-40b5-9aaa-8a738fa7080b\",\n      \"created_at\": \"2023-01-06T00:00:00.000000+00:00\",\n      \"company_name\": \"Acme, Inc.\",\n      \"status\": \"ready_to_connect\",\n      \"status_updated_at\": \"2023-01-06T00:00:00.000000+00:00\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b36ab0ff-e0c3-44ca-ae26-6344efb291ab",
+          "name": "Create Company Connection",
+          "request": {
+            "name": "Create Company Connection",
+            "description": {
+              "content": "Create a Company Connection used to get income & employment data from your target company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30fde834-bb01-4cca-82ea-42e1da3bd2bf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"company_name\": \"Acme, Inc.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"07814454-9163-40b5-9aaa-8a738fa7080b\",\n    \"created_at\": \"2023-01-06T00:00:00.000000+00:00\",\n    \"company_name\": \"Acme, Inc.\",\n    \"status\": \"ready_to_connect\",\n    \"status_updated_at\": \"2023-01-06T00:00:00.000000+00:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eddbd33e-200c-4a31-81cf-c3bd4e4bbb95",
+          "name": "Get Company Connection",
+          "request": {
+            "name": "Get Company Connection",
+            "description": {
+              "content": "Get Company Connection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connections",
+                ":company_connection_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "company_connection_id",
+                  "description": "(Required) UUID of the Company Connection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b4f24b8-0f8f-41a8-8870-78b5c168e4ad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connections",
+                    ":company_connection_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "company_connection_id",
+                      "description": "(Required) UUID of the Company Connection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"07814454-9163-40b5-9aaa-8a738fa7080b\",\n    \"created_at\": \"2023-01-06T00:00:00.000000+00:00\",\n    \"company_name\": \"Acme, Inc.\",\n    \"status\": \"ready_to_connect\",\n    \"status_updated_at\": \"2023-01-06T00:00:00.000000+00:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22430005-f14d-4fbd-813c-fbafaa36d9ed",
+          "name": "List Employments Data",
+          "request": {
+            "name": "List Employments Data",
+            "description": {
+              "content": "List all employments data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connections",
+                ":company_connection_id",
+                "employments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "company_connection_id",
+                  "description": "(Required) UUID of the Company Connection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "837a5d16-80fc-4d98-8c1b-451bbad4be0f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connections",
+                    ":company_connection_id",
+                    "employments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "company_connection_id",
+                      "description": "(Required) UUID of the Company Connection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2023-06-11T20:31:13.530178+00:00\",\n      \"employee_external_id\": \"1001331\",\n      \"status\": \"employed\",\n      \"employment_type\": \"full_time\",\n      \"start_date\": \"2020-06-01\",\n      \"termination_date\": null,\n      \"employer_name\": \"Acme Corporation\",\n      \"title\": \"Engineer\",\n      \"department\": \"Engineering\",\n      \"manager_external_id\": \"eb240ec6-a227-47ca-b7c7-fbbdfe7170a0\",\n      \"class_code\": \"1001\",\n      \"employer_address\": {\n        \"raw\": \"1234 Main St, Suite 3, Washington, DC, 20036, USA\",\n        \"line1\": \"1234 Main St\",\n        \"line2\": \"Suite 3\",\n        \"city\": \"Washington\",\n        \"state\": \"DC\",\n        \"postal_code\": \"20036\",\n        \"country\": \"US\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24eface4-981d-441f-aab7-86289fd60ed2",
+          "name": "List Employee Incomes",
+          "request": {
+            "name": "List Employee Incomes",
+            "description": {
+              "content": "List all employee income data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connections",
+                ":company_connection_id",
+                "incomes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "company_connection_id",
+                  "description": "(Required) UUID of the Company Connection."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ef894e8-f68e-417f-8258-1a7e6825eb29",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connections",
+                    ":company_connection_id",
+                    "incomes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "company_connection_id",
+                      "description": "(Required) UUID of the Company Connection."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2023-06-11T20:31:13.530178+00:00\",\n      \"employee_external_id\": \"1001331\",\n      \"compensation_amount\": 400000,\n      \"compensation_unit\": \"monthly\",\n      \"currency\": \"USD\",\n      \"pay_frequency\": \"monthly\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03b3db78-248c-4fc5-855e-cc15c7f8fedb",
+          "name": "List Employee Paystubs",
+          "request": {
+            "name": "List Employee Paystubs",
+            "description": {
+              "content": "List employee paystubs data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connections",
+                ":company_connection_id",
+                "paystubs",
+                ":employee_external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_pay_date",
+                  "value": "<date>",
+                  "description": "Filter for paystubs with pay dates after this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_pay_date",
+                  "value": "<date>",
+                  "description": "Filter for paystubs with pay dates before this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "company_connection_id",
+                  "description": "(Required) UUID of the Company Connection."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "employee_external_id",
+                  "description": "(Required) Employee ID as reported by their employer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e308e80-b5e7-4147-ade0-6ed58a88af2e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connections",
+                    ":company_connection_id",
+                    "paystubs",
+                    ":employee_external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_pay_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to_pay_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "company_connection_id",
+                      "description": "(Required) UUID of the Company Connection."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employee_external_id",
+                      "description": "(Required) Employee ID as reported by their employer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f08\",\n      \"account_id\": \"5c1952df-3a84-4f28-8318-58291452061f\",\n      \"employee_external_id\": \"8911172\",\n      \"pay_date\": \"2020-12-31\",\n      \"pay_period_start\": \"2020-12-10\",\n      \"pay_period_end\": \"2020-12-24\",\n      \"currency\": \"USD\",\n      \"gross_pay_amount\": 480720,\n      \"net_pay_amount\": 321609,\n      \"check_amount\": 328609,\n      \"gross_pay_ytd\": 6971151,\n      \"net_pay_ytd\": 4357992,\n      \"total_taxes\": 94407,\n      \"total_deductions\": 64704,\n      \"total_reimbursements\": 7000,\n      \"created_at\": \"2021-01-10T19:54:45.745660+00:00\",\n      \"employer_name\": \"Acme Corporation\",\n      \"external_paystub_id\": \"821b7d1b-c115-470c-9411-be132f51c19d\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e166386-5031-445d-a6a5-7ae80fefedc9",
+          "name": "Create Link Token",
+          "request": {
+            "name": "Create Link Token",
+            "description": {
+              "content": "Create a Company Connect link token used to launch a Link modal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company_connect",
+                "link_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"org_name\": \"<string>\",\n  \"required_jobs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"skip_intro_screen\": false,\n  \"platform_id\": \"<uuid>\",\n  \"language\": \"en\",\n  \"company_connect\": {\n    \"company_connection_id\": \"<uuid>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d1143a7-a02f-43a8-9ebe-693f1bad4d99",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company_connect",
+                    "link_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"org_name\": \"Fintech.io\",\n  \"company_connect\": {\n    \"company_connection_id\": \"e3c3ec9e-eea5-42fc-b533-de3cea9c352f\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd2c09e7-1303-46d5-87c0-0ffa572d7ae4\",\n    \"token\": \"eyJhbGciOiJIUz....pZ-qZZPO-mA06Dzu-nfUdurwaTUA\",\n    \"expires\": \"2021-01-09T02:52:26+00:00\",\n    \"mode\": \"production\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getpinwheel.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-SECRET"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b8d6358b-ef20-4056-adc8-32b388a3b837",
+    "name": "Pinwheel Accounts Company Connect API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+      "type": "text/plain"
+    }
+  }
+}

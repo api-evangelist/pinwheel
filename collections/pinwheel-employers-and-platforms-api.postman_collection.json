@@ -1,0 +1,797 @@
+{
+  "item": [
+    {
+      "id": "8d8c0b20-5c55-4a2f-8e1d-1ba4deca0ffc",
+      "name": "Employers and Platforms",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f22abec4-5135-4fac-a448-6d0eac71e54a",
+          "name": "List Employers",
+          "request": {
+            "name": "List Employers",
+            "description": {
+              "content": "List all employers supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "employers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_updated",
+                  "value": "<dateTime>",
+                  "description": "Filter for results updated more recently than `last_updated`. ISO 8601 timestamp."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac3f7d52-f0b5-498a-8aa7-afe459624ec5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "last_updated",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"13a9ee8c-815d-451b-b2d0-496731ec29d3\",\n      \"name\": \"Acme Corporation\",\n      \"last_updated\": \"2020-11-06T15:59:13.530178+00:00\",\n      \"logo_url\": \"https://cdn.getpinwheel.com/acme.svg\",\n      \"supported_jobs\": [\n        \"direct_deposit_switch\"\n      ],\n      \"fractional_amount_supported\": false,\n      \"amount_supported\": true,\n      \"min_amount\": 1,\n      \"max_amount\": 9999,\n      \"percentage_supported\": true,\n      \"min_percentage\": 1,\n      \"max_percentage\": 99\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4d426ad-df61-4ea1-a0b0-eb0f4d94f94c",
+          "name": "Look up Employer",
+          "request": {
+            "name": "Look up Employer",
+            "description": {
+              "content": "Look up an employer by criteria such as EIN. Returns the full employer object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "employers",
+                "lookup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ein",
+                  "value": "<string>",
+                  "description": "Employer Identification Number (exactly 9 digits)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3337d52-9450-4cc5-bbba-609dd64cb57a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ein",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"13a9ee8c-815d-451b-b2d0-496731ec29d3\",\n    \"name\": \"Acme Corporation\",\n    \"last_updated\": \"2020-11-06T15:59:13.530178+00:00\",\n    \"logo_url\": \"https://cdn.getpinwheel.com/acme.svg\",\n    \"supported_jobs\": [\n      \"direct_deposit_switch\"\n    ],\n    \"fractional_amount_supported\": false,\n    \"amount_supported\": true,\n    \"min_amount\": 1,\n    \"max_amount\": 9999,\n    \"percentage_supported\": true,\n    \"min_percentage\": 1,\n    \"max_percentage\": 99\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77636352-f382-4fd8-9a19-eef37be7578b",
+          "name": "Get Employer",
+          "request": {
+            "name": "Get Employer",
+            "description": {
+              "content": "Get an Employer given the employer ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "employers",
+                ":employer_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "employer_id",
+                  "description": "(Required) UUID of the employer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc782686-a143-4fc0-ae0d-b3a8c358dce9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employer_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "employer_id",
+                      "description": "(Required) UUID of the employer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"13a9ee8c-815d-451b-b2d0-496731ec29d3\",\n    \"name\": \"Acme Corporation\",\n    \"last_updated\": \"2020-11-06T15:59:13.530178+00:00\",\n    \"logo_url\": \"https://cdn.getpinwheel.com/acme.svg\",\n    \"supported_jobs\": [\n      \"direct_deposit_switch\"\n    ],\n    \"fractional_amount_supported\": false,\n    \"amount_supported\": true,\n    \"min_amount\": 1,\n    \"max_amount\": 9999,\n    \"percentage_supported\": true,\n    \"min_percentage\": 1,\n    \"max_percentage\": 99\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b65fc135-410b-41ab-9119-3a5be36b7691",
+          "name": "Get Platform",
+          "request": {
+            "name": "Get Platform",
+            "description": {
+              "content": "Get a payroll platform supported by Link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "platforms",
+                ":platform_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "platform_id",
+                  "description": "(Required) UUID of the platform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c73939f-b162-443a-98dc-ad5089d24684",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platforms",
+                    ":platform_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "platform_id",
+                      "description": "(Required) UUID of the platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"fce3eee0-285b-496f-9b36-30e976194736\",\n    \"name\": \"Acme Payroll\",\n    \"type\": \"payroll\",\n    \"last_updated\": \"2020-11-06T15:59:13.530178+00:00\",\n    \"logo_url\": \"https://cdn.getpinwheel.com/acme.svg\",\n    \"supported_jobs\": [\n      \"direct_deposit_switch\"\n    ],\n    \"amount_supported\": true,\n    \"fractional_amount_supported\": false,\n    \"min_amount\": 1,\n    \"max_amount\": 9999,\n    \"percentage_supported\": true,\n    \"min_percentage\": 1,\n    \"max_percentage\": 99,\n    \"merchant_category\": \"video_streaming\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1534b684-20b5-4296-8552-619345317fdc",
+          "name": "List Platforms",
+          "request": {
+            "name": "List Platforms",
+            "description": {
+              "content": "List all payroll platforms supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "platforms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_esps",
+                  "value": "false",
+                  "description": "ESP (employer-specific platform) is a term that is used to describe an Employer that uses a unique, dedicated payroll portal to serve their employees. Eg. - Walmart employees will authenticate via a Walmart payroll portal, whereas employees at Hilton will authenticate via ADP. ESPs can be thought of as both employers and platforms, so you can use this flag to include ESPs in the set of supported payroll platforms if desired."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_updated",
+                  "value": "<dateTime>",
+                  "description": "Filter for results updated more recently than `last_updated`. ISO 8601 timestamp."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7afdb08b-e510-4993-a786-617b543edc16",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platforms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_esps",
+                      "value": "false"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "last_updated",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"fce3eee0-285b-496f-9b36-30e976194736\",\n      \"name\": \"Acme Payroll\",\n      \"type\": \"payroll\",\n      \"last_updated\": \"2020-11-06T15:59:13.530178+00:00\",\n      \"logo_url\": \"https://cdn.getpinwheel.com/acme.svg\",\n      \"supported_jobs\": [\n        \"direct_deposit_switch\"\n      ],\n      \"amount_supported\": true,\n      \"fractional_amount_supported\": false,\n      \"min_amount\": 1,\n      \"max_amount\": 9999,\n      \"percentage_supported\": true,\n      \"min_percentage\": 1,\n      \"max_percentage\": 99,\n      \"merchant_category\": \"video_streaming\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96c34395-c484-46d2-9318-fe779b8ec701",
+          "name": "Search Employers and Platforms",
+          "request": {
+            "name": "Search Employers and Platforms",
+            "description": {
+              "content": "Search all employers and platforms supported by Link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Search query on the employer/platform name."
+                },
+                {
+                  "disabled": false,
+                  "key": "supported_jobs",
+                  "value": "<string>",
+                  "description": "Filter on supported jobs. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy)."
+                },
+                {
+                  "disabled": false,
+                  "key": "supported_jobs",
+                  "value": "<string>",
+                  "description": "Filter on supported jobs. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy)."
+                },
+                {
+                  "disabled": false,
+                  "key": "response_types",
+                  "value": "<string>",
+                  "description": "Filter on response type. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy)."
+                },
+                {
+                  "disabled": false,
+                  "key": "response_types",
+                  "value": "<string>",
+                  "description": "Filter on response type. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy)."
+                },
+                {
+                  "disabled": false,
+                  "key": "amount_supported",
+                  "value": "<boolean>",
+                  "description": "Filter on amount_supported. If true, results that support setting a specific dollar amount for direct deposit switches will be returned. If false, results that support setting a specific dollar amount for direct deposit switches will be excluded."
+                },
+                {
+                  "disabled": false,
+                  "key": "platform_type",
+                  "value": "<string>",
+                  "description": "The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93c2284a-30b9-4e78-b27b-b72293aa535e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supported_jobs",
+                      "value": "direct_deposit_switch"
+                    },
+                    {
+                      "key": "response_types",
+                      "value": "platform"
+                    },
+                    {
+                      "key": "amount_supported",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "platform_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"fce3eee0-285b-496f-9b36-30e976194736\",\n      \"name\": \"Acme Payroll\",\n      \"platform_type\": \"payroll\",\n      \"last_updated\": \"2020-11-06T15:59:13.530178+00:00\",\n      \"logo_url\": \"https://cdn.getpinwheel.com/acme.svg\",\n      \"supported_jobs\": [\n        \"direct_deposit_switch\"\n      ],\n      \"fractional_amount_supported\": false,\n      \"amount_supported\": true,\n      \"min_amount\": 1,\n      \"max_amount\": 9999,\n      \"response_type\": \"platform\",\n      \"percentage_supported\": true,\n      \"min_percentage\": 1,\n      \"max_percentage\": 99\n    },\n    {\n      \"id\": \"13a9ee8c-815d-451b-b2d0-496731ec29d3\",\n      \"name\": \"Acme Corporation\",\n      \"last_updated\": \"2020-11-06T15:59:13.530178+00:00\",\n      \"logo_url\": \"https://cdn.getpinwheel.com/acme.svg\",\n      \"supported_jobs\": [\n        \"direct_deposit_switch\"\n      ],\n      \"fractional_amount_supported\": false,\n      \"amount_supported\": true,\n      \"min_amount\": 1,\n      \"max_amount\": 9999,\n      \"response_type\": \"employer\",\n      \"percentage_supported\": false,\n      \"min_percentage\": 1,\n      \"max_percentage\": 99\n    }\n  ],\n  \"meta\": {\n    \"count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getpinwheel.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-SECRET"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bd7535f5-20b1-45aa-a608-94a0d85cbdbb",
+    "name": "Pinwheel Accounts Employers and Platforms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+      "type": "text/plain"
+    }
+  }
+}

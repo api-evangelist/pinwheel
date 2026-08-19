@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts Tax Forms API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tax Forms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Tax Forms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/tax_forms",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              },
+              {
+                "name": "from_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter for tax forms during or after this year."
+              },
+              {
+                "name": "to_year",
+                "value": "",
+                "type": "query",
+                "description": "Filter for tax forms during or before this year."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "Lists all tax forms associated with a payroll account. Each tax form contains metadata like year, form type, and form ID. Tax forms are returned in reverse chronological order by year. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Get Tax Form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/tax_forms/:tax_form_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tax_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the tax form object."
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              },
+              {
+                "name": "with_parsed_data",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, return the parsed data of the tax form document. Note the billing implications of the Tax Forms endpoint. Currently only supported for W-2 forms."
+              }
+            ]
+          },
+          "docs": "Gets a specific tax form with document data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

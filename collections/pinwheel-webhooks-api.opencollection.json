@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts Webhooks API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/webhooks",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "List all webhooks. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Create Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.getpinwheel.com/v1/webhooks",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a webhook to use for callbacks from Pinwheel jobs."
+        },
+        {
+          "info": {
+            "name": "Get Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/webhooks/:webhook_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook."
+              }
+            ]
+          },
+          "docs": "Get webhook by id."
+        },
+        {
+          "info": {
+            "name": "Update Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.getpinwheel.com/v1/webhooks/:webhook_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update webhook."
+        },
+        {
+          "info": {
+            "name": "Delete Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.getpinwheel.com/v1/webhooks/:webhook_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the webhook."
+              }
+            ]
+          },
+          "docs": "Delete a webhook."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

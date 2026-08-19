@@ -1,0 +1,231 @@
+{
+  "item": [
+    {
+      "id": "b1acff67-5450-4ff9-affa-410d7d9a653b",
+      "name": "Jobs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7e19f759-0609-46c1-ab16-0f12478df3b7",
+          "name": "List Completed Jobs",
+          "request": {
+            "name": "List Completed Jobs",
+            "description": {
+              "content": "List all completed jobs which were initiated by Link (i.e., excluding refresh jobs for monitoring). This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "link_token_id",
+                  "value": "<uuid>",
+                  "description": "UUID of the link token triggering the job."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_id",
+                  "value": "<uuid>",
+                  "description": "UUID of the payroll account."
+                },
+                {
+                  "disabled": false,
+                  "key": "job_types",
+                  "value": "<string>",
+                  "description": "List of job types. May be expanded to include new enum values (see our Change Management policy)."
+                },
+                {
+                  "disabled": false,
+                  "key": "job_types",
+                  "value": "<string>",
+                  "description": "List of job types. May be expanded to include new enum values (see our Change Management policy)."
+                },
+                {
+                  "disabled": false,
+                  "key": "outcome",
+                  "value": "<string>",
+                  "description": "The outcome of the job."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "The maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the page you want to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "from_timestamp",
+                  "value": "<dateTime>",
+                  "description": "Return results after this ISO 8601 timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_timestamp",
+                  "value": "<dateTime>",
+                  "description": "Return results to this ISO 8601 timestamp."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5b19fd4-f9a3-422e-9a9d-51033a691e48",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "link_token_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "job_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "job_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "outcome",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_timestamp",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to_timestamp",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f08\",\n      \"account_id\": \"449e7a5c-69d3-4b8a-aaaf-5c9b713ebc65\",\n      \"platform_id\": \"fce3eee0-285b-496f-9b36-30e976194736\",\n      \"platform_name\": \"ADP\",\n      \"link_token_id\": \"4787acbc-11cf-4db3-998c-5ea7c4feebcd\",\n      \"name\": \"direct_deposit_switch\",\n      \"timestamp\": \"2021-01-12T02:36:01.287148+00:00\",\n      \"outcome\": \"success\",\n      \"params\": {\n        \"action\": \"partial_switch\",\n        \"allocation\": {\n          \"type\": \"amount\",\n          \"value\": 50,\n          \"target\": {\n            \"account_name\": \"My Checking Account\",\n            \"account_type\": \"checking\"\n          }\n        }\n      }\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.getpinwheel.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-SECRET"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0d2f0bb8-d490-411b-b28d-46fcc5945305",
+    "name": "Pinwheel Accounts Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts Income and Employment API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Income and Employment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Employment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/employment",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              }
+            ]
+          },
+          "docs": "Get the current employment information of the account owner."
+        },
+        {
+          "info": {
+            "name": "Get Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/identity",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              }
+            ]
+          },
+          "docs": "Get the current identity information of the account owner."
+        },
+        {
+          "info": {
+            "name": "Get Income",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/income",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              }
+            ]
+          },
+          "docs": "Get the current income information of the account owner."
+        },
+        {
+          "info": {
+            "name": "List Paystubs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/paystubs",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              },
+              {
+                "name": "from_pay_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter for paystubs with pay dates after this date."
+              },
+              {
+                "name": "to_pay_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter for paystubs with pay dates before this date."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "The paystubs endpoint allows you to query for payouts to an end user. Each paystub contains broken out and aggregated earnings information, as well as relevant dates. Paystubs are returned in reverse chronological order by `pay_date`. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Get Paystub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/paystubs/:paystub_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paystub_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the paystub."
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              }
+            ]
+          },
+          "docs": "Get a single paystub."
+        },
+        {
+          "info": {
+            "name": "List Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/accounts/:account_id/shifts",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the payroll account."
+              },
+              {
+                "name": "from_start_date",
+                "value": "",
+                "type": "query",
+                "description": "Return shifts where the `start_date` field is on or after this date. ISO 8601 format."
+              },
+              {
+                "name": "to_start_date",
+                "value": "",
+                "type": "query",
+                "description": "Return shifts where the `start_date` field is on or before this date. ISO 8601 format."
+              },
+              {
+                "name": "from_end_date",
+                "value": "",
+                "type": "query",
+                "description": "Return shifts where the `end_date` field is on or after this date. ISO 8601 format."
+              },
+              {
+                "name": "to_end_date",
+                "value": "",
+                "type": "query",
+                "description": "Return shifts where the `end_date` field is on or before this date. ISO 8601 format."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              }
+            ]
+          },
+          "docs": "The shifts endpoint allows you to query for ongoing and completed work performed by an end user. It includes details about shift dates, timestamps, the type of work, and associated earnings. Shifts are returned in reverse chronological order by `end_date`. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

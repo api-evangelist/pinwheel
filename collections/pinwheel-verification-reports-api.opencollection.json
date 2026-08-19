@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts Verification Reports API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Verification Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Verification of Income and Employment Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/end_users/:end_user_id/verification_reports/voie",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "end_user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID provided by you, to associate Pinwheel users with your user model."
+              }
+            ]
+          },
+          "docs": "Get a Verification of Income and Employment (VOIE) report associated with your end user ID."
+        },
+        {
+          "info": {
+            "name": "Get Verification of Employment Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/end_users/:end_user_id/verification_reports/voe",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "end_user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID provided by you, to associate Pinwheel users with your user model."
+              }
+            ]
+          },
+          "docs": "Get a Verification of Employment (VOE) report associated with your end user ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

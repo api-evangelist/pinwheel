@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts Jobs API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Completed Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/jobs",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "link_token_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the link token triggering the job."
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the payroll account."
+              },
+              {
+                "name": "job_types",
+                "value": "",
+                "type": "query",
+                "description": "List of job types. May be expanded to include new enum values (see our Change Management policy)."
+              },
+              {
+                "name": "outcome",
+                "value": "",
+                "type": "query",
+                "description": "The outcome of the job."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "from_timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Return results after this ISO 8601 timestamp."
+              },
+              {
+                "name": "to_timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Return results to this ISO 8601 timestamp."
+              }
+            ]
+          },
+          "docs": "List all completed jobs which were initiated by Link (i.e., excluding refresh jobs for monitoring). This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

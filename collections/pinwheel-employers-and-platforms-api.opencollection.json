@@ -1,0 +1,242 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinwheel Accounts Employers and Platforms API",
+    "version": "v2025-07-08"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-SECRET",
+      "value": "{{X-API-SECRET}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Employers and Platforms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Employers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/employers",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "last_updated",
+                "value": "",
+                "type": "query",
+                "description": "Filter for results updated more recently than `last_updated`. ISO 8601 timestamp."
+              }
+            ]
+          },
+          "docs": "List all employers supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Look up Employer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/employers/lookup",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "ein",
+                "value": "",
+                "type": "query",
+                "description": "Employer Identification Number (exactly 9 digits)."
+              }
+            ]
+          },
+          "docs": "Look up an employer by criteria such as EIN. Returns the full employer object."
+        },
+        {
+          "info": {
+            "name": "Get Employer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/employers/:employer_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employer_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the employer."
+              }
+            ]
+          },
+          "docs": "Get an Employer given the employer ID."
+        },
+        {
+          "info": {
+            "name": "Get Platform",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/platforms/:platform_id",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "platform_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the platform."
+              }
+            ]
+          },
+          "docs": "Get a payroll platform supported by Link."
+        },
+        {
+          "info": {
+            "name": "List Platforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/platforms",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "include_esps",
+                "value": "",
+                "type": "query",
+                "description": "ESP (employer-specific platform) is a term that is used to describe an Employer that uses a unique, dedicated payroll portal to serve their employees. Eg. - Walmart employees will authenticate via a Walmart payroll portal, whereas employees at Hilton will authenticate via ADP. ESPs can be thought of as both employers and platforms, so you can use this flag to include ESPs in the set of supported payroll platforms if desired."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the page you want to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "last_updated",
+                "value": "",
+                "type": "query",
+                "description": "Filter for results updated more recently than `last_updated`. ISO 8601 timestamp."
+              }
+            ]
+          },
+          "docs": "List all payroll platforms supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>."
+        },
+        {
+          "info": {
+            "name": "Search Employers and Platforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.getpinwheel.com/v1/search",
+            "headers": [
+              {
+                "name": "Pinwheel-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query on the employer/platform name."
+              },
+              {
+                "name": "supported_jobs",
+                "value": "direct_deposit_switch",
+                "type": "query",
+                "description": "Filter on supported jobs. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy)."
+              },
+              {
+                "name": "response_types",
+                "value": "platform",
+                "type": "query",
+                "description": "Filter on response type. Multiple keys are allowed. May be expanded to include new enum values (see our Change Management policy)."
+              },
+              {
+                "name": "amount_supported",
+                "value": "",
+                "type": "query",
+                "description": "Filter on amount_supported. If true, results that support setting a specific dollar amount for direct deposit switches will be returned. If false, results that support setting a specific dollar amount for direct deposit switches will be excluded."
+              },
+              {
+                "name": "platform_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of the platform. `payroll` platforms are used for direct-deposit switching and for Verify use cases. `time_and_attendance` platforms contain data around shifts and hours. `tax` platforms are used for tax solutions. `merchant` type platforms are used for bill switching and cancellation."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "Search all employers and platforms supported by Link."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
