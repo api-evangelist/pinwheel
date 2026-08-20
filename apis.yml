@@ -44,6 +44,8 @@ apis:
   humanURL: https://www.pinwheelapi.com
   baseURL: https://api.getpinwheel.com
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -64,6 +66,8 @@ apis:
   humanURL: https://www.pinwheelapi.com
   baseURL: https://api.getpinwheel.com
   tags:
+  - APIKeys
+  tags_raw:
   - API Keys
   properties:
   - type: OpenAPI
@@ -206,6 +210,8 @@ apis:
   humanURL: https://www.pinwheelapi.com
   baseURL: https://api.getpinwheel.com
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -306,6 +312,8 @@ apis:
   humanURL: https://www.pinwheelapi.com
   baseURL: https://api.getpinwheel.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
