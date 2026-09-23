@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Pinwheel Accounts Tax Forms API
+  title: Pinwheel Tax Forms API
   description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
   version: v2025-07-08
   contact:
@@ -24,7 +24,7 @@ paths:
       tags:
       - Tax Forms
       summary: List Tax Forms
-      description: Lists all tax forms associated with a payroll account. Each tax form contains metadata like year, form type, and form ID. Tax forms are returned in reverse chronological order by year. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: Lists all tax forms associated with a payroll account. Each tax form contains metadata like year, form type, and form ID. Tax forms are returned in reverse chronological order by year. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: list_tax_forms_v1_accounts__account_id__tax_forms_get
       parameters:
       - description: UUID of the payroll account.
@@ -247,6 +247,190 @@ paths:
                         message: This field could not be parsed
 components:
   schemas:
+    DocumentObjPublicResponseItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        download_url:
+          type: string
+          title: download_url
+          description: URL from which the document may be downloaded.
+        download_url_expiration:
+          type: string
+          format: date-time
+          title: download_url_expiration
+          description: ISO 8601 timestamp of when the download URL will no longer be valid.
+      type: object
+      required:
+      - id
+      title: Document
+      x-tags:
+      - Schemas
+    TaxFormObjResponseNoDocument_v2022_06_22:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        form_type:
+          allOf:
+          - type: string
+            enum:
+            - W-2
+            - W-2C
+            - 1099-NEC
+            - 1099-MISC
+            - 1099-K
+            - '1040'
+          description: The type of form.
+        year:
+          type: integer
+          title: year
+          description: The tax year of the form.
+      type: object
+      required:
+      - id
+      - created_at
+      - account_id
+      - form_type
+      - year
+      title: TaxForm
+      x-tags:
+      - Schemas
+    RefreshablePaginationListMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: RefreshablePaginationListMeta
+      x-tags:
+      - Schemas
+    W2BoxC:
+      properties:
+        name:
+          type: string
+          title: name
+          description: Employer's name. Box c IRS Form W-2.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: Employer's address. Box c IRS Form W-2.
+      type: object
+      title: W2BoxC
+      x-tags:
+      - Schemas
+    W2Box12:
+      properties:
+        code:
+          type: string
+          title: code
+          description: Code for miscellaneous income or tax line items. Box 12 IRS Form W-2.
+        amount:
+          type: integer
+          title: amount
+          description: Amount for miscellaneous income or tax line items. Box 12 IRS Form W-2.
+      type: object
+      title: W2Box12
+      x-tags:
+      - Schemas
+    W2Box15To20:
+      properties:
+        box_15_state:
+          type: string
+          title: box_15_state
+          description: State. Box 15 IRS Form W-2.
+        box_15_employer_state_id:
+          type: string
+          title: box_15_employer_state_id
+          description: Employer's state ID number. Box 15 IRS Form W-2.
+        box_16:
+          type: integer
+          title: box_16
+          description: State wages, tips, etc. Box 16 IRS Form W-2.
+        box_17:
+          type: integer
+          title: box_17
+          description: State income tax. Box 17 IRS Form W-2.
+        box_18:
+          type: integer
+          title: box_18
+          description: Local wages, tips, etc. Box 18 IRS Form W-2.
+        box_19:
+          type: integer
+          title: box_19
+          description: Local income tax. Box 19 IRS Form W-2.
+        box_20:
+          type: string
+          title: box_20
+          description: Locality name. Box 20 IRS Form W-2.
+      type: object
+      title: W2Box15To20
+      x-tags:
+      - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
     TaxFormW2:
       properties:
         document_type:
@@ -353,93 +537,6 @@ components:
       title: TaxFormW2
       x-tags:
       - Schemas
-    W2BoxC:
-      properties:
-        name:
-          type: string
-          title: name
-          description: Employer's name. Box c IRS Form W-2.
-        address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: address
-          description: Employer's address. Box c IRS Form W-2.
-      type: object
-      title: W2BoxC
-      x-tags:
-      - Schemas
-    AddressGetResponseItem:
-      properties:
-        raw:
-          type: string
-          title: raw
-          description: The raw address.
-        line1:
-          type: string
-          title: line1
-          description: The first line of the address.
-        line2:
-          type: string
-          title: line2
-          description: The second line of the address.
-        city:
-          type: string
-          title: city
-          description: The city of the address.
-        state:
-          type: string
-          title: state
-          description: The state of the address.
-        postal_code:
-          type: string
-          title: postal_code
-          description: The postal code of the address.
-        country:
-          allOf:
-          - type: string
-            enum:
-            - US
-          description: The country of the address.
-      type: object
-      required:
-      - raw
-      title: Address
-      x-tags:
-      - Schemas
-    W2Box15To20:
-      properties:
-        box_15_state:
-          type: string
-          title: box_15_state
-          description: State. Box 15 IRS Form W-2.
-        box_15_employer_state_id:
-          type: string
-          title: box_15_employer_state_id
-          description: Employer's state ID number. Box 15 IRS Form W-2.
-        box_16:
-          type: integer
-          title: box_16
-          description: State wages, tips, etc. Box 16 IRS Form W-2.
-        box_17:
-          type: integer
-          title: box_17
-          description: State income tax. Box 17 IRS Form W-2.
-        box_18:
-          type: integer
-          title: box_18
-          description: Local wages, tips, etc. Box 18 IRS Form W-2.
-        box_19:
-          type: integer
-          title: box_19
-          description: Local income tax. Box 19 IRS Form W-2.
-        box_20:
-          type: string
-          title: box_20
-          description: Locality name. Box 20 IRS Form W-2.
-      type: object
-      title: W2Box15To20
-      x-tags:
-      - Schemas
     W2Box13:
       properties:
         statutory_employee:
@@ -458,60 +555,28 @@ components:
       title: W2Box13
       x-tags:
       - Schemas
-    W2Box12:
+    FieldWarning:
       properties:
-        code:
+        field:
           type: string
-          title: code
-          description: Code for miscellaneous income or tax line items. Box 12 IRS Form W-2.
-        amount:
-          type: integer
-          title: amount
-          description: Amount for miscellaneous income or tax line items. Box 12 IRS Form W-2.
-      type: object
-      title: W2Box12
-      x-tags:
-      - Schemas
-    TaxFormObjResponseNoDocument_v2022_06_22:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        account_id:
-          type: string
-          format: uuid
-          title: account_id
-          description: UUID of the payroll account.
-        form_type:
+          title: field
+          description: The response field associated with this warning. Nested values are delimited with a `.`, i.e. `parsed_data.box_13.statutory_employee`.
+        status:
           allOf:
           - type: string
             enum:
-            - W-2
-            - W-2C
-            - 1099-NEC
-            - 1099-MISC
-            - 1099-K
-            - '1040'
-          description: The type of form.
-        year:
-          type: integer
-          title: year
-          description: The tax year of the form.
+            - unparsable
+          description: The status type of this warning.
+        message:
+          type: string
+          title: message
+          description: A full description of the warning.
       type: object
       required:
-      - id
-      - created_at
-      - account_id
-      - form_type
-      - year
-      title: TaxForm
+      - field
+      - status
+      - message
+      title: FieldWarning
       x-tags:
       - Schemas
     TaxFormObjResponse_v2022_06_22:
@@ -570,71 +635,6 @@ components:
       - form_type
       - year
       title: TaxForm
-      x-tags:
-      - Schemas
-    RefreshablePaginationListMeta:
-      properties:
-        refreshed_at:
-          type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: RefreshablePaginationListMeta
-      x-tags:
-      - Schemas
-    DocumentObjPublicResponseItem:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier of the document object.
-        download_url:
-          type: string
-          title: download_url
-          description: URL from which the document may be downloaded.
-        download_url_expiration:
-          type: string
-          format: date-time
-          title: download_url_expiration
-          description: ISO 8601 timestamp of when the download URL will no longer be valid.
-      type: object
-      required:
-      - id
-      title: Document
-      x-tags:
-      - Schemas
-    FieldWarning:
-      properties:
-        field:
-          type: string
-          title: field
-          description: The response field associated with this warning. Nested values are delimited with a `.`, i.e. `parsed_data.box_13.statutory_employee`.
-        status:
-          allOf:
-          - type: string
-            enum:
-            - unparsable
-          description: The status type of this warning.
-        message:
-          type: string
-          title: message
-          description: A full description of the warning.
-      type: object
-      required:
-      - field
-      - status
-      - message
-      title: FieldWarning
       x-tags:
       - Schemas
   securitySchemes:

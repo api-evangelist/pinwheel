@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Pinwheel Accounts API
   description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
@@ -24,7 +24,7 @@ paths:
       tags:
       - Accounts
       summary: List Accounts
-      description: List all payroll accounts. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List all payroll accounts. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: list_accounts_v1_accounts_get
       parameters:
       - description: Cursor for the page you want to retrieve.

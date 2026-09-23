@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Pinwheel Accounts Direct Deposit Allocations API
+  title: Pinwheel Direct Deposit Allocations API
   description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
   version: v2025-07-08
   contact:
@@ -108,6 +108,55 @@ paths:
                         routing_number: '434957982'
 components:
   schemas:
+    RefreshableMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+      type: object
+      title: RefreshableMeta
+      x-tags:
+      - Schemas
+    DDAllocationObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the Direct Deposit Allocations object.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        allocations:
+          items:
+            $ref: '#/components/schemas/AllocationAccountObjResponse'
+          type: array
+          title: allocations
+          description: List of current allocations for this payroll account.
+      type: object
+      required:
+      - id
+      - account_id
+      - created_at
+      - updated_at
+      - allocations
+      title: Direct Deposit Allocations
+      x-tags:
+      - Schemas
     AllocationAccountObjResponse:
       properties:
         account_name:
@@ -344,55 +393,6 @@ components:
       - allocation_type
       - currency
       title: Allocation
-      x-tags:
-      - Schemas
-    RefreshableMeta:
-      properties:
-        refreshed_at:
-          type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-      type: object
-      title: RefreshableMeta
-      x-tags:
-      - Schemas
-    DDAllocationObjResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier of the Direct Deposit Allocations object.
-        account_id:
-          type: string
-          format: uuid
-          title: account_id
-          description: UUID of the payroll account.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        updated_at:
-          type: string
-          format: date-time
-          title: updated_at
-          description: ISO 8601 timestamp of the last update to this object.
-        allocations:
-          items:
-            $ref: '#/components/schemas/AllocationAccountObjResponse'
-          type: array
-          title: allocations
-          description: List of current allocations for this payroll account.
-      type: object
-      required:
-      - id
-      - account_id
-      - created_at
-      - updated_at
-      - allocations
-      title: Direct Deposit Allocations
       x-tags:
       - Schemas
   securitySchemes:

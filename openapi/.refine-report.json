@@ -1,24 +1,11 @@
 {
   "provider": "pinwheel",
   "sources": [
-    "pinwheel-accounts-api-openapi.yml",
-    "pinwheel-api-keys-api-openapi.yml",
-    "pinwheel-company-connect-api-openapi.yml",
-    "pinwheel-direct-deposit-allocations-api-openapi.yml",
-    "pinwheel-earnings-stream-api-openapi.yml",
-    "pinwheel-employers-and-platforms-api-openapi.yml",
-    "pinwheel-end-users-api-openapi.yml",
-    "pinwheel-income-and-employment-api-openapi.yml",
-    "pinwheel-jobs-api-openapi.yml",
-    "pinwheel-link-tokens-api-openapi.yml",
-    "pinwheel-sandbox-api-openapi.yml",
-    "pinwheel-tax-forms-api-openapi.yml",
-    "pinwheel-verification-reports-api-openapi.yml",
-    "pinwheel-webhooks-api-openapi.yml"
+    "_original/pinwheel-pinwheel-api-openapi.yml"
   ],
   "outputs": [
-    "pinwheel-accounts-api-openapi.yml",
     "pinwheel-api-keys-api-openapi.yml",
+    "pinwheel-accounts-api-openapi.yml",
     "pinwheel-company-connect-api-openapi.yml",
     "pinwheel-direct-deposit-allocations-api-openapi.yml",
     "pinwheel-earnings-stream-api-openapi.yml",
@@ -35,6 +22,25 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pinwheel-pinwheel-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "pinwheel-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-api-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-company-connect-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-direct-deposit-allocations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-earnings-stream-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-employers-and-platforms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-end-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-income-and-employment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-link-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-sandbox-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-tax-forms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-verification-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pinwheel-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

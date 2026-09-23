@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Pinwheel Accounts API Keys API
+  title: Pinwheel API Keys API
   description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
   version: v2025-07-08
   contact:
@@ -287,18 +287,52 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    PaginationMeta:
+    CreateAPIKeyResponseData:
       properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: The mode that the Admin API token is authorized for.
+        key:
           type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
+          title: key
+          description: The public token that refers to your API key, as distinct from the API Secret.
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        secret:
+          type: string
+          title: secret
+          description: The secret token part of the API key used to authorize requests to the Pinwheel API.
       type: object
-      title: PaginationMeta
+      required:
+      - mode
+      - key
+      - created_at
+      - secret
+      title: object
+      x-tags:
+      - Schemas
+    CreateAPIKeyOptions:
+      properties:
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+      type: object
+      title: object
       x-tags:
       - Schemas
     CreateAdminTokenResponseData:
@@ -390,43 +424,6 @@ components:
       title: object
       x-tags:
       - Schemas
-    CreateAPIKeyResponseData:
-      properties:
-        mode:
-          allOf:
-          - type: string
-            enum:
-            - sandbox
-            - development
-            - production
-          description: The mode that the Admin API token is authorized for.
-        key:
-          type: string
-          title: key
-          description: The public token that refers to your API key, as distinct from the API Secret.
-        expires_at:
-          type: string
-          format: date-time
-          title: expires_at
-          description: Timestamp used to set when this key automatically expires.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        secret:
-          type: string
-          title: secret
-          description: The secret token part of the API key used to authorize requests to the Pinwheel API.
-      type: object
-      required:
-      - mode
-      - key
-      - created_at
-      - secret
-      title: object
-      x-tags:
-      - Schemas
     RevokeAPIKeyResponseData:
       properties:
         mode:
@@ -465,15 +462,18 @@ components:
       title: object
       x-tags:
       - Schemas
-    CreateAPIKeyOptions:
+    PaginationMeta:
       properties:
-        expires_at:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
           type: string
-          format: date-time
-          title: expires_at
-          description: Timestamp used to set when this key automatically expires.
+          title: next_cursor
+          description: Pointer to the next page of results.
       type: object
-      title: object
+      title: PaginationMeta
       x-tags:
       - Schemas
     CreateAdminTokenRequest:

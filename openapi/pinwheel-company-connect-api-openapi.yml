@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Pinwheel Accounts Company Connect API
+  title: Pinwheel Company Connect API
   description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
   version: v2025-07-08
   contact:
@@ -24,7 +24,7 @@ paths:
       tags:
       - Company Connect
       summary: List Employees
-      description: List all employee census data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List all employee census data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: get_v1_company_connections__company_connection_id__census_get
       parameters:
       - description: UUID of the Company Connection.
@@ -122,7 +122,7 @@ paths:
       tags:
       - Company Connect
       summary: List Company Connections
-      description: List all Company Connections. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List all Company Connections. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: list_v1_company_connections_get
       parameters:
       - description: Cursor for the page you want to retrieve.
@@ -303,7 +303,7 @@ paths:
       tags:
       - Company Connect
       summary: List Employments Data
-      description: List all employments data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List all employments data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: get_v1_company_connections__company_connection_id__employments_get
       parameters:
       - description: UUID of the Company Connection.
@@ -397,7 +397,7 @@ paths:
       tags:
       - Company Connect
       summary: List Employee Incomes
-      description: List all employee income data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List all employee income data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: get_v1_company_connections__company_connection_id__incomes_get
       parameters:
       - description: UUID of the Company Connection.
@@ -478,7 +478,7 @@ paths:
       tags:
       - Company Connect
       summary: List Employee Paystubs
-      description: List employee paystubs data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List employee paystubs data reported by the payroll platform. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: get_v1_company_connections__company_connection_id__paystubs__employee_external_id__get
       parameters:
       - description: UUID of the Company Connection.
@@ -648,99 +648,6 @@ paths:
                       mode: production
 components:
   schemas:
-    CompanyConnectionBase:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        company_name:
-          type: string
-          title: company_name
-          description: Name of the company used in a Company Connection.
-        status:
-          allOf:
-          - type: string
-            enum:
-            - ready_to_connect
-            - connection_failed
-            - processing
-            - data_available
-            - reconnect_needed
-          description: The status of the Company Connection. <a href='https://docs.pinwheelapi.com/docs/company-connect-technical-implementation#company-connection-status' target='_blank'>See documentation for details</a>.
-        status_updated_at:
-          type: string
-          format: date-time
-          title: status_updated_at
-          description: Timestamp of when the Company Connection's status was last updated.
-      type: object
-      required:
-      - id
-      - created_at
-      - company_name
-      - status
-      - status_updated_at
-      title: CompanyConnectionBase
-      x-tags:
-      - Schemas
-    PaginationMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: PaginationMeta
-      x-tags:
-      - Schemas
-    AddressGetResponseItem:
-      properties:
-        raw:
-          type: string
-          title: raw
-          description: The raw address.
-        line1:
-          type: string
-          title: line1
-          description: The first line of the address.
-        line2:
-          type: string
-          title: line2
-          description: The second line of the address.
-        city:
-          type: string
-          title: city
-          description: The city of the address.
-        state:
-          type: string
-          title: state
-          description: The state of the address.
-        postal_code:
-          type: string
-          title: postal_code
-          description: The postal code of the address.
-        country:
-          allOf:
-          - type: string
-            enum:
-            - US
-          description: The country of the address.
-      type: object
-      required:
-      - raw
-      title: Address
-      x-tags:
-      - Schemas
     CompanyConnectionCreate:
       properties:
         company_name:
@@ -751,85 +658,6 @@ components:
       required:
       - company_name
       title: CompanyConnectionPostBody
-      x-tags:
-      - Schemas
-    CompanyConnectLinkTokenCreate:
-      properties:
-        required_jobs:
-          items:
-            type: string
-            enum:
-            - company_employments
-            - company_census
-            - company_incomes
-          type: array
-          description: List of job types to be performed on the Company Connection. Platforms that do not support ALL of these jobs will not be visible to the user.
-        org_name:
-          type: string
-          maxLength: 30
-          minLength: 3
-          title: org_name
-          description: Organization or app name that is displayed to the user.
-        skip_intro_screen:
-          type: boolean
-          title: skip_intro_screen
-          description: If set to true, intro screen is not shown to user.
-          default: false
-        platform_id:
-          type: string
-          format: uuid
-          title: platform_id
-          description: UUID of a platform. If set, user is taken directly to Link login screen.
-        language:
-          allOf:
-          - type: string
-            enum:
-            - en
-            - es
-          description: IETF code denoting which language to display in Link.
-          default: en
-        company_connect:
-          allOf:
-          - $ref: '#/components/schemas/CompanyConnect'
-          title: company_connect
-          description: Configuration used to specify a Company Connection.
-      type: object
-      required:
-      - org_name
-      title: LinkTokenPostBody
-      x-tags:
-      - Schemas
-    CompanyConnectLinkTokenObjResponse:
-      properties:
-        mode:
-          allOf:
-          - type: string
-            enum:
-            - sandbox
-            - development
-            - production
-          description: Token mode, i.e. `sandbox`, `development`, or `production`.
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: UUID of the link token.
-        token:
-          type: string
-          title: token
-          description: Short-lived token that is used to initialize Pinwheel Link.
-        expires:
-          type: string
-          format: date-time
-          title: expires
-          description: The token will be invalid after this timestamp.
-      type: object
-      required:
-      - mode
-      - id
-      - token
-      - expires
-      title: CompanyConnect Link Token Response Data
       x-tags:
       - Schemas
     CompanyConnect:
@@ -844,24 +672,237 @@ components:
       description: "This class defines the fields present in the `company_connect` object in\nthe link token.\n\nFor non-Company Connect link tokens, this field is optional. If the object\nis present, it indicates that the link token is a Company Connect link\ntoken.\n\nAttributes:\n    company_connection_id (UUID): This field specifies the ID of the\n        company connection. This ID is generated by Pinwheel. All Company\n        Connect webhooks reference the connection by this ID, and all\n        public CC API endpoints require this ID as well."
       x-tags:
       - Schemas
-    PhoneNumberGetResponseItem:
+    CompanyIncomeObjResponse:
       properties:
-        value:
+        created_at:
           type: string
-          title: value
-          description: The E.164 formatted phone number.
-        type:
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        employee_external_id:
+          type: string
+          title: employee_external_id
+          description: Employee ID as reported by their employer.
+        compensation_amount:
+          type: integer
+          title: compensation_amount
+          description: The amount per compensation unit, in cents.
+        compensation_unit:
           allOf:
           - type: string
             enum:
-            - home
-            - work
-            - mobile
-          description: home, mobile, work, etc.
+            - hourly
+            - daily
+            - weekly
+            - bi-weekly
+            - semi-weekly
+            - monthly
+            - semi-monthly
+            - annually
+            - variable
+            - per_mile
+          description: The compensation time frame.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        pay_frequency:
+          allOf:
+          - type: string
+            enum:
+            - daily
+            - weekly
+            - bi-weekly
+            - monthly
+            - semi-monthly
+            - variable
+          description: Describes how often the employee is paid.
       type: object
       required:
-      - value
-      title: Phone
+      - created_at
+      - employee_external_id
+      - compensation_amount
+      - compensation_unit
+      - currency
+      title: CompanyIncomeObjResponse
       x-tags:
       - Schemas
     CompanyPaystubObjResponse:
@@ -1123,6 +1164,44 @@ components:
       title: CompanyPaystubObjResponse
       x-tags:
       - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
     CompanyIdentityObjResponse:
       properties:
         created_at:
@@ -1187,237 +1266,50 @@ components:
       title: CompanyIdentityObjResponse
       x-tags:
       - Schemas
-    CompanyIncomeObjResponse:
+    CompanyConnectLinkTokenCreate:
       properties:
-        created_at:
+        required_jobs:
+          items:
+            type: string
+            enum:
+            - company_employments
+            - company_census
+            - company_incomes
+          type: array
+          description: List of job types to be performed on the Company Connection. Platforms that do not support ALL of these jobs will not be visible to the user.
+        org_name:
           type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        employee_external_id:
+          maxLength: 30
+          minLength: 3
+          title: org_name
+          description: Organization or app name that is displayed to the user.
+        skip_intro_screen:
+          type: boolean
+          title: skip_intro_screen
+          description: If set to true, intro screen is not shown to user.
+          default: false
+        platform_id:
           type: string
-          title: employee_external_id
-          description: Employee ID as reported by their employer.
-        compensation_amount:
-          type: integer
-          title: compensation_amount
-          description: The amount per compensation unit, in cents.
-        compensation_unit:
+          format: uuid
+          title: platform_id
+          description: UUID of a platform. If set, user is taken directly to Link login screen.
+        language:
           allOf:
           - type: string
             enum:
-            - hourly
-            - daily
-            - weekly
-            - bi-weekly
-            - semi-weekly
-            - monthly
-            - semi-monthly
-            - annually
-            - variable
-            - per_mile
-          description: The compensation time frame.
-        currency:
+            - en
+            - es
+          description: IETF code denoting which language to display in Link.
+          default: en
+        company_connect:
           allOf:
-          - type: string
-            enum:
-            - AED
-            - AFN
-            - ALL
-            - AMD
-            - ANG
-            - AOA
-            - ARS
-            - AUD
-            - AWG
-            - AZN
-            - BAM
-            - BBD
-            - BDT
-            - BGN
-            - BHD
-            - BIF
-            - BMD
-            - BND
-            - BOB
-            - BOV
-            - BRL
-            - BSD
-            - BTN
-            - BWP
-            - BYR
-            - BZD
-            - CAD
-            - CDF
-            - CHE
-            - CHF
-            - CHW
-            - CLF
-            - CLP
-            - CNY
-            - COP
-            - COU
-            - CRC
-            - CUC
-            - CUP
-            - CVE
-            - CZK
-            - DJF
-            - DKK
-            - DOP
-            - DZD
-            - EGP
-            - ERN
-            - ETB
-            - EUR
-            - FJD
-            - FKP
-            - GBP
-            - GEL
-            - GHS
-            - GIP
-            - GMD
-            - GNF
-            - GTQ
-            - GYD
-            - HKD
-            - HNL
-            - HRK
-            - HTG
-            - HUF
-            - IDR
-            - ILS
-            - INR
-            - IQD
-            - IRR
-            - ISK
-            - JMD
-            - JOD
-            - JPY
-            - KES
-            - KGS
-            - KHR
-            - KMF
-            - KPW
-            - KRW
-            - KWD
-            - KYD
-            - KZT
-            - LAK
-            - LBP
-            - LKR
-            - LRD
-            - LSL
-            - LTL
-            - LVL
-            - LYD
-            - MAD
-            - MDL
-            - MGA
-            - MKD
-            - MMK
-            - MNT
-            - MOP
-            - MRO
-            - MUR
-            - MVR
-            - MWK
-            - MXN
-            - MXV
-            - MYR
-            - MZN
-            - NAD
-            - NGN
-            - NIO
-            - NOK
-            - NPR
-            - NZD
-            - OMR
-            - PAB
-            - PEN
-            - PGK
-            - PHP
-            - PKR
-            - PLN
-            - PYG
-            - QAR
-            - RON
-            - RSD
-            - RUB
-            - RWF
-            - SAR
-            - SBD
-            - SCR
-            - SDG
-            - SEK
-            - SGD
-            - SHP
-            - SLL
-            - SOS
-            - SRD
-            - SSP
-            - STD
-            - SYP
-            - SZL
-            - THB
-            - TJS
-            - TMT
-            - TND
-            - TOP
-            - TRY
-            - TTD
-            - TWD
-            - TZS
-            - UAH
-            - UGX
-            - USD
-            - USN
-            - USS
-            - UYI
-            - UYU
-            - UZS
-            - VEF
-            - VND
-            - VUV
-            - WST
-            - XAF
-            - XAG
-            - XAU
-            - XBA
-            - XBB
-            - XBC
-            - XBD
-            - XCD
-            - XDR
-            - XOF
-            - XPD
-            - XPF
-            - XPT
-            - XTS
-            - XXX
-            - YER
-            - ZAR
-            - ZMW
-          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
-        pay_frequency:
-          allOf:
-          - type: string
-            enum:
-            - daily
-            - weekly
-            - bi-weekly
-            - monthly
-            - semi-monthly
-            - variable
-          description: Describes how often the employee is paid.
+          - $ref: '#/components/schemas/CompanyConnect'
+          title: company_connect
+          description: Configuration used to specify a Company Connection.
       type: object
       required:
-      - created_at
-      - employee_external_id
-      - compensation_amount
-      - compensation_unit
-      - currency
-      title: CompanyIncomeObjResponse
+      - org_name
+      title: LinkTokenPostBody
       x-tags:
       - Schemas
     CompanyEmploymentObjResponse:
@@ -1493,6 +1385,114 @@ components:
       - employee_external_id
       - employer_name
       title: CompanyEmploymentObjResponse
+      x-tags:
+      - Schemas
+    PhoneNumberGetResponseItem:
+      properties:
+        value:
+          type: string
+          title: value
+          description: The E.164 formatted phone number.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
+      type: object
+      required:
+      - value
+      title: Phone
+      x-tags:
+      - Schemas
+    CompanyConnectLinkTokenObjResponse:
+      properties:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: Token mode, i.e. `sandbox`, `development`, or `production`.
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: UUID of the link token.
+        token:
+          type: string
+          title: token
+          description: Short-lived token that is used to initialize Pinwheel Link.
+        expires:
+          type: string
+          format: date-time
+          title: expires
+          description: The token will be invalid after this timestamp.
+      type: object
+      required:
+      - mode
+      - id
+      - token
+      - expires
+      title: CompanyConnect Link Token Response Data
+      x-tags:
+      - Schemas
+    CompanyConnectionBase:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        company_name:
+          type: string
+          title: company_name
+          description: Name of the company used in a Company Connection.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - ready_to_connect
+            - connection_failed
+            - processing
+            - data_available
+            - reconnect_needed
+          description: The status of the Company Connection. <a href='https://docs.pinwheelapi.com/docs/company-connect-technical-implementation#company-connection-status' target='_blank'>See documentation for details</a>.
+        status_updated_at:
+          type: string
+          format: date-time
+          title: status_updated_at
+          description: Timestamp of when the Company Connection's status was last updated.
+      type: object
+      required:
+      - id
+      - created_at
+      - company_name
+      - status
+      - status_updated_at
+      title: CompanyConnectionBase
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
       x-tags:
       - Schemas
   securitySchemes:

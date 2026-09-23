@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Pinwheel Accounts Employers and Platforms API
+  title: Pinwheel Employers and Platforms API
   description: Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.
   version: v2025-07-08
   contact:
@@ -24,7 +24,7 @@ paths:
       tags:
       - Employers and Platforms
       summary: List Employers
-      description: List all employers supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List all employers supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: get_v1_employers_get
       parameters:
       - description: Cursor for the page you want to retrieve.
@@ -299,7 +299,7 @@ paths:
       tags:
       - Employers and Platforms
       summary: List Platforms
-      description: List all payroll platforms supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.
+      description: List all payroll platforms supported by Link. This is a paginated endpoint; see how Pinwheel implements pagination here.
       operationId: list_platforms_v1_platforms_get
       parameters:
       - description: ESP (employer-specific platform) is a term that is used to describe an Employer that uses a unique, dedicated payroll portal to serve their employees. Eg. - Walmart employees will authenticate via a Walmart payroll portal, whereas employees at Hilton will authenticate via ADP. ESPs can be thought of as both employers and platforms, so you can use this flag to include ESPs in the set of supported payroll platforms if desired.
@@ -561,6 +561,16 @@ paths:
                       count: 2
 components:
   schemas:
+    ListMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+      type: object
+      title: ListMeta
+      x-tags:
+      - Schemas
     SearchResultObjResponse:
       properties:
         id:
@@ -638,16 +648,12 @@ components:
           type: integer
           title: min_percentage
           description: Minimum percentage allowed for `direct_deposit_switch`.
-          maximum: true
-          minimum: true
           exclusiveMinimum: true
           exclusiveMaximum: true
         max_percentage:
           type: integer
           title: max_percentage
           description: Maximum percentage allowed for `direct_deposit_switch`.
-          maximum: true
-          minimum: true
           exclusiveMinimum: true
           exclusiveMaximum: true
         percentage_supported:
@@ -732,16 +738,12 @@ components:
           type: integer
           title: min_percentage
           description: Minimum percentage allowed for `direct_deposit_switch`.
-          maximum: true
-          minimum: true
           exclusiveMinimum: true
           exclusiveMaximum: true
         max_percentage:
           type: integer
           title: max_percentage
           description: Maximum percentage allowed for `direct_deposit_switch`.
-          maximum: true
-          minimum: true
           exclusiveMinimum: true
           exclusiveMaximum: true
         percentage_supported:
@@ -804,13 +806,11 @@ components:
           type: number
           title: min_amount
           description: Minimum amount, if any, platform accepts for `direct_deposit_switch`.
-          minimum: true
           exclusiveMinimum: true
         max_amount:
           type: number
           title: max_amount
           description: Maximum amount, if any, platform accepts for `direct_deposit_switch`.
-          minimum: true
           exclusiveMinimum: true
         last_updated:
           type: string
@@ -832,16 +832,12 @@ components:
           type: integer
           title: min_percentage
           description: Minimum percentage allowed for `direct_deposit_switch`.
-          maximum: true
-          minimum: true
           exclusiveMinimum: true
           exclusiveMaximum: true
         max_percentage:
           type: integer
           title: max_percentage
           description: Maximum percentage allowed for `direct_deposit_switch`.
-          maximum: true
-          minimum: true
           exclusiveMinimum: true
           exclusiveMaximum: true
         merchant_category:
@@ -911,16 +907,6 @@ components:
       - supported_jobs
       - amount_supported
       title: Platform
-      x-tags:
-      - Schemas
-    ListMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-      type: object
-      title: ListMeta
       x-tags:
       - Schemas
   securitySchemes:
