@@ -101,44 +101,6 @@ paths:
                       mode: production
 components:
   schemas:
-    EndUser:
-      properties:
-        platform_matching:
-          allOf:
-          - $ref: '#/components/schemas/LinkUserAuthenticationDataObjCreate'
-          title: platform_matching
-          description: User PII data for enabling partner-based switches.
-      type: object
-      title: EndUser
-      x-tags:
-      - Schemas
-    Allocation:
-      properties:
-        type:
-          allOf:
-          - type: string
-            enum:
-            - amount
-          description: Type of allocation.
-        value:
-          type: number
-          title: value
-          description: Value of allocation. If type is amount, you must include a value. If type is null, the end-user will be able to select the allocation type and value. If min_amount is also specified for the allocation, must be greater than or equal to min_amount.
-        min_amount:
-          type: number
-          title: min_amount
-          description: Minimum amount for the allocation.
-        targets:
-          items:
-            $ref: '#/components/schemas/BankAccountDetails'
-          type: array
-          title: targets
-          description: List of allowed target accounts for an allocation.
-          default: []
-      type: object
-      title: Allocation
-      x-tags:
-      - Schemas
     CardDetails:
       properties:
         card_name:
@@ -253,41 +215,15 @@ components:
       title: object
       x-tags:
       - Schemas
-    LinkTokenObjResponse_v2021_07_28:
+    EndUser:
       properties:
-        mode:
+        platform_matching:
           allOf:
-          - type: string
-            enum:
-            - sandbox
-            - development
-            - production
-          description: Token mode, i.e. `sandbox`, `development`, or `production`.
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: UUID of the link token.
-        token:
-          type: string
-          title: token
-          description: Short-lived token that is used to initialize Pinwheel Link.
-        smart_branch_url:
-          type: string
-          title: smart_branch_url
-          description: URL that will initiate a Pinwheel-hosted smart branch experience, if smart branch is configured for the workspace.
-        expires:
-          type: string
-          format: date-time
-          title: expires
-          description: The token will be invalid after this timestamp.
+          - $ref: '#/components/schemas/LinkUserAuthenticationDataObjCreate'
+          title: platform_matching
+          description: User PII data for enabling partner-based switches.
       type: object
-      required:
-      - mode
-      - id
-      - token
-      - expires
-      title: LinkToken
+      title: EndUser
       x-tags:
       - Schemas
     BankAccountDetails:
@@ -318,58 +254,6 @@ components:
           description: Bank account number. Required if requesting direct_deposit_switch jobs.
       type: object
       title: BankAccountDetails
-      x-tags:
-      - Schemas
-    LinkUserAuthenticationDataObjCreate:
-      properties:
-        social_security_number:
-          type: string
-          maxLength: 9
-          minLength: 9
-          pattern: ^[0-9]*$
-          title: social_security_number
-          description: Full 9-digit social security number of the user (required). Using full SSN will improve conversion.
-        social_security_number_last_four:
-          type: string
-          maxLength: 4
-          minLength: 4
-          pattern: ^[0-9]*$
-          title: social_security_number_last_four
-          description: Last four digits of the user's social security number. Use this field only when the full 9-digit SSN (social_security_number) is not available. Passing the full SSN yields over 20% higher match rate compared to using only the last four digits.
-        date_of_birth:
-          type: string
-          format: date
-          title: date_of_birth
-          description: The user's date of birth in `YYYY-MM-DD` format (required).
-        last_name:
-          type: string
-          title: last_name
-          description: The user's last name (required).
-        first_name:
-          type: string
-          title: first_name
-          description: The user's first name (required).
-        mobile_phone_number:
-          type: string
-          maxLength: 10
-          minLength: 10
-          pattern: ^[0-9]*$
-          title: mobile_phone_number
-          description: The users's 10-digit mobile phone number (required). Do not include country code.
-        home_address_zip_code:
-          type: string
-          maxLength: 5
-          minLength: 5
-          pattern: ^[0-9]*$
-          title: home_address_zip_code
-          description: The user's 5-digit home zip code (required).
-        email:
-          type: string
-          format: email
-          title: email
-          description: The user's email (strongly recommended). The email must have valid syntax with an @ and valid domain e.g. `name@example.com`. If provided email is invalid a 400 will be returned. For more details on validation see https://github.com/JoshData/python-email-validator.
-      type: object
-      title: object
       x-tags:
       - Schemas
     LinkTokenCreate_v2025_07_08:
@@ -513,6 +397,122 @@ components:
       - org_name
       - solution
       title: LinkTokenPostBody
+      x-tags:
+      - Schemas
+    LinkUserAuthenticationDataObjCreate:
+      properties:
+        social_security_number:
+          type: string
+          maxLength: 9
+          minLength: 9
+          pattern: ^[0-9]*$
+          title: social_security_number
+          description: Full 9-digit social security number of the user (required). Using full SSN will improve conversion.
+        social_security_number_last_four:
+          type: string
+          maxLength: 4
+          minLength: 4
+          pattern: ^[0-9]*$
+          title: social_security_number_last_four
+          description: Last four digits of the user's social security number. Use this field only when the full 9-digit SSN (social_security_number) is not available. Passing the full SSN yields over 20% higher match rate compared to using only the last four digits.
+        date_of_birth:
+          type: string
+          format: date
+          title: date_of_birth
+          description: The user's date of birth in `YYYY-MM-DD` format (required).
+        last_name:
+          type: string
+          title: last_name
+          description: The user's last name (required).
+        first_name:
+          type: string
+          title: first_name
+          description: The user's first name (required).
+        mobile_phone_number:
+          type: string
+          maxLength: 10
+          minLength: 10
+          pattern: ^[0-9]*$
+          title: mobile_phone_number
+          description: The users's 10-digit mobile phone number (required). Do not include country code.
+        home_address_zip_code:
+          type: string
+          maxLength: 5
+          minLength: 5
+          pattern: ^[0-9]*$
+          title: home_address_zip_code
+          description: The user's 5-digit home zip code (required).
+        email:
+          type: string
+          format: email
+          title: email
+          description: The user's email (strongly recommended). The email must have valid syntax with an @ and valid domain e.g. `name@example.com`. If provided email is invalid a 400 will be returned. For more details on validation see https://github.com/JoshData/python-email-validator.
+      type: object
+      title: object
+      x-tags:
+      - Schemas
+    Allocation:
+      properties:
+        type:
+          allOf:
+          - type: string
+            enum:
+            - amount
+          description: Type of allocation.
+        value:
+          type: number
+          title: value
+          description: Value of allocation. If type is amount, you must include a value. If type is null, the end-user will be able to select the allocation type and value. If min_amount is also specified for the allocation, must be greater than or equal to min_amount.
+        min_amount:
+          type: number
+          title: min_amount
+          description: Minimum amount for the allocation.
+        targets:
+          items:
+            $ref: '#/components/schemas/BankAccountDetails'
+          type: array
+          title: targets
+          description: List of allowed target accounts for an allocation.
+          default: []
+      type: object
+      title: Allocation
+      x-tags:
+      - Schemas
+    LinkTokenObjResponse_v2021_07_28:
+      properties:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: Token mode, i.e. `sandbox`, `development`, or `production`.
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: UUID of the link token.
+        token:
+          type: string
+          title: token
+          description: Short-lived token that is used to initialize Pinwheel Link.
+        smart_branch_url:
+          type: string
+          title: smart_branch_url
+          description: URL that will initiate a Pinwheel-hosted smart branch experience, if smart branch is configured for the workspace.
+        expires:
+          type: string
+          format: date-time
+          title: expires
+          description: The token will be invalid after this timestamp.
+      type: object
+      required:
+      - mode
+      - id
+      - token
+      - expires
+      title: LinkToken
       x-tags:
       - Schemas
   securitySchemes:

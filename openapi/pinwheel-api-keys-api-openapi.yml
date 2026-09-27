@@ -287,7 +287,32 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    CreateAPIKeyResponseData:
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
+    CreateAPIKeyOptions:
+      properties:
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+      type: object
+      title: object
+      x-tags:
+      - Schemas
+    RevokeAPIKeyResponseData:
       properties:
         mode:
           allOf:
@@ -311,27 +336,17 @@ components:
           format: date-time
           title: created_at
           description: ISO 8601 timestamp of created time.
-        secret:
+        revoked_at:
           type: string
-          title: secret
-          description: The secret token part of the API key used to authorize requests to the Pinwheel API.
+          format: date-time
+          title: revoked_at
+          description: Timestamp of when this key was revoked.
       type: object
       required:
       - mode
       - key
       - created_at
-      - secret
-      title: object
-      x-tags:
-      - Schemas
-    CreateAPIKeyOptions:
-      properties:
-        expires_at:
-          type: string
-          format: date-time
-          title: expires_at
-          description: Timestamp used to set when this key automatically expires.
-      type: object
+      - revoked_at
       title: object
       x-tags:
       - Schemas
@@ -374,6 +389,23 @@ components:
       - workspace_name
       - mode
       - user_role
+      title: object
+      x-tags:
+      - Schemas
+    CreateAdminTokenRequest:
+      properties:
+        username:
+          type: string
+          title: username
+          description: Username or email of the Developer Dashboard user used to create an Admin API token.
+        password:
+          type: string
+          title: password
+          description: Password of the Developer Dashboard user used to create an Admin API token.
+      type: object
+      required:
+      - username
+      - password
       title: object
       x-tags:
       - Schemas
@@ -424,7 +456,7 @@ components:
       title: object
       x-tags:
       - Schemas
-    RevokeAPIKeyResponseData:
+    CreateAPIKeyResponseData:
       properties:
         mode:
           allOf:
@@ -448,48 +480,16 @@ components:
           format: date-time
           title: created_at
           description: ISO 8601 timestamp of created time.
-        revoked_at:
+        secret:
           type: string
-          format: date-time
-          title: revoked_at
-          description: Timestamp of when this key was revoked.
+          title: secret
+          description: The secret token part of the API key used to authorize requests to the Pinwheel API.
       type: object
       required:
       - mode
       - key
       - created_at
-      - revoked_at
-      title: object
-      x-tags:
-      - Schemas
-    PaginationMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: PaginationMeta
-      x-tags:
-      - Schemas
-    CreateAdminTokenRequest:
-      properties:
-        username:
-          type: string
-          title: username
-          description: Username or email of the Developer Dashboard user used to create an Admin API token.
-        password:
-          type: string
-          title: password
-          description: Password of the Developer Dashboard user used to create an Admin API token.
-      type: object
-      required:
-      - username
-      - password
+      - secret
       title: object
       x-tags:
       - Schemas

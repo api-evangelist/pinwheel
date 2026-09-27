@@ -248,40 +248,18 @@ paths:
           description: No Content
 components:
   schemas:
-    PayrollAccountDataRefreshed:
+    PaginationMeta:
       properties:
-        direct_deposit_allocations:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
           type: string
-          format: date-time
-          title: direct_deposit_allocations
-          description: ISO 8601 timestamp of the most recent check of direct deposit allocations data.
-        income:
-          type: string
-          format: date-time
-          title: income
-          description: ISO 8601 timestamp of the most recent check of income data.
-        employment:
-          type: string
-          format: date-time
-          title: employment
-          description: ISO 8601 timestamp of the most recent check of employment data.
-        identity:
-          type: string
-          format: date-time
-          title: identity
-          description: ISO 8601 timestamp of the most recent check of identity data.
-        shifts:
-          type: string
-          format: date-time
-          title: shifts
-          description: ISO 8601 timestamp of the most recent check of shifts data.
-        paystubs:
-          type: string
-          format: date-time
-          title: paystubs
-          description: ISO 8601 timestamp of the most recent check of paystubs data.
+          title: next_cursor
+          description: Pointer to the next page of results.
       type: object
-      title: PayrollAccountDataRefreshed
+      title: PaginationMeta
       x-tags:
       - Schemas
     PayrollAccountDataUpdated:
@@ -318,6 +296,42 @@ components:
           description: ISO 8601 timestamp of when paystubs data most recently changed.
       type: object
       title: PayrollAccountDataUpdated
+      x-tags:
+      - Schemas
+    PayrollAccountDataRefreshed:
+      properties:
+        direct_deposit_allocations:
+          type: string
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of the most recent check of direct deposit allocations data.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of the most recent check of income data.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of the most recent check of employment data.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of the most recent check of identity data.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of the most recent check of shifts data.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of the most recent check of paystubs data.
+      type: object
+      title: PayrollAccountDataRefreshed
       x-tags:
       - Schemas
     PayrollAccountObjResponse:
@@ -392,20 +406,6 @@ components:
       - data_updated_at
       - data_refreshed_at
       title: Account
-      x-tags:
-      - Schemas
-    PaginationMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: PaginationMeta
       x-tags:
       - Schemas
   securitySchemes:

@@ -622,28 +622,6 @@ paths:
                       next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
 components:
   schemas:
-    DocumentObjPublicResponseItem:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier of the document object.
-        download_url:
-          type: string
-          title: download_url
-          description: URL from which the document may be downloaded.
-        download_url_expiration:
-          type: string
-          format: date-time
-          title: download_url_expiration
-          description: ISO 8601 timestamp of when the download URL will no longer be valid.
-      type: object
-      required:
-      - id
-      title: Document
-      x-tags:
-      - Schemas
     IdentityObjResponse:
       properties:
         id:
@@ -704,69 +682,6 @@ components:
       - account_id
       - full_name
       title: Identity
-      x-tags:
-      - Schemas
-    RefreshableMeta:
-      properties:
-        refreshed_at:
-          type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-      type: object
-      title: RefreshableMeta
-      x-tags:
-      - Schemas
-    TimeOffObjPublicResponseItem:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The name of the time off.
-        category:
-          allOf:
-          - type: string
-            enum:
-            - pto
-            - sick
-            - other
-          description: The category of the time off.
-        available_hours:
-          type: number
-          title: available_hours
-          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
-        earned_hours:
-          type: number
-          title: earned_hours
-          description: The hours of time off earned during the pay period.
-        used_hours:
-          type: number
-          title: used_hours
-          description: The hours of time off used during the pay period.
-      type: object
-      required:
-      - name
-      - category
-      title: TimeOff
-      x-tags:
-      - Schemas
-    RefreshablePaginationListMeta:
-      properties:
-        refreshed_at:
-          type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: RefreshablePaginationListMeta
       x-tags:
       - Schemas
     PaystubObjResponse_v2022_03_02:
@@ -1072,6 +987,306 @@ components:
       title: Paystub
       x-tags:
       - Schemas
+    ShiftEarningObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the earning.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        rate:
+          type: integer
+          title: rate
+          description: The amount earned per hour, in cents.
+        hours:
+          type: number
+          title: hours
+          description: The hours worked.
+      type: object
+      required:
+      - name
+      - category
+      title: Earning
+      x-tags:
+      - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
+    DeductionObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the deduction.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - retirement
+            - medical_insurance
+            - hsa
+            - fsa
+            - dental
+            - vision
+            - life_insurance
+            - disability
+            - child_support
+            - commuter
+            - union_dues
+            - stock
+            - charity
+            - savings
+            - tips
+            - wage_garnishment
+            - lending
+            - company_perk
+            - tax
+            - loan
+            - job_expense
+            - other
+            - fees
+            - reallocation
+            - retro_pay
+          description: The category of deduction.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of deduction, in cents.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - pre_tax
+            - post_tax
+            - unknown
+          description: The type of deduction.
+      type: object
+      required:
+      - name
+      - category
+      - amount
+      - type
+      title: Deduction
+      x-tags:
+      - Schemas
+    DocumentObjPublicResponseItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        download_url:
+          type: string
+          title: download_url
+          description: URL from which the document may be downloaded.
+        download_url_expiration:
+          type: string
+          format: date-time
+          title: download_url_expiration
+          description: ISO 8601 timestamp of when the download URL will no longer be valid.
+      type: object
+      required:
+      - id
+      title: Document
+      x-tags:
+      - Schemas
+    TaxObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the tax.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - federal_income
+            - social_security
+            - medicare
+            - state_income
+            - local_income
+            - other
+          description: The category of tax.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of tax, in cents.
+      type: object
+      required:
+      - name
+      - category
+      - amount
+      title: Tax
+      x-tags:
+      - Schemas
+    RefreshableMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+      type: object
+      title: RefreshableMeta
+      x-tags:
+      - Schemas
+    EmploymentObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: Unique identifier for the object.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+        employer_phone_number:
+          allOf:
+          - $ref: '#/components/schemas/PhoneNumberGetResponseItem'
+          title: employer_phone_number
+          description: The phone number of the employer.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - account_id
+      - employer_name
+      title: Employment
+      x-tags:
+      - Schemas
+    RefreshablePaginationListMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: RefreshablePaginationListMeta
+      x-tags:
+      - Schemas
     ShiftObjResponse:
       properties:
         id:
@@ -1320,110 +1535,81 @@ components:
       title: Shift
       x-tags:
       - Schemas
-    EmploymentObjResponse:
+    PhoneNumberGetResponseItem:
       properties:
-        id:
+        value:
           type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        updated_at:
-          type: string
-          format: date-time
-          title: updated_at
-          description: ISO 8601 timestamp of the last update to this object.
-        account_id:
-          type: string
-          format: uuid
-          title: account_id
-          description: Unique identifier for the object.
-        status:
+          title: value
+          description: The E.164 formatted phone number.
+        type:
           allOf:
           - type: string
             enum:
-            - employed
-            - terminated
-            - furloughed
-          description: The employment status of the employee.
-        start_date:
-          type: string
-          format: date
-          title: start_date
-          description: The date the employee began their job.
-        termination_date:
-          type: string
-          format: date
-          title: termination_date
-          description: The date the employee was terminated.
-        employer_name:
-          type: string
-          title: employer_name
-          description: Name of employer, e.g., Apple, Disney, Walmart.
-        employer_address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: employer_address
-          description: The address of the employer.
-        employer_phone_number:
-          allOf:
-          - $ref: '#/components/schemas/PhoneNumberGetResponseItem'
-          title: employer_phone_number
-          description: The phone number of the employer.
-        title:
-          type: string
-          title: title
-          description: The job title of the employee.
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
       type: object
       required:
-      - id
-      - created_at
-      - updated_at
-      - account_id
-      - employer_name
-      title: Employment
+      - value
+      title: Phone
       x-tags:
       - Schemas
-    AddressGetResponseItem:
+    EarningObjPublicResponseItem:
       properties:
-        raw:
+        name:
           type: string
-          title: raw
-          description: The raw address.
-        line1:
-          type: string
-          title: line1
-          description: The first line of the address.
-        line2:
-          type: string
-          title: line2
-          description: The second line of the address.
-        city:
-          type: string
-          title: city
-          description: The city of the address.
-        state:
-          type: string
-          title: state
-          description: The state of the address.
-        postal_code:
-          type: string
-          title: postal_code
-          description: The postal code of the address.
-        country:
+          title: name
+          description: The name of the earning.
+        category:
           allOf:
           - type: string
             enum:
-            - US
-          description: The country of the address.
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        rate:
+          type: integer
+          title: rate
+          description: The amount earned per hour, in cents.
+        hours:
+          type: number
+          title: hours
+          description: The hours worked.
       type: object
       required:
-      - raw
-      title: Address
+      - name
+      - category
+      - amount
+      title: Earning
       x-tags:
       - Schemas
     IncomeObjResponse:
@@ -1672,223 +1858,37 @@ components:
       title: Income
       x-tags:
       - Schemas
-    ShiftEarningObjPublicResponseItem:
+    TimeOffObjPublicResponseItem:
       properties:
         name:
           type: string
           title: name
-          description: The name of the earning.
+          description: The name of the time off.
         category:
           allOf:
           - type: string
             enum:
-            - salary
-            - hourly
-            - overtime
-            - double_overtime
-            - premium
-            - bonus
-            - commission
-            - tips
-            - vacation
-            - holiday
             - pto
             - sick
-            - employer_contribution
             - other
-            - fare
-            - unpaid
-            - parental
-            - shift_differential
-            - bereavement
-            - life_insurance
-            - stock
-            - retirement
-            - medical
-            - meal_comp
-            - disability
-            - retro_pay
-          description: The category of earning.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of earning, in cents.
-        rate:
-          type: integer
-          title: rate
-          description: The amount earned per hour, in cents.
-        hours:
+          description: The category of the time off.
+        available_hours:
           type: number
-          title: hours
-          description: The hours worked.
-      type: object
-      required:
-      - name
-      - category
-      title: Earning
-      x-tags:
-      - Schemas
-    PhoneNumberGetResponseItem:
-      properties:
-        value:
-          type: string
-          title: value
-          description: The E.164 formatted phone number.
-        type:
-          allOf:
-          - type: string
-            enum:
-            - home
-            - work
-            - mobile
-          description: home, mobile, work, etc.
-      type: object
-      required:
-      - value
-      title: Phone
-      x-tags:
-      - Schemas
-    DeductionObjPublicResponseItem:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The name of the deduction.
-        category:
-          allOf:
-          - type: string
-            enum:
-            - retirement
-            - medical_insurance
-            - hsa
-            - fsa
-            - dental
-            - vision
-            - life_insurance
-            - disability
-            - child_support
-            - commuter
-            - union_dues
-            - stock
-            - charity
-            - savings
-            - tips
-            - wage_garnishment
-            - lending
-            - company_perk
-            - tax
-            - loan
-            - job_expense
-            - other
-            - fees
-            - reallocation
-            - retro_pay
-          description: The category of deduction.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of deduction, in cents.
-        type:
-          allOf:
-          - type: string
-            enum:
-            - pre_tax
-            - post_tax
-            - unknown
-          description: The type of deduction.
-      type: object
-      required:
-      - name
-      - category
-      - amount
-      - type
-      title: Deduction
-      x-tags:
-      - Schemas
-    TaxObjPublicResponseItem:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The name of the tax.
-        category:
-          allOf:
-          - type: string
-            enum:
-            - federal_income
-            - social_security
-            - medicare
-            - state_income
-            - local_income
-            - other
-          description: The category of tax.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of tax, in cents.
-      type: object
-      required:
-      - name
-      - category
-      - amount
-      title: Tax
-      x-tags:
-      - Schemas
-    EarningObjPublicResponseItem:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The name of the earning.
-        category:
-          allOf:
-          - type: string
-            enum:
-            - salary
-            - hourly
-            - overtime
-            - double_overtime
-            - premium
-            - bonus
-            - commission
-            - tips
-            - vacation
-            - holiday
-            - pto
-            - sick
-            - employer_contribution
-            - other
-            - fare
-            - unpaid
-            - parental
-            - shift_differential
-            - bereavement
-            - life_insurance
-            - stock
-            - retirement
-            - medical
-            - meal_comp
-            - disability
-            - retro_pay
-          description: The category of earning.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of earning, in cents.
-        rate:
-          type: integer
-          title: rate
-          description: The amount earned per hour, in cents.
-        hours:
+          title: available_hours
+          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
+        earned_hours:
           type: number
-          title: hours
-          description: The hours worked.
+          title: earned_hours
+          description: The hours of time off earned during the pay period.
+        used_hours:
+          type: number
+          title: used_hours
+          description: The hours of time off used during the pay period.
       type: object
       required:
       - name
       - category
-      - amount
-      title: Earning
+      title: TimeOff
       x-tags:
       - Schemas
     ShiftTimestamp:

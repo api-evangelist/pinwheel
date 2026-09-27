@@ -328,7 +328,7 @@ paths:
                   value: {}
 components:
   schemas:
-    WebhookCreate_v2023_04_18:
+    WebhookUpdate:
       properties:
         url:
           type: string
@@ -382,27 +382,12 @@ components:
           type: array
           minItems: 1
           description: The list of events enabled for this webhook.
-        version:
-          allOf:
-          - type: string
-            enum:
-            - '2022-09-09'
-            - '2025-07-08'
-            - '2023-04-18'
-            - '2023-11-22'
-            - '2023-07-18'
-          description: The webhook's version, which determines the format of the webhook event payloads.
         customer_id:
           type: string
           title: customer_id
           description: 'Banking platforms webhooks only: the customer ID associated with the platform''s customer.'
       type: object
-      required:
-      - url
-      - status
-      - enabled_events
-      - version
-      title: WebhookPostBody
+      title: WebhookPatchBody
       x-tags:
       - Schemas
     WebhookObjResponse:
@@ -514,7 +499,7 @@ components:
       title: PaginationMeta
       x-tags:
       - Schemas
-    WebhookUpdate:
+    WebhookCreate_v2023_04_18:
       properties:
         url:
           type: string
@@ -568,12 +553,27 @@ components:
           type: array
           minItems: 1
           description: The list of events enabled for this webhook.
+        version:
+          allOf:
+          - type: string
+            enum:
+            - '2022-09-09'
+            - '2025-07-08'
+            - '2023-04-18'
+            - '2023-11-22'
+            - '2023-07-18'
+          description: The webhook's version, which determines the format of the webhook event payloads.
         customer_id:
           type: string
           title: customer_id
           description: 'Banking platforms webhooks only: the customer ID associated with the platform''s customer.'
       type: object
-      title: WebhookPatchBody
+      required:
+      - url
+      - status
+      - enabled_events
+      - version
+      title: WebhookPostBody
       x-tags:
       - Schemas
   securitySchemes:
