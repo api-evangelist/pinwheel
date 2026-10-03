@@ -561,20 +561,6 @@ paths:
                       count: 2
 components:
   schemas:
-    PaginationMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: PaginationMeta
-      x-tags:
-      - Schemas
     EmployerObjResponse:
       properties:
         id:
@@ -660,16 +646,6 @@ components:
       - max_percentage
       - percentage_supported
       title: Employer
-      x-tags:
-      - Schemas
-    ListMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-      type: object
-      title: ListMeta
       x-tags:
       - Schemas
     PlatformObjResponse:
@@ -907,6 +883,30 @@ components:
       - max_percentage
       - percentage_supported
       title: SearchResult
+      x-tags:
+      - Schemas
+    ListMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+      type: object
+      title: ListMeta
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
       x-tags:
       - Schemas
   securitySchemes:

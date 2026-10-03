@@ -170,6 +170,120 @@ paths:
                       next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
 components:
   schemas:
+    JobObjResponse_v2023_11_22:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        name:
+          allOf:
+          - type: string
+            enum:
+            - direct_deposit_allocations
+            - bill_cancellation
+            - direct_deposit_switch
+            - paycheck_viewer
+            - paystubs
+            - bill_switch
+            - identity
+            - direct_deposit_payment
+            - income
+            - employment
+            - tax_forms
+            - shifts
+          description: Name of the completed job.
+        timestamp:
+          type: string
+          format: date-time
+          title: timestamp
+          description: ISO 8601 timestamp of job completion.
+        outcome:
+          allOf:
+          - type: string
+            enum:
+            - success
+            - pending
+            - error
+          description: The outcome of the job.
+        error_code:
+          type: string
+          title: error_code
+          description: On error, an explicit code describing the error.
+        error_type:
+          type: string
+          title: error_type
+          description: On error, a high level classification of the error.
+        link_token_id:
+          type: string
+          format: uuid
+          title: link_token_id
+          description: UUID of the link token triggering the job.
+        params:
+          allOf:
+          - $ref: '#/components/schemas/ParamsPayload_v2023_11_22'
+          title: params
+          description: Input parameters to the job.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+      type: object
+      required:
+      - id
+      - name
+      - timestamp
+      - outcome
+      - link_token_id
+      title: Job
+      x-tags:
+      - Schemas
+    TargetAccount:
+      properties:
+        account_name:
+          type: string
+          title: account_name
+          description: The account name (if any) for this allocation.
+        account_type:
+          allOf:
+          - type: string
+            enum:
+            - checking
+            - savings
+          description: The account type for this allocation.
+        last_four_account_number:
+          type: string
+          title: last_four_account_number
+          description: The last four digits of the account number for this allocation.
+      type: object
+      title: TargetAccount
+      x-tags:
+      - Schemas
+    DirectDepositAllocationDetail:
+      properties:
+        type:
+          allOf:
+          - type: string
+            enum:
+            - amount
+            - percentage
+            - remainder
+          description: Indicates what type of allocation this is.
+        value:
+          type: integer
+          title: value
+          description: The value (if any) for this allocation.  Will be set if the type is `percentage` or `amount`.
+        target:
+          allOf:
+          - $ref: '#/components/schemas/TargetAccount'
+          title: target
+          description: The target account for this allocation.
+      type: object
+      title: DirectDepositAllocationDetail
+      x-tags:
+      - Schemas
     ParamsPayload_v2023_11_22:
       properties:
         document_type:
@@ -304,29 +418,6 @@ components:
       title: ParamsPayload_v2023_11_22
       x-tags:
       - Schemas
-    DirectDepositAllocationDetail:
-      properties:
-        type:
-          allOf:
-          - type: string
-            enum:
-            - amount
-            - percentage
-            - remainder
-          description: Indicates what type of allocation this is.
-        value:
-          type: integer
-          title: value
-          description: The value (if any) for this allocation.  Will be set if the type is `percentage` or `amount`.
-        target:
-          allOf:
-          - $ref: '#/components/schemas/TargetAccount'
-          title: target
-          description: The target account for this allocation.
-      type: object
-      title: DirectDepositAllocationDetail
-      x-tags:
-      - Schemas
     MerchantPayment:
       properties:
         card_name:
@@ -368,97 +459,6 @@ components:
           description: Pointer to the next page of results.
       type: object
       title: PaginationMeta
-      x-tags:
-      - Schemas
-    TargetAccount:
-      properties:
-        account_name:
-          type: string
-          title: account_name
-          description: The account name (if any) for this allocation.
-        account_type:
-          allOf:
-          - type: string
-            enum:
-            - checking
-            - savings
-          description: The account type for this allocation.
-        last_four_account_number:
-          type: string
-          title: last_four_account_number
-          description: The last four digits of the account number for this allocation.
-      type: object
-      title: TargetAccount
-      x-tags:
-      - Schemas
-    JobObjResponse_v2023_11_22:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        name:
-          allOf:
-          - type: string
-            enum:
-            - direct_deposit_allocations
-            - bill_cancellation
-            - direct_deposit_switch
-            - paycheck_viewer
-            - paystubs
-            - bill_switch
-            - identity
-            - direct_deposit_payment
-            - income
-            - employment
-            - tax_forms
-            - shifts
-          description: Name of the completed job.
-        timestamp:
-          type: string
-          format: date-time
-          title: timestamp
-          description: ISO 8601 timestamp of job completion.
-        outcome:
-          allOf:
-          - type: string
-            enum:
-            - success
-            - pending
-            - error
-          description: The outcome of the job.
-        error_code:
-          type: string
-          title: error_code
-          description: On error, an explicit code describing the error.
-        error_type:
-          type: string
-          title: error_type
-          description: On error, a high level classification of the error.
-        link_token_id:
-          type: string
-          format: uuid
-          title: link_token_id
-          description: UUID of the link token triggering the job.
-        params:
-          allOf:
-          - $ref: '#/components/schemas/ParamsPayload_v2023_11_22'
-          title: params
-          description: Input parameters to the job.
-        account_id:
-          type: string
-          format: uuid
-          title: account_id
-          description: UUID of the payroll account.
-      type: object
-      required:
-      - id
-      - name
-      - timestamp
-      - outcome
-      - link_token_id
-      title: Job
       x-tags:
       - Schemas
   securitySchemes:

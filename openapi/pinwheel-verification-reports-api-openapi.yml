@@ -279,83 +279,26 @@ paths:
                         download_url_expiration: '2024-01-06T17:47:52.782334+00:00'
 components:
   schemas:
-    AddressGetResponseItem:
+    DocumentObjPublicResponseItem:
       properties:
-        raw:
+        id:
           type: string
-          title: raw
-          description: The raw address.
-        line1:
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        download_url:
           type: string
-          title: line1
-          description: The first line of the address.
-        line2:
+          title: download_url
+          description: URL from which the document may be downloaded.
+        download_url_expiration:
           type: string
-          title: line2
-          description: The second line of the address.
-        city:
-          type: string
-          title: city
-          description: The city of the address.
-        state:
-          type: string
-          title: state
-          description: The state of the address.
-        postal_code:
-          type: string
-          title: postal_code
-          description: The postal code of the address.
-        country:
-          allOf:
-          - type: string
-            enum:
-            - US
-          description: The country of the address.
+          format: date-time
+          title: download_url_expiration
+          description: ISO 8601 timestamp of when the download URL will no longer be valid.
       type: object
       required:
-      - raw
-      title: Address
-      x-tags:
-      - Schemas
-    EarningsYtds:
-      properties:
-        amount:
-          type: integer
-          title: amount
-          description: The year to date earnings amount for an earning category, in cents.
-        category:
-          allOf:
-          - type: string
-            enum:
-            - salary
-            - hourly
-            - overtime
-            - double_overtime
-            - premium
-            - bonus
-            - commission
-            - tips
-            - vacation
-            - holiday
-            - pto
-            - sick
-            - employer_contribution
-            - other
-            - fare
-            - unpaid
-            - parental
-            - shift_differential
-            - bereavement
-            - life_insurance
-            - stock
-            - retirement
-            - medical
-            - meal_comp
-            - disability
-            - retro_pay
-          description: The category of earning.
-      type: object
-      title: EarningsYtds
+      - id
+      title: Document
       x-tags:
       - Schemas
     EmploymentResponseObj:
@@ -410,59 +353,269 @@ components:
       title: EmploymentResponseObj
       x-tags:
       - Schemas
-    DocumentObjPublicResponseItem:
+    VerificationReportsVOIEObjResponse:
       properties:
         id:
           type: string
           format: uuid
           title: id
-          description: Unique identifier of the document object.
-        download_url:
-          type: string
-          title: download_url
-          description: URL from which the document may be downloaded.
-        download_url_expiration:
+          description: Unique identifier for the object.
+        updated_at:
           type: string
           format: date-time
-          title: download_url_expiration
-          description: ISO 8601 timestamp of when the download URL will no longer be valid.
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        employee:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeResponseObj'
+          title: employee
+          description: Personal details for the employee.
+        employments:
+          items:
+            $ref: '#/components/schemas/IncomeAndEmploymentResponseObj'
+          type: array
+          title: employments
+          description: Income and Employment details for the employee.
+        document:
+          allOf:
+          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
+          title: document
+          description: A document.
+        report_type:
+          allOf:
+          - type: string
+            enum:
+            - voe
+            - voie
+            - base
+          description: The type of report created.
       type: object
       required:
       - id
-      title: Document
+      - updated_at
+      - refreshed_at
+      - employee
+      - employments
+      - report_type
+      title: Verification of Income and Employment Report for an end user
       x-tags:
       - Schemas
-    EmployeeResponseObj:
+    AddressGetResponseItem:
       properties:
-        name:
-          allOf:
-          - $ref: '#/components/schemas/EmployeeName'
-          title: name
-          description: The name of the employee.
-        date_of_birth:
+        raw:
           type: string
-          format: date
-          title: date_of_birth
-          description: The date the employee was born.
-        last_four_ssn:
+          title: raw
+          description: The raw address.
+        line1:
           type: string
-          title: last_four_ssn
-          description: The last four digits of the employee's social security number (SSN).
-        address:
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
           allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: address
-          description: The address of the employee.
-        phone_numbers:
-          items:
-            $ref: '#/components/schemas/PhoneNumberGetResponseItem'
-          type: array
-          title: phone_numbers
-          description: The phone numbers of the employee.
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
       type: object
       required:
-      - name
-      title: EmployeeResponseObj
+      - raw
+      title: Address
+      x-tags:
+      - Schemas
+    IncomeAndEmploymentResponseObj:
+      properties:
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        employment_duration_months:
+          type: integer
+          title: employment_duration_months
+          description: The length of time, in months, the employee has been active with the employer.
+        employment_status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        employment_type:
+          type: string
+          title: employment_type
+          description: The employment type e.g. full time, part time, seasonal, contractor.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+        most_recent_pay_date:
+          type: string
+          format: date
+          title: most_recent_pay_date
+          description: The latest date when the employee received regular pay.
+        income:
+          allOf:
+          - $ref: '#/components/schemas/IncomeResponseObj'
+          title: income
+          description: Income details for the employment.
+      type: object
+      required:
+      - employer_name
+      - income
+      title: IncomeAndEmploymentResponseObj
+      x-tags:
+      - Schemas
+    EarningsYtds:
+      properties:
+        amount:
+          type: integer
+          title: amount
+          description: The year to date earnings amount for an earning category, in cents.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+      type: object
+      title: EarningsYtds
+      x-tags:
+      - Schemas
+    VerificationReportsVOEObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        employee:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeResponseObj'
+          title: employee
+          description: Personal details for the employee.
+        employments:
+          items:
+            $ref: '#/components/schemas/EmploymentResponseObj'
+          type: array
+          title: employments
+          description: Employment details for the employee.
+        document:
+          allOf:
+          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
+          title: document
+          description: A document.
+        report_type:
+          allOf:
+          - type: string
+            enum:
+            - voe
+            - voie
+            - base
+          description: The type of report created.
+      type: object
+      required:
+      - id
+      - updated_at
+      - refreshed_at
+      - employee
+      - employments
+      - report_type
+      title: Verification of Employment Report for an end user
+      x-tags:
+      - Schemas
+    EmployeeName:
+      properties:
+        first_name:
+          type: string
+          title: first_name
+          description: The first name of the employee.
+        middle_name:
+          type: string
+          title: middle_name
+          description: The middle name of the employee.
+        last_name:
+          type: string
+          title: last_name
+          description: The last name of the employee.
+        full_name:
+          type: string
+          title: full_name
+          description: The full name of the employee.
+      type: object
+      required:
+      - full_name
+      title: EmployeeName
       x-tags:
       - Schemas
     PaystubWithEarningsResponseObj:
@@ -742,58 +895,6 @@ components:
       title: PaystubWithEarningsResponseObj
       x-tags:
       - Schemas
-    VerificationReportsVOIEObjResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        updated_at:
-          type: string
-          format: date-time
-          title: updated_at
-          description: ISO 8601 timestamp of the last update to this object.
-        refreshed_at:
-          type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-        employee:
-          allOf:
-          - $ref: '#/components/schemas/EmployeeResponseObj'
-          title: employee
-          description: Personal details for the employee.
-        employments:
-          items:
-            $ref: '#/components/schemas/IncomeAndEmploymentResponseObj'
-          type: array
-          title: employments
-          description: Income and Employment details for the employee.
-        document:
-          allOf:
-          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
-          title: document
-          description: A document.
-        report_type:
-          allOf:
-          - type: string
-            enum:
-            - voe
-            - voie
-            - base
-          description: The type of report created.
-      type: object
-      required:
-      - id
-      - updated_at
-      - refreshed_at
-      - employee
-      - employments
-      - report_type
-      title: Verification of Income and Employment Report for an end user
-      x-tags:
-      - Schemas
     IncomeResponseObj:
       properties:
         pay_frequency:
@@ -1030,100 +1131,37 @@ components:
       title: IncomeResponseObj
       x-tags:
       - Schemas
-    EmployeeName:
+    EmployeeResponseObj:
       properties:
-        first_name:
-          type: string
-          title: first_name
-          description: The first name of the employee.
-        middle_name:
-          type: string
-          title: middle_name
-          description: The middle name of the employee.
-        last_name:
-          type: string
-          title: last_name
-          description: The last name of the employee.
-        full_name:
-          type: string
-          title: full_name
-          description: The full name of the employee.
-      type: object
-      required:
-      - full_name
-      title: EmployeeName
-      x-tags:
-      - Schemas
-    VerificationReportsVOEObjResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        updated_at:
-          type: string
-          format: date-time
-          title: updated_at
-          description: ISO 8601 timestamp of the last update to this object.
-        refreshed_at:
-          type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-        employee:
+        name:
           allOf:
-          - $ref: '#/components/schemas/EmployeeResponseObj'
-          title: employee
-          description: Personal details for the employee.
-        employments:
+          - $ref: '#/components/schemas/EmployeeName'
+          title: name
+          description: The name of the employee.
+        date_of_birth:
+          type: string
+          format: date
+          title: date_of_birth
+          description: The date the employee was born.
+        last_four_ssn:
+          type: string
+          title: last_four_ssn
+          description: The last four digits of the employee's social security number (SSN).
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employee.
+        phone_numbers:
           items:
-            $ref: '#/components/schemas/EmploymentResponseObj'
+            $ref: '#/components/schemas/PhoneNumberGetResponseItem'
           type: array
-          title: employments
-          description: Employment details for the employee.
-        document:
-          allOf:
-          - $ref: '#/components/schemas/DocumentObjPublicResponseItem'
-          title: document
-          description: A document.
-        report_type:
-          allOf:
-          - type: string
-            enum:
-            - voe
-            - voie
-            - base
-          description: The type of report created.
+          title: phone_numbers
+          description: The phone numbers of the employee.
       type: object
       required:
-      - id
-      - updated_at
-      - refreshed_at
-      - employee
-      - employments
-      - report_type
-      title: Verification of Employment Report for an end user
-      x-tags:
-      - Schemas
-    PhoneNumberGetResponseItem:
-      properties:
-        value:
-          type: string
-          title: value
-          description: The E.164 formatted phone number.
-        type:
-          allOf:
-          - type: string
-            enum:
-            - home
-            - work
-            - mobile
-          description: home, mobile, work, etc.
-      type: object
-      required:
-      - value
-      title: Phone
+      - name
+      title: EmployeeResponseObj
       x-tags:
       - Schemas
     AnnualIncomeResponseObj:
@@ -1170,62 +1208,24 @@ components:
       title: AnnualIncomeResponseObj
       x-tags:
       - Schemas
-    IncomeAndEmploymentResponseObj:
+    PhoneNumberGetResponseItem:
       properties:
-        employer_name:
+        value:
           type: string
-          title: employer_name
-          description: Name of employer, e.g., Apple, Disney, Walmart.
-        employer_address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: employer_address
-          description: The address of the employer.
-        start_date:
-          type: string
-          format: date
-          title: start_date
-          description: The date the employee began their job.
-        employment_duration_months:
-          type: integer
-          title: employment_duration_months
-          description: The length of time, in months, the employee has been active with the employer.
-        employment_status:
+          title: value
+          description: The E.164 formatted phone number.
+        type:
           allOf:
           - type: string
             enum:
-            - employed
-            - terminated
-            - furloughed
-          description: The employment status of the employee.
-        employment_type:
-          type: string
-          title: employment_type
-          description: The employment type e.g. full time, part time, seasonal, contractor.
-        termination_date:
-          type: string
-          format: date
-          title: termination_date
-          description: The date the employee was terminated.
-        title:
-          type: string
-          title: title
-          description: The job title of the employee.
-        most_recent_pay_date:
-          type: string
-          format: date
-          title: most_recent_pay_date
-          description: The latest date when the employee received regular pay.
-        income:
-          allOf:
-          - $ref: '#/components/schemas/IncomeResponseObj'
-          title: income
-          description: Income details for the employment.
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
       type: object
       required:
-      - employer_name
-      - income
-      title: IncomeAndEmploymentResponseObj
+      - value
+      title: Phone
       x-tags:
       - Schemas
     EarningObjPublicResponseItem:

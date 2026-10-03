@@ -108,6 +108,17 @@ paths:
                         routing_number: '434957982'
 components:
   schemas:
+    RefreshableMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+      type: object
+      title: RefreshableMeta
+      x-tags:
+      - Schemas
     AllocationAccountObjResponse:
       properties:
         account_name:
@@ -382,17 +393,6 @@ components:
       - updated_at
       - allocations
       title: Direct Deposit Allocations
-      x-tags:
-      - Schemas
-    RefreshableMeta:
-      properties:
-        refreshed_at:
-          type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-      type: object
-      title: RefreshableMeta
       x-tags:
       - Schemas
   securitySchemes:

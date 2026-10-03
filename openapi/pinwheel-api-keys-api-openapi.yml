@@ -287,18 +287,58 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    PaginationMeta:
+    CreateAPIKeyResponseData:
       properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: The mode that the Admin API token is authorized for.
+        key:
           type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
+          title: key
+          description: The public token that refers to your API key, as distinct from the API Secret.
+        expires_at:
+          type: string
+          format: date-time
+          title: expires_at
+          description: Timestamp used to set when this key automatically expires.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        secret:
+          type: string
+          title: secret
+          description: The secret token part of the API key used to authorize requests to the Pinwheel API.
       type: object
-      title: PaginationMeta
+      required:
+      - mode
+      - key
+      - created_at
+      - secret
+      title: object
+      x-tags:
+      - Schemas
+    CreateAdminTokenRequest:
+      properties:
+        username:
+          type: string
+          title: username
+          description: Username or email of the Developer Dashboard user used to create an Admin API token.
+        password:
+          type: string
+          title: password
+          description: Password of the Developer Dashboard user used to create an Admin API token.
+      type: object
+      required:
+      - username
+      - password
+      title: object
       x-tags:
       - Schemas
     CreateAPIKeyOptions:
@@ -350,65 +390,6 @@ components:
       title: object
       x-tags:
       - Schemas
-    CreateAdminTokenResponseData:
-      properties:
-        token:
-          type: string
-          format: uuid
-          title: token
-          description: Short-lived token that is used to authorize Admin API endpoints.
-        expiration:
-          type: string
-          format: date-time
-          title: expiration
-          description: Timestamp of when the Admin API token expires.
-        workspace_name:
-          type: string
-          title: workspace_name
-          description: Name of the workspace the Admin API token is authorized for.
-        mode:
-          allOf:
-          - type: string
-            enum:
-            - sandbox
-            - development
-            - production
-          description: The mode that the Admin API token is authorized for.
-        user_role:
-          allOf:
-          - type: string
-            enum:
-            - owner
-            - administrator
-            - developer
-          description: The role of the developer-dashboard user the Admin API token was authenticated with.
-      type: object
-      required:
-      - token
-      - expiration
-      - workspace_name
-      - mode
-      - user_role
-      title: object
-      x-tags:
-      - Schemas
-    CreateAdminTokenRequest:
-      properties:
-        username:
-          type: string
-          title: username
-          description: Username or email of the Developer Dashboard user used to create an Admin API token.
-        password:
-          type: string
-          title: password
-          description: Password of the Developer Dashboard user used to create an Admin API token.
-      type: object
-      required:
-      - username
-      - password
-      title: object
-      x-tags:
-      - Schemas
     ListAPIKeyResponseData:
       properties:
         mode:
@@ -456,8 +437,22 @@ components:
       title: object
       x-tags:
       - Schemas
-    CreateAPIKeyResponseData:
+    CreateAdminTokenResponseData:
       properties:
+        token:
+          type: string
+          format: uuid
+          title: token
+          description: Short-lived token that is used to authorize Admin API endpoints.
+        expiration:
+          type: string
+          format: date-time
+          title: expiration
+          description: Timestamp of when the Admin API token expires.
+        workspace_name:
+          type: string
+          title: workspace_name
+          description: Name of the workspace the Admin API token is authorized for.
         mode:
           allOf:
           - type: string
@@ -466,31 +461,36 @@ components:
             - development
             - production
           description: The mode that the Admin API token is authorized for.
-        key:
-          type: string
-          title: key
-          description: The public token that refers to your API key, as distinct from the API Secret.
-        expires_at:
-          type: string
-          format: date-time
-          title: expires_at
-          description: Timestamp used to set when this key automatically expires.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        secret:
-          type: string
-          title: secret
-          description: The secret token part of the API key used to authorize requests to the Pinwheel API.
+        user_role:
+          allOf:
+          - type: string
+            enum:
+            - owner
+            - administrator
+            - developer
+          description: The role of the developer-dashboard user the Admin API token was authenticated with.
       type: object
       required:
+      - token
+      - expiration
+      - workspace_name
       - mode
-      - key
-      - created_at
-      - secret
+      - user_role
       title: object
+      x-tags:
+      - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
       x-tags:
       - Schemas
   securitySchemes:

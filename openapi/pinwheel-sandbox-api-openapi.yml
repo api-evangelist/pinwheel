@@ -91,6 +91,54 @@ paths:
                       end_user_id: my_user_12345
 components:
   schemas:
+    PayrollAccountPatchMonitoringStatus:
+      properties:
+        monitoring_status:
+          allOf:
+          - type: string
+            enum:
+            - user_action_required
+          description: Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.
+      type: object
+      title: object
+      x-tags:
+      - Schemas
+    PayrollAccountDataUpdated:
+      properties:
+        direct_deposit_allocations:
+          type: string
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of when direct deposit allocations data most recently changed.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of when income data most recently changed.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of when employment data most recently changed.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of when identity data most recently changed.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of when shifts data most recently changed.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of when paystubs data most recently changed.
+      type: object
+      title: PayrollAccountDataUpdated
+      x-tags:
+      - Schemas
     PayrollAccountObjResponse:
       properties:
         customer_id:
@@ -165,42 +213,6 @@ components:
       title: Account
       x-tags:
       - Schemas
-    PayrollAccountDataUpdated:
-      properties:
-        direct_deposit_allocations:
-          type: string
-          format: date-time
-          title: direct_deposit_allocations
-          description: ISO 8601 timestamp of when direct deposit allocations data most recently changed.
-        income:
-          type: string
-          format: date-time
-          title: income
-          description: ISO 8601 timestamp of when income data most recently changed.
-        employment:
-          type: string
-          format: date-time
-          title: employment
-          description: ISO 8601 timestamp of when employment data most recently changed.
-        identity:
-          type: string
-          format: date-time
-          title: identity
-          description: ISO 8601 timestamp of when identity data most recently changed.
-        shifts:
-          type: string
-          format: date-time
-          title: shifts
-          description: ISO 8601 timestamp of when shifts data most recently changed.
-        paystubs:
-          type: string
-          format: date-time
-          title: paystubs
-          description: ISO 8601 timestamp of when paystubs data most recently changed.
-      type: object
-      title: PayrollAccountDataUpdated
-      x-tags:
-      - Schemas
     PayrollAccountDataRefreshed:
       properties:
         direct_deposit_allocations:
@@ -235,18 +247,6 @@ components:
           description: ISO 8601 timestamp of the most recent check of paystubs data.
       type: object
       title: PayrollAccountDataRefreshed
-      x-tags:
-      - Schemas
-    PayrollAccountPatchMonitoringStatus:
-      properties:
-        monitoring_status:
-          allOf:
-          - type: string
-            enum:
-            - user_action_required
-          description: Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.
-      type: object
-      title: object
       x-tags:
       - Schemas
   securitySchemes:
