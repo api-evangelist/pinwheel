@@ -351,150 +351,25 @@ paths:
           description: No Content
 components:
   schemas:
-    BankAccountTransaction:
+    BillNavigatorStatusUpdateRequest:
       properties:
-        date:
-          type: string
-          title: date
-          description: The date of the transaction.
-        description:
-          type: string
-          title: description
-          description: The description of the transaction.
-        amount:
-          anyOf:
-          - type: number
-          - type: string
-          title: amount
-          description: The amount of the transaction.
-        base_type:
-          type: string
-          title: base_type
-          description: The base type of the transaction.
-        type:
-          type: string
-          title: type
-          description: The type of the transaction.
-      type: object
-      title: BankAccountTransaction
-      x-tags:
-      - Schemas
-    UploadedTax:
-      properties:
-        type:
-          type: string
-          title: type
-          description: The category of tax.
-        description:
-          type: string
-          title: description
-          description: The description of tax.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of tax, in cents.
-        amount_ytd:
-          type: integer
-          title: amount_ytd
-          description: The amount ytd of tax, in cents.
-      type: object
-      title: UploadedTax
-      x-tags:
-      - Schemas
-    PayrollAccountDataUpdated:
-      properties:
-        direct_deposit_allocations:
-          type: string
-          format: date-time
-          title: direct_deposit_allocations
-          description: ISO 8601 timestamp of when direct deposit allocations data most recently changed.
-        income:
-          type: string
-          format: date-time
-          title: income
-          description: ISO 8601 timestamp of when income data most recently changed.
-        employment:
-          type: string
-          format: date-time
-          title: employment
-          description: ISO 8601 timestamp of when employment data most recently changed.
-        identity:
-          type: string
-          format: date-time
-          title: identity
-          description: ISO 8601 timestamp of when identity data most recently changed.
-        shifts:
-          type: string
-          format: date-time
-          title: shifts
-          description: ISO 8601 timestamp of when shifts data most recently changed.
-        paystubs:
-          type: string
-          format: date-time
-          title: paystubs
-          description: ISO 8601 timestamp of when paystubs data most recently changed.
-      type: object
-      title: PayrollAccountDataUpdated
-      x-tags:
-      - Schemas
-    PayrollAccountDataRefreshed:
-      properties:
-        direct_deposit_allocations:
-          type: string
-          format: date-time
-          title: direct_deposit_allocations
-          description: ISO 8601 timestamp of the most recent check of direct deposit allocations data.
-        income:
-          type: string
-          format: date-time
-          title: income
-          description: ISO 8601 timestamp of the most recent check of income data.
-        employment:
-          type: string
-          format: date-time
-          title: employment
-          description: ISO 8601 timestamp of the most recent check of employment data.
-        identity:
-          type: string
-          format: date-time
-          title: identity
-          description: ISO 8601 timestamp of the most recent check of identity data.
-        shifts:
-          type: string
-          format: date-time
-          title: shifts
-          description: ISO 8601 timestamp of the most recent check of shifts data.
-        paystubs:
-          type: string
-          format: date-time
-          title: paystubs
-          description: ISO 8601 timestamp of the most recent check of paystubs data.
-      type: object
-      title: PayrollAccountDataRefreshed
-      x-tags:
-      - Schemas
-    FieldWarning:
-      properties:
-        field:
-          type: string
-          title: field
-          description: The response field associated with this warning. Nested values are delimited with a `.`, i.e. `parsed_data.box_13.statutory_employee`.
-        status:
+        action:
           allOf:
           - type: string
             enum:
-            - unparsable
-          description: The status type of this warning.
-        message:
+            - deactivate
+            - terminate
+            - deactivated
+            - terminated
+          description: The action to take on the end user's account. Valid actions are `deactivated` and `terminated`. When an end user is set to `deactivated`, the user can reactivate themselves. When an end user is set to `terminated`, the action is irreversible.
+        reason:
           type: string
-          title: message
-          description: A full description of the warning.
+          title: reason
+          description: The reason for taking action on the end user's account.
       type: object
       required:
-      - field
-      - status
-      - message
-      title: FieldWarning
+      - action
+      title: Bill Navigator Status Update Request
       x-tags:
       - Schemas
     UploadedDeduction:
@@ -517,6 +392,93 @@ components:
           description: The amount ytd of deduction, in cents.
       type: object
       title: UploadedDeduction
+      x-tags:
+      - Schemas
+    UploadedTimeOff:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the time off.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - pto
+            - sick
+            - other
+          description: The category of the time off.
+        available_hours:
+          type: number
+          title: available_hours
+          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
+        earned_hours:
+          type: number
+          title: earned_hours
+          description: The hours of time off earned during the pay period.
+        used_hours:
+          type: number
+          title: used_hours
+          description: The hours of time off used during the pay period.
+      type: object
+      title: UploadedTimeOff
+      x-tags:
+      - Schemas
+    ApplicantNameAndAddress:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The full name of the applicant.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the applicant.
+      type: object
+      title: ApplicantNameAndAddress
+      x-tags:
+      - Schemas
+    UploadedSSIAwardLetter:
+      properties:
+        document_type:
+          type: string
+          enum:
+          - ssi_award_letter
+          title: document_type
+          description: The type of the document.
+          default: ssi_award_letter
+        applicant:
+          allOf:
+          - $ref: '#/components/schemas/ApplicantNameAndAddress'
+          title: applicant
+          description: The applicant associated with award letter.
+        issue_date:
+          type: string
+          title: issue_date
+          description: The date the award letter was issued.
+        pay_date:
+          type: string
+          title: pay_date
+          description: The date the award letter was paid.
+        social_security_payment:
+          type: integer
+          title: social_security_payment
+          description: The social security payment.
+        social_security_deduction:
+          type: integer
+          title: social_security_deduction
+          description: The social security deduction.
+        social_security_net_payment:
+          type: integer
+          title: social_security_net_payment
+          description: The social security net payment.
+        supplemental_security_payment:
+          type: integer
+          title: supplemental_security_payment
+          description: The supplemental security payment.
+      type: object
+      title: UploadedSSIAwardLetter
       x-tags:
       - Schemas
     AddressGetResponseItem:
@@ -555,6 +517,99 @@ components:
       required:
       - raw
       title: Address
+      x-tags:
+      - Schemas
+    UploadedBankStatement:
+      properties:
+        document_type:
+          type: string
+          enum:
+          - bank_statement
+          title: document_type
+          description: The type of the document.
+          default: bank_statement
+        bank_name:
+          type: string
+          title: bank_name
+          description: The name of the bank associated with this bank statement.
+        statement_begin_date:
+          type: string
+          title: statement_begin_date
+          description: The beginning date of the bank statement.
+        statement_end_date:
+          type: string
+          title: statement_end_date
+          description: The end date of the bank statement.
+        statement_holders:
+          items:
+            type: string
+          type: array
+          title: statement_holders
+          description: The holders of the bank statement.
+        applicant1:
+          allOf:
+          - $ref: '#/components/schemas/ApplicantNameAndAddress'
+          title: applicant1
+          description: The first applicant associated with this bank statement.
+        applicant2:
+          allOf:
+          - $ref: '#/components/schemas/ApplicantNameAndAddress'
+          title: applicant2
+          description: The second applicant associated with this bank statement.
+        accounts:
+          items:
+            $ref: '#/components/schemas/BankAccount'
+          type: array
+          title: accounts
+          description: The accounts associated with this bank statement.
+      type: object
+      title: UploadedBankStatement
+      x-tags:
+      - Schemas
+    FieldWarning:
+      properties:
+        field:
+          type: string
+          title: field
+          description: The response field associated with this warning. Nested values are delimited with a `.`, i.e. `parsed_data.box_13.statutory_employee`.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - unparsable
+          description: The status type of this warning.
+        message:
+          type: string
+          title: message
+          description: A full description of the warning.
+      type: object
+      required:
+      - field
+      - status
+      - message
+      title: FieldWarning
+      x-tags:
+      - Schemas
+    UploadedEarning:
+      properties:
+        type:
+          type: string
+          title: type
+          description: The category of earning.
+        description:
+          type: string
+          title: description
+          description: The description of the earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        amount_ytd:
+          type: integer
+          title: amount_ytd
+          description: The amount ytd of earning, in cents.
+      type: object
+      title: UploadedEarning
       x-tags:
       - Schemas
     UploadedPaystub:
@@ -632,21 +687,6 @@ components:
       title: UploadedPaystub
       x-tags:
       - Schemas
-    EmployeeNameAndAddress:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The full name of the employee.
-        address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: address
-          description: The address of the employee.
-      type: object
-      title: EmployeeNameAndAddress
-      x-tags:
-      - Schemas
     PaginationMeta:
       properties:
         count:
@@ -659,112 +699,6 @@ components:
           description: Pointer to the next page of results.
       type: object
       title: PaginationMeta
-      x-tags:
-      - Schemas
-    DocumentObjPublicResponseItem:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier of the document object.
-        download_url:
-          type: string
-          title: download_url
-          description: URL from which the document may be downloaded.
-        download_url_expiration:
-          type: string
-          format: date-time
-          title: download_url_expiration
-          description: ISO 8601 timestamp of when the download URL will no longer be valid.
-      type: object
-      required:
-      - id
-      title: Document
-      x-tags:
-      - Schemas
-    UploadedEarning:
-      properties:
-        type:
-          type: string
-          title: type
-          description: The category of earning.
-        description:
-          type: string
-          title: description
-          description: The description of the earning.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of earning, in cents.
-        amount_ytd:
-          type: integer
-          title: amount_ytd
-          description: The amount ytd of earning, in cents.
-      type: object
-      title: UploadedEarning
-      x-tags:
-      - Schemas
-    UploadedBankStatement:
-      properties:
-        document_type:
-          type: string
-          enum:
-          - bank_statement
-          title: document_type
-          description: The type of the document.
-          default: bank_statement
-        bank_name:
-          type: string
-          title: bank_name
-          description: The name of the bank associated with this bank statement.
-        statement_begin_date:
-          type: string
-          title: statement_begin_date
-          description: The beginning date of the bank statement.
-        statement_end_date:
-          type: string
-          title: statement_end_date
-          description: The end date of the bank statement.
-        statement_holders:
-          items:
-            type: string
-          type: array
-          title: statement_holders
-          description: The holders of the bank statement.
-        applicant1:
-          allOf:
-          - $ref: '#/components/schemas/ApplicantNameAndAddress'
-          title: applicant1
-          description: The first applicant associated with this bank statement.
-        applicant2:
-          allOf:
-          - $ref: '#/components/schemas/ApplicantNameAndAddress'
-          title: applicant2
-          description: The second applicant associated with this bank statement.
-        accounts:
-          items:
-            $ref: '#/components/schemas/BankAccount'
-          type: array
-          title: accounts
-          description: The accounts associated with this bank statement.
-      type: object
-      title: UploadedBankStatement
-      x-tags:
-      - Schemas
-    ApplicantNameAndAddress:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The full name of the applicant.
-        address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: address
-          description: The address of the applicant.
-      type: object
-      title: ApplicantNameAndAddress
       x-tags:
       - Schemas
     UploadedW2Informed:
@@ -841,163 +775,6 @@ components:
       title: UploadedW2Informed
       x-tags:
       - Schemas
-    UploadedTimeOff:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The name of the time off.
-        category:
-          allOf:
-          - type: string
-            enum:
-            - pto
-            - sick
-            - other
-          description: The category of the time off.
-        available_hours:
-          type: number
-          title: available_hours
-          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
-        earned_hours:
-          type: number
-          title: earned_hours
-          description: The hours of time off earned during the pay period.
-        used_hours:
-          type: number
-          title: used_hours
-          description: The hours of time off used during the pay period.
-      type: object
-      title: UploadedTimeOff
-      x-tags:
-      - Schemas
-    BillNavigatorStatusUpdateRequest:
-      properties:
-        action:
-          allOf:
-          - type: string
-            enum:
-            - deactivate
-            - terminate
-            - deactivated
-            - terminated
-          description: The action to take on the end user's account. Valid actions are `deactivated` and `terminated`. When an end user is set to `deactivated`, the user can reactivate themselves. When an end user is set to `terminated`, the action is irreversible.
-        reason:
-          type: string
-          title: reason
-          description: The reason for taking action on the end user's account.
-      type: object
-      required:
-      - action
-      title: Bill Navigator Status Update Request
-      x-tags:
-      - Schemas
-    UploadedSSIAwardLetter:
-      properties:
-        document_type:
-          type: string
-          enum:
-          - ssi_award_letter
-          title: document_type
-          description: The type of the document.
-          default: ssi_award_letter
-        applicant:
-          allOf:
-          - $ref: '#/components/schemas/ApplicantNameAndAddress'
-          title: applicant
-          description: The applicant associated with award letter.
-        issue_date:
-          type: string
-          title: issue_date
-          description: The date the award letter was issued.
-        pay_date:
-          type: string
-          title: pay_date
-          description: The date the award letter was paid.
-        social_security_payment:
-          type: integer
-          title: social_security_payment
-          description: The social security payment.
-        social_security_deduction:
-          type: integer
-          title: social_security_deduction
-          description: The social security deduction.
-        social_security_net_payment:
-          type: integer
-          title: social_security_net_payment
-          description: The social security net payment.
-        supplemental_security_payment:
-          type: integer
-          title: supplemental_security_payment
-          description: The supplemental security payment.
-      type: object
-      title: UploadedSSIAwardLetter
-      x-tags:
-      - Schemas
-    BankAccount:
-      properties:
-        account_number:
-          anyOf:
-          - type: number
-          - type: string
-          title: account_number
-          description: The account number of the bank account.
-        account_name:
-          type: string
-          title: account_name
-          description: The name of the bank account.
-        bank_account_type:
-          type: string
-          title: bank_account_type
-          description: The type of the bank account.
-        is_joint_account:
-          type: boolean
-          title: is_joint_account
-          description: Whether the bank account is a joint account.
-        total_deposits:
-          anyOf:
-          - type: number
-          - type: string
-          title: total_deposits
-          description: The total deposits of the bank account.
-        beginning_balance:
-          anyOf:
-          - type: number
-          - type: string
-          title: beginning_balance
-          description: The beginning balance of the bank account.
-        ending_balance:
-          anyOf:
-          - type: number
-          - type: string
-          title: ending_balance
-          description: The ending balance of the bank account.
-        transactions:
-          items:
-            $ref: '#/components/schemas/BankAccountTransaction'
-          type: array
-          title: transactions
-          description: The transactions of the bank account.
-      type: object
-      title: BankAccount
-      x-tags:
-      - Schemas
-    SharedFraud:
-      properties:
-        status:
-          allOf:
-          - type: string
-            enum:
-            - suspected
-            - not_suspected
-            - unavailable
-          description: The suspected fraud status of the document.
-      type: object
-      required:
-      - status
-      title: SharedFraud
-      x-tags:
-      - Schemas
     PayrollAccountObjResponse:
       properties:
         customer_id:
@@ -1072,19 +849,68 @@ components:
       title: Account
       x-tags:
       - Schemas
-    EmployerNameAndAddress:
+    PayrollAccountDataUpdated:
       properties:
-        name:
+        direct_deposit_allocations:
           type: string
-          title: name
-          description: Name of employer, e.g., Apple, Disney, Walmart.
-        address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: address
-          description: The address of the employer.
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of when direct deposit allocations data most recently changed.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of when income data most recently changed.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of when employment data most recently changed.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of when identity data most recently changed.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of when shifts data most recently changed.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of when paystubs data most recently changed.
       type: object
-      title: EmployerNameAndAddress
+      title: PayrollAccountDataUpdated
+      x-tags:
+      - Schemas
+    BankAccountTransaction:
+      properties:
+        date:
+          type: string
+          title: date
+          description: The date of the transaction.
+        description:
+          type: string
+          title: description
+          description: The description of the transaction.
+        amount:
+          anyOf:
+          - type: number
+          - type: string
+          title: amount
+          description: The amount of the transaction.
+        base_type:
+          type: string
+          title: base_type
+          description: The base type of the transaction.
+        type:
+          type: string
+          title: type
+          description: The type of the transaction.
+      type: object
+      title: BankAccountTransaction
       x-tags:
       - Schemas
     EndUserDocumentObjResponse:
@@ -1157,6 +983,180 @@ components:
       - document
       - document_type
       title: Document for end user
+      x-tags:
+      - Schemas
+    EmployerNameAndAddress:
+      properties:
+        name:
+          type: string
+          title: name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employer.
+      type: object
+      title: EmployerNameAndAddress
+      x-tags:
+      - Schemas
+    PayrollAccountDataRefreshed:
+      properties:
+        direct_deposit_allocations:
+          type: string
+          format: date-time
+          title: direct_deposit_allocations
+          description: ISO 8601 timestamp of the most recent check of direct deposit allocations data.
+        income:
+          type: string
+          format: date-time
+          title: income
+          description: ISO 8601 timestamp of the most recent check of income data.
+        employment:
+          type: string
+          format: date-time
+          title: employment
+          description: ISO 8601 timestamp of the most recent check of employment data.
+        identity:
+          type: string
+          format: date-time
+          title: identity
+          description: ISO 8601 timestamp of the most recent check of identity data.
+        shifts:
+          type: string
+          format: date-time
+          title: shifts
+          description: ISO 8601 timestamp of the most recent check of shifts data.
+        paystubs:
+          type: string
+          format: date-time
+          title: paystubs
+          description: ISO 8601 timestamp of the most recent check of paystubs data.
+      type: object
+      title: PayrollAccountDataRefreshed
+      x-tags:
+      - Schemas
+    EmployeeNameAndAddress:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The full name of the employee.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employee.
+      type: object
+      title: EmployeeNameAndAddress
+      x-tags:
+      - Schemas
+    UploadedTax:
+      properties:
+        type:
+          type: string
+          title: type
+          description: The category of tax.
+        description:
+          type: string
+          title: description
+          description: The description of tax.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of tax, in cents.
+        amount_ytd:
+          type: integer
+          title: amount_ytd
+          description: The amount ytd of tax, in cents.
+      type: object
+      title: UploadedTax
+      x-tags:
+      - Schemas
+    DocumentObjPublicResponseItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the document object.
+        download_url:
+          type: string
+          title: download_url
+          description: URL from which the document may be downloaded.
+        download_url_expiration:
+          type: string
+          format: date-time
+          title: download_url_expiration
+          description: ISO 8601 timestamp of when the download URL will no longer be valid.
+      type: object
+      required:
+      - id
+      title: Document
+      x-tags:
+      - Schemas
+    BankAccount:
+      properties:
+        account_number:
+          anyOf:
+          - type: number
+          - type: string
+          title: account_number
+          description: The account number of the bank account.
+        account_name:
+          type: string
+          title: account_name
+          description: The name of the bank account.
+        bank_account_type:
+          type: string
+          title: bank_account_type
+          description: The type of the bank account.
+        is_joint_account:
+          type: boolean
+          title: is_joint_account
+          description: Whether the bank account is a joint account.
+        total_deposits:
+          anyOf:
+          - type: number
+          - type: string
+          title: total_deposits
+          description: The total deposits of the bank account.
+        beginning_balance:
+          anyOf:
+          - type: number
+          - type: string
+          title: beginning_balance
+          description: The beginning balance of the bank account.
+        ending_balance:
+          anyOf:
+          - type: number
+          - type: string
+          title: ending_balance
+          description: The ending balance of the bank account.
+        transactions:
+          items:
+            $ref: '#/components/schemas/BankAccountTransaction'
+          type: array
+          title: transactions
+          description: The transactions of the bank account.
+      type: object
+      title: BankAccount
+      x-tags:
+      - Schemas
+    SharedFraud:
+      properties:
+        status:
+          allOf:
+          - type: string
+            enum:
+            - suspected
+            - not_suspected
+            - unavailable
+          description: The suspected fraud status of the document.
+      type: object
+      required:
+      - status
+      title: SharedFraud
       x-tags:
       - Schemas
   securitySchemes:

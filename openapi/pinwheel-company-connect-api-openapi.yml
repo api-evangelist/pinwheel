@@ -648,267 +648,18 @@ paths:
                       mode: production
 components:
   schemas:
-    CompanyIdentityObjResponse:
+    PaginationMeta:
       properties:
-        created_at:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
           type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        employee_external_id:
-          type: string
-          title: employee_external_id
-          description: Employee ID as reported by their employer.
-        date_of_birth:
-          type: string
-          format: date
-          title: date_of_birth
-          description: The date the employee was born.
-        emails:
-          items:
-            type: string
-          type: array
-          title: emails
-          description: The emails associated with the employee.
-        first_name:
-          type: string
-          title: first_name
-          description: The first name of the employee.
-        middle_name:
-          type: string
-          title: middle_name
-          description: The middle name of the employee.
-        last_name:
-          type: string
-          title: last_name
-          description: The last name of the employee.
-        last_four_ssn:
-          type: string
-          title: last_four_ssn
-          description: The last four digits of the employee's social security number (SSN).
-        full_name:
-          type: string
-          title: full_name
-          description: The full name of the employee.
-        address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: address
-          description: The address of the employee.
-        phone_numbers:
-          items:
-            $ref: '#/components/schemas/PhoneNumberGetResponseItem'
-          type: array
-          title: phone_numbers
-          description: The phone numbers of the employee.
+          title: next_cursor
+          description: Pointer to the next page of results.
       type: object
-      required:
-      - created_at
-      - employee_external_id
-      - first_name
-      - middle_name
-      - last_name
-      - full_name
-      title: CompanyIdentityObjResponse
-      x-tags:
-      - Schemas
-    CompanyEmploymentObjResponse:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        employee_external_id:
-          type: string
-          title: employee_external_id
-          description: Employee ID as reported by their employer.
-        status:
-          allOf:
-          - type: string
-            enum:
-            - employed
-            - terminated
-            - furloughed
-          description: The employment status of the employee.
-        employment_type:
-          allOf:
-          - type: string
-            enum:
-            - full_time
-            - part_time
-            - seasonal
-            - temporary
-            - contractor
-            - self_employed
-            - per_diem
-            - commission
-          description: The employment type e.g. full time, part time, seasonal, contractor.
-        start_date:
-          type: string
-          format: date
-          title: start_date
-          description: The date the employee began their job.
-        termination_date:
-          type: string
-          format: date
-          title: termination_date
-          description: The date the employee was terminated.
-        employer_name:
-          type: string
-          title: employer_name
-          description: Name of employer, e.g., Apple, Disney, Walmart.
-        title:
-          type: string
-          title: title
-          description: The job title of the employee.
-        department:
-          type: string
-          title: department
-          description: The department the employee works in.
-        manager_external_id:
-          type: string
-          title: manager_external_id
-          description: The employee's manager's employee ID.
-        class_code:
-          type: string
-          title: class_code
-          description: A three- to four-digit code that identifies types of work, typically used by insurance companies to evaluate risk.
-        employer_address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: employer_address
-          description: The address of the employer.
-      type: object
-      required:
-      - created_at
-      - employee_external_id
-      - employer_name
-      title: CompanyEmploymentObjResponse
-      x-tags:
-      - Schemas
-    CompanyConnectLinkTokenObjResponse:
-      properties:
-        mode:
-          allOf:
-          - type: string
-            enum:
-            - sandbox
-            - development
-            - production
-          description: Token mode, i.e. `sandbox`, `development`, or `production`.
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: UUID of the link token.
-        token:
-          type: string
-          title: token
-          description: Short-lived token that is used to initialize Pinwheel Link.
-        expires:
-          type: string
-          format: date-time
-          title: expires
-          description: The token will be invalid after this timestamp.
-      type: object
-      required:
-      - mode
-      - id
-      - token
-      - expires
-      title: CompanyConnect Link Token Response Data
-      x-tags:
-      - Schemas
-    AddressGetResponseItem:
-      properties:
-        raw:
-          type: string
-          title: raw
-          description: The raw address.
-        line1:
-          type: string
-          title: line1
-          description: The first line of the address.
-        line2:
-          type: string
-          title: line2
-          description: The second line of the address.
-        city:
-          type: string
-          title: city
-          description: The city of the address.
-        state:
-          type: string
-          title: state
-          description: The state of the address.
-        postal_code:
-          type: string
-          title: postal_code
-          description: The postal code of the address.
-        country:
-          allOf:
-          - type: string
-            enum:
-            - US
-          description: The country of the address.
-      type: object
-      required:
-      - raw
-      title: Address
-      x-tags:
-      - Schemas
-    CompanyConnectionBase:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        company_name:
-          type: string
-          title: company_name
-          description: Name of the company used in a Company Connection.
-        status:
-          allOf:
-          - type: string
-            enum:
-            - ready_to_connect
-            - connection_failed
-            - processing
-            - data_available
-            - reconnect_needed
-          description: The status of the Company Connection. <a href='https://docs.pinwheelapi.com/docs/company-connect-technical-implementation#company-connection-status' target='_blank'>See documentation for details</a>.
-        status_updated_at:
-          type: string
-          format: date-time
-          title: status_updated_at
-          description: Timestamp of when the Company Connection's status was last updated.
-      type: object
-      required:
-      - id
-      - created_at
-      - company_name
-      - status
-      - status_updated_at
-      title: CompanyConnectionBase
-      x-tags:
-      - Schemas
-    CompanyConnect:
-      properties:
-        company_connection_id:
-          type: string
-          format: uuid
-          title: company_connection_id
-          description: ID of the Company Connection.
-      type: object
-      title: CompanyConnect
-      description: "This class defines the fields present in the `company_connect` object in\nthe link token.\n\nFor non-Company Connect link tokens, this field is optional. If the object\nis present, it indicates that the link token is a Company Connect link\ntoken.\n\nAttributes:\n    company_connection_id (UUID): This field specifies the ID of the\n        company connection. This ID is generated by Pinwheel. All Company\n        Connect webhooks reference the connection by this ID, and all\n        public CC API endpoints require this ID as well."
+      title: PaginationMeta
       x-tags:
       - Schemas
     CompanyIncomeObjResponse:
@@ -1144,16 +895,68 @@ components:
       title: CompanyIncomeObjResponse
       x-tags:
       - Schemas
-    CompanyConnectionCreate:
+    CompanyIdentityObjResponse:
       properties:
-        company_name:
+        created_at:
           type: string
-          title: company_name
-          description: Name of the company used in a Company Connection.
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        employee_external_id:
+          type: string
+          title: employee_external_id
+          description: Employee ID as reported by their employer.
+        date_of_birth:
+          type: string
+          format: date
+          title: date_of_birth
+          description: The date the employee was born.
+        emails:
+          items:
+            type: string
+          type: array
+          title: emails
+          description: The emails associated with the employee.
+        first_name:
+          type: string
+          title: first_name
+          description: The first name of the employee.
+        middle_name:
+          type: string
+          title: middle_name
+          description: The middle name of the employee.
+        last_name:
+          type: string
+          title: last_name
+          description: The last name of the employee.
+        last_four_ssn:
+          type: string
+          title: last_four_ssn
+          description: The last four digits of the employee's social security number (SSN).
+        full_name:
+          type: string
+          title: full_name
+          description: The full name of the employee.
+        address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: address
+          description: The address of the employee.
+        phone_numbers:
+          items:
+            $ref: '#/components/schemas/PhoneNumberGetResponseItem'
+          type: array
+          title: phone_numbers
+          description: The phone numbers of the employee.
       type: object
       required:
-      - company_name
-      title: CompanyConnectionPostBody
+      - created_at
+      - employee_external_id
+      - first_name
+      - middle_name
+      - last_name
+      - full_name
+      title: CompanyIdentityObjResponse
       x-tags:
       - Schemas
     CompanyConnectLinkTokenCreate:
@@ -1200,26 +1003,6 @@ components:
       required:
       - org_name
       title: LinkTokenPostBody
-      x-tags:
-      - Schemas
-    PhoneNumberGetResponseItem:
-      properties:
-        value:
-          type: string
-          title: value
-          description: The E.164 formatted phone number.
-        type:
-          allOf:
-          - type: string
-            enum:
-            - home
-            - work
-            - mobile
-          description: home, mobile, work, etc.
-      type: object
-      required:
-      - value
-      title: Phone
       x-tags:
       - Schemas
     CompanyPaystubObjResponse:
@@ -1481,18 +1264,235 @@ components:
       title: CompanyPaystubObjResponse
       x-tags:
       - Schemas
-    PaginationMeta:
+    CompanyConnectLinkTokenObjResponse:
       properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
+        mode:
+          allOf:
+          - type: string
+            enum:
+            - sandbox
+            - development
+            - production
+          description: Token mode, i.e. `sandbox`, `development`, or `production`.
+        id:
           type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
+          format: uuid
+          title: id
+          description: UUID of the link token.
+        token:
+          type: string
+          title: token
+          description: Short-lived token that is used to initialize Pinwheel Link.
+        expires:
+          type: string
+          format: date-time
+          title: expires
+          description: The token will be invalid after this timestamp.
       type: object
-      title: PaginationMeta
+      required:
+      - mode
+      - id
+      - token
+      - expires
+      title: CompanyConnect Link Token Response Data
+      x-tags:
+      - Schemas
+    CompanyEmploymentObjResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        employee_external_id:
+          type: string
+          title: employee_external_id
+          description: Employee ID as reported by their employer.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        employment_type:
+          allOf:
+          - type: string
+            enum:
+            - full_time
+            - part_time
+            - seasonal
+            - temporary
+            - contractor
+            - self_employed
+            - per_diem
+            - commission
+          description: The employment type e.g. full time, part time, seasonal, contractor.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+        department:
+          type: string
+          title: department
+          description: The department the employee works in.
+        manager_external_id:
+          type: string
+          title: manager_external_id
+          description: The employee's manager's employee ID.
+        class_code:
+          type: string
+          title: class_code
+          description: A three- to four-digit code that identifies types of work, typically used by insurance companies to evaluate risk.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+      type: object
+      required:
+      - created_at
+      - employee_external_id
+      - employer_name
+      title: CompanyEmploymentObjResponse
+      x-tags:
+      - Schemas
+    PhoneNumberGetResponseItem:
+      properties:
+        value:
+          type: string
+          title: value
+          description: The E.164 formatted phone number.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
+      type: object
+      required:
+      - value
+      title: Phone
+      x-tags:
+      - Schemas
+    CompanyConnect:
+      properties:
+        company_connection_id:
+          type: string
+          format: uuid
+          title: company_connection_id
+          description: ID of the Company Connection.
+      type: object
+      title: CompanyConnect
+      description: "This class defines the fields present in the `company_connect` object in\nthe link token.\n\nFor non-Company Connect link tokens, this field is optional. If the object\nis present, it indicates that the link token is a Company Connect link\ntoken.\n\nAttributes:\n    company_connection_id (UUID): This field specifies the ID of the\n        company connection. This ID is generated by Pinwheel. All Company\n        Connect webhooks reference the connection by this ID, and all\n        public CC API endpoints require this ID as well."
+      x-tags:
+      - Schemas
+    CompanyConnectionBase:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        company_name:
+          type: string
+          title: company_name
+          description: Name of the company used in a Company Connection.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - ready_to_connect
+            - connection_failed
+            - processing
+            - data_available
+            - reconnect_needed
+          description: The status of the Company Connection. <a href='https://docs.pinwheelapi.com/docs/company-connect-technical-implementation#company-connection-status' target='_blank'>See documentation for details</a>.
+        status_updated_at:
+          type: string
+          format: date-time
+          title: status_updated_at
+          description: Timestamp of when the Company Connection's status was last updated.
+      type: object
+      required:
+      - id
+      - created_at
+      - company_name
+      - status
+      - status_updated_at
+      title: CompanyConnectionBase
+      x-tags:
+      - Schemas
+    CompanyConnectionCreate:
+      properties:
+        company_name:
+          type: string
+          title: company_name
+          description: Name of the company used in a Company Connection.
+      type: object
+      required:
+      - company_name
+      title: CompanyConnectionPostBody
+      x-tags:
+      - Schemas
+    AddressGetResponseItem:
+      properties:
+        raw:
+          type: string
+          title: raw
+          description: The raw address.
+        line1:
+          type: string
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
+          allOf:
+          - type: string
+            enum:
+            - US
+          description: The country of the address.
+      type: object
+      required:
+      - raw
+      title: Address
       x-tags:
       - Schemas
   securitySchemes:

@@ -622,6 +622,341 @@ paths:
                       next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
 components:
   schemas:
+    ShiftObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier of the Shift object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: UUID of the payroll account.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the Shift started. ISO 8601 format.
+        end_date:
+          type: string
+          format: date
+          title: end_date
+          description: The date the Shift ended. ISO 8601 format.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - shift
+            - rideshare
+            - delivery
+            - other
+          description: The type of the work performed.
+        timezone:
+          type: string
+          title: timezone
+          description: The timezone where the work was completed. Valid names are in the IANA Timezone Database.
+        timestamps:
+          items:
+            $ref: '#/components/schemas/ShiftTimestamp'
+          type: array
+          title: timestamps
+          description: An array of objects that tracks clock in and out times over a shift.
+        currency:
+          allOf:
+          - type: string
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BOV
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHE
+            - CHF
+            - CHW
+            - CLF
+            - CLP
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LTL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MXV
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - USN
+            - USS
+            - UYI
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XAG
+            - XAU
+            - XBA
+            - XBB
+            - XBC
+            - XBD
+            - XCD
+            - XDR
+            - XOF
+            - XPD
+            - XPF
+            - XPT
+            - XTS
+            - XXX
+            - YER
+            - ZAR
+            - ZMW
+          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
+        earnings:
+          items:
+            $ref: '#/components/schemas/ShiftEarningObjPublicResponseItem'
+          type: array
+          title: earnings
+          description: An array of objects that represent a specific earning.
+      type: object
+      required:
+      - id
+      - created_at
+      - account_id
+      - start_date
+      - end_date
+      - type
+      - timestamps
+      - currency
+      - earnings
+      title: Shift
+      x-tags:
+      - Schemas
+    EmploymentObjResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: id
+          description: Unique identifier for the object.
+        created_at:
+          type: string
+          format: date-time
+          title: created_at
+          description: ISO 8601 timestamp of created time.
+        updated_at:
+          type: string
+          format: date-time
+          title: updated_at
+          description: ISO 8601 timestamp of the last update to this object.
+        account_id:
+          type: string
+          format: uuid
+          title: account_id
+          description: Unique identifier for the object.
+        status:
+          allOf:
+          - type: string
+            enum:
+            - employed
+            - terminated
+            - furloughed
+          description: The employment status of the employee.
+        start_date:
+          type: string
+          format: date
+          title: start_date
+          description: The date the employee began their job.
+        termination_date:
+          type: string
+          format: date
+          title: termination_date
+          description: The date the employee was terminated.
+        employer_name:
+          type: string
+          title: employer_name
+          description: Name of employer, e.g., Apple, Disney, Walmart.
+        employer_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressGetResponseItem'
+          title: employer_address
+          description: The address of the employer.
+        employer_phone_number:
+          allOf:
+          - $ref: '#/components/schemas/PhoneNumberGetResponseItem'
+          title: employer_phone_number
+          description: The phone number of the employer.
+        title:
+          type: string
+          title: title
+          description: The job title of the employee.
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - account_id
+      - employer_name
+      title: Employment
+      x-tags:
+      - Schemas
+    ShiftTimestamp:
+      properties:
+        from:
+          type: string
+          format: date-time
+          title: from
+          description: Datetime the work began. ISO 8601 format.
+        to:
+          type: string
+          format: date-time
+          title: to
+          description: Datetime the work ended. ISO 8601 format.
+      type: object
+      required:
+      - from
+      - to
+      title: ShiftTimestamp
+      x-tags:
+      - Schemas
     DeductionObjPublicResponseItem:
       properties:
         name:
@@ -677,6 +1012,74 @@ components:
       - amount
       - type
       title: Deduction
+      x-tags:
+      - Schemas
+    TaxObjPublicResponseItem:
+      properties:
+        name:
+          type: string
+          title: name
+          description: The name of the tax.
+        category:
+          allOf:
+          - type: string
+            enum:
+            - federal_income
+            - social_security
+            - medicare
+            - state_income
+            - local_income
+            - other
+          description: The category of tax.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of tax, in cents.
+      type: object
+      required:
+      - name
+      - category
+      - amount
+      title: Tax
+      x-tags:
+      - Schemas
+    RefreshablePaginationListMeta:
+      properties:
+        refreshed_at:
+          type: string
+          format: date-time
+          title: refreshed_at
+          description: ISO 8601 timestamp of the most recent refresh of this data.
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: RefreshablePaginationListMeta
+      x-tags:
+      - Schemas
+    PhoneNumberGetResponseItem:
+      properties:
+        value:
+          type: string
+          title: value
+          description: The E.164 formatted phone number.
+        type:
+          allOf:
+          - type: string
+            enum:
+            - home
+            - work
+            - mobile
+          description: home, mobile, work, etc.
+      type: object
+      required:
+      - value
+      title: Phone
       x-tags:
       - Schemas
     PaystubObjResponse_v2022_03_02:
@@ -982,33 +1385,37 @@ components:
       title: Paystub
       x-tags:
       - Schemas
-    TaxObjPublicResponseItem:
+    TimeOffObjPublicResponseItem:
       properties:
         name:
           type: string
           title: name
-          description: The name of the tax.
+          description: The name of the time off.
         category:
           allOf:
           - type: string
             enum:
-            - federal_income
-            - social_security
-            - medicare
-            - state_income
-            - local_income
+            - pto
+            - sick
             - other
-          description: The category of tax.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of tax, in cents.
+          description: The category of the time off.
+        available_hours:
+          type: number
+          title: available_hours
+          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
+        earned_hours:
+          type: number
+          title: earned_hours
+          description: The hours of time off earned during the pay period.
+        used_hours:
+          type: number
+          title: used_hours
+          description: The hours of time off used during the pay period.
       type: object
       required:
       - name
       - category
-      - amount
-      title: Tax
+      title: TimeOff
       x-tags:
       - Schemas
     DocumentObjPublicResponseItem:
@@ -1033,80 +1440,71 @@ components:
       title: Document
       x-tags:
       - Schemas
-    RefreshablePaginationListMeta:
+    RefreshableMeta:
       properties:
         refreshed_at:
           type: string
           format: date-time
           title: refreshed_at
           description: ISO 8601 timestamp of the most recent refresh of this data.
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
       type: object
-      title: RefreshablePaginationListMeta
+      title: RefreshableMeta
       x-tags:
       - Schemas
-    AddressGetResponseItem:
+    ShiftEarningObjPublicResponseItem:
       properties:
-        raw:
+        name:
           type: string
-          title: raw
-          description: The raw address.
-        line1:
-          type: string
-          title: line1
-          description: The first line of the address.
-        line2:
-          type: string
-          title: line2
-          description: The second line of the address.
-        city:
-          type: string
-          title: city
-          description: The city of the address.
-        state:
-          type: string
-          title: state
-          description: The state of the address.
-        postal_code:
-          type: string
-          title: postal_code
-          description: The postal code of the address.
-        country:
+          title: name
+          description: The name of the earning.
+        category:
           allOf:
           - type: string
             enum:
-            - US
-          description: The country of the address.
+            - salary
+            - hourly
+            - overtime
+            - double_overtime
+            - premium
+            - bonus
+            - commission
+            - tips
+            - vacation
+            - holiday
+            - pto
+            - sick
+            - employer_contribution
+            - other
+            - fare
+            - unpaid
+            - parental
+            - shift_differential
+            - bereavement
+            - life_insurance
+            - stock
+            - retirement
+            - medical
+            - meal_comp
+            - disability
+            - retro_pay
+          description: The category of earning.
+        amount:
+          type: integer
+          title: amount
+          description: The amount of earning, in cents.
+        rate:
+          type: integer
+          title: rate
+          description: The amount earned per hour, in cents.
+        hours:
+          type: number
+          title: hours
+          description: The hours worked.
       type: object
       required:
-      - raw
-      title: Address
-      x-tags:
-      - Schemas
-    ShiftTimestamp:
-      properties:
-        from:
-          type: string
-          format: date-time
-          title: from
-          description: Datetime the work began. ISO 8601 format.
-        to:
-          type: string
-          format: date-time
-          title: to
-          description: Datetime the work ended. ISO 8601 format.
-      type: object
-      required:
-      - from
-      - to
-      title: ShiftTimestamp
+      - name
+      - category
+      title: Earning
       x-tags:
       - Schemas
     IncomeObjResponse:
@@ -1417,372 +1815,42 @@ components:
       title: Identity
       x-tags:
       - Schemas
-    RefreshableMeta:
+    AddressGetResponseItem:
       properties:
-        refreshed_at:
+        raw:
           type: string
-          format: date-time
-          title: refreshed_at
-          description: ISO 8601 timestamp of the most recent refresh of this data.
-      type: object
-      title: RefreshableMeta
-      x-tags:
-      - Schemas
-    ShiftEarningObjPublicResponseItem:
-      properties:
-        name:
+          title: raw
+          description: The raw address.
+        line1:
           type: string
-          title: name
-          description: The name of the earning.
-        category:
+          title: line1
+          description: The first line of the address.
+        line2:
+          type: string
+          title: line2
+          description: The second line of the address.
+        city:
+          type: string
+          title: city
+          description: The city of the address.
+        state:
+          type: string
+          title: state
+          description: The state of the address.
+        postal_code:
+          type: string
+          title: postal_code
+          description: The postal code of the address.
+        country:
           allOf:
           - type: string
             enum:
-            - salary
-            - hourly
-            - overtime
-            - double_overtime
-            - premium
-            - bonus
-            - commission
-            - tips
-            - vacation
-            - holiday
-            - pto
-            - sick
-            - employer_contribution
-            - other
-            - fare
-            - unpaid
-            - parental
-            - shift_differential
-            - bereavement
-            - life_insurance
-            - stock
-            - retirement
-            - medical
-            - meal_comp
-            - disability
-            - retro_pay
-          description: The category of earning.
-        amount:
-          type: integer
-          title: amount
-          description: The amount of earning, in cents.
-        rate:
-          type: integer
-          title: rate
-          description: The amount earned per hour, in cents.
-        hours:
-          type: number
-          title: hours
-          description: The hours worked.
+            - US
+          description: The country of the address.
       type: object
       required:
-      - name
-      - category
-      title: Earning
-      x-tags:
-      - Schemas
-    TimeOffObjPublicResponseItem:
-      properties:
-        name:
-          type: string
-          title: name
-          description: The name of the time off.
-        category:
-          allOf:
-          - type: string
-            enum:
-            - pto
-            - sick
-            - other
-          description: The category of the time off.
-        available_hours:
-          type: number
-          title: available_hours
-          description: The total hours of time off available, as of the pay period end date. In the event available_hours is not on the paystub, this value reflects the current available_hours at the time the paystub was retrieved.
-        earned_hours:
-          type: number
-          title: earned_hours
-          description: The hours of time off earned during the pay period.
-        used_hours:
-          type: number
-          title: used_hours
-          description: The hours of time off used during the pay period.
-      type: object
-      required:
-      - name
-      - category
-      title: TimeOff
-      x-tags:
-      - Schemas
-    ShiftObjResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier of the Shift object.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        account_id:
-          type: string
-          format: uuid
-          title: account_id
-          description: UUID of the payroll account.
-        start_date:
-          type: string
-          format: date
-          title: start_date
-          description: The date the Shift started. ISO 8601 format.
-        end_date:
-          type: string
-          format: date
-          title: end_date
-          description: The date the Shift ended. ISO 8601 format.
-        type:
-          allOf:
-          - type: string
-            enum:
-            - shift
-            - rideshare
-            - delivery
-            - other
-          description: The type of the work performed.
-        timezone:
-          type: string
-          title: timezone
-          description: The timezone where the work was completed. Valid names are in the IANA Timezone Database.
-        timestamps:
-          items:
-            $ref: '#/components/schemas/ShiftTimestamp'
-          type: array
-          title: timestamps
-          description: An array of objects that tracks clock in and out times over a shift.
-        currency:
-          allOf:
-          - type: string
-            enum:
-            - AED
-            - AFN
-            - ALL
-            - AMD
-            - ANG
-            - AOA
-            - ARS
-            - AUD
-            - AWG
-            - AZN
-            - BAM
-            - BBD
-            - BDT
-            - BGN
-            - BHD
-            - BIF
-            - BMD
-            - BND
-            - BOB
-            - BOV
-            - BRL
-            - BSD
-            - BTN
-            - BWP
-            - BYR
-            - BZD
-            - CAD
-            - CDF
-            - CHE
-            - CHF
-            - CHW
-            - CLF
-            - CLP
-            - CNY
-            - COP
-            - COU
-            - CRC
-            - CUC
-            - CUP
-            - CVE
-            - CZK
-            - DJF
-            - DKK
-            - DOP
-            - DZD
-            - EGP
-            - ERN
-            - ETB
-            - EUR
-            - FJD
-            - FKP
-            - GBP
-            - GEL
-            - GHS
-            - GIP
-            - GMD
-            - GNF
-            - GTQ
-            - GYD
-            - HKD
-            - HNL
-            - HRK
-            - HTG
-            - HUF
-            - IDR
-            - ILS
-            - INR
-            - IQD
-            - IRR
-            - ISK
-            - JMD
-            - JOD
-            - JPY
-            - KES
-            - KGS
-            - KHR
-            - KMF
-            - KPW
-            - KRW
-            - KWD
-            - KYD
-            - KZT
-            - LAK
-            - LBP
-            - LKR
-            - LRD
-            - LSL
-            - LTL
-            - LVL
-            - LYD
-            - MAD
-            - MDL
-            - MGA
-            - MKD
-            - MMK
-            - MNT
-            - MOP
-            - MRO
-            - MUR
-            - MVR
-            - MWK
-            - MXN
-            - MXV
-            - MYR
-            - MZN
-            - NAD
-            - NGN
-            - NIO
-            - NOK
-            - NPR
-            - NZD
-            - OMR
-            - PAB
-            - PEN
-            - PGK
-            - PHP
-            - PKR
-            - PLN
-            - PYG
-            - QAR
-            - RON
-            - RSD
-            - RUB
-            - RWF
-            - SAR
-            - SBD
-            - SCR
-            - SDG
-            - SEK
-            - SGD
-            - SHP
-            - SLL
-            - SOS
-            - SRD
-            - SSP
-            - STD
-            - SYP
-            - SZL
-            - THB
-            - TJS
-            - TMT
-            - TND
-            - TOP
-            - TRY
-            - TTD
-            - TWD
-            - TZS
-            - UAH
-            - UGX
-            - USD
-            - USN
-            - USS
-            - UYI
-            - UYU
-            - UZS
-            - VEF
-            - VND
-            - VUV
-            - WST
-            - XAF
-            - XAG
-            - XAU
-            - XBA
-            - XBB
-            - XBC
-            - XBD
-            - XCD
-            - XDR
-            - XOF
-            - XPD
-            - XPF
-            - XPT
-            - XTS
-            - XXX
-            - YER
-            - ZAR
-            - ZMW
-          description: Three-letter ISO 4217 currency code, uppercase. For example, the code for US dollars is USD.
-        earnings:
-          items:
-            $ref: '#/components/schemas/ShiftEarningObjPublicResponseItem'
-          type: array
-          title: earnings
-          description: An array of objects that represent a specific earning.
-      type: object
-      required:
-      - id
-      - created_at
-      - account_id
-      - start_date
-      - end_date
-      - type
-      - timestamps
-      - currency
-      - earnings
-      title: Shift
-      x-tags:
-      - Schemas
-    PhoneNumberGetResponseItem:
-      properties:
-        value:
-          type: string
-          title: value
-          description: The E.164 formatted phone number.
-        type:
-          allOf:
-          - type: string
-            enum:
-            - home
-            - work
-            - mobile
-          description: home, mobile, work, etc.
-      type: object
-      required:
-      - value
-      title: Phone
+      - raw
+      title: Address
       x-tags:
       - Schemas
     EarningObjPublicResponseItem:
@@ -1840,74 +1908,6 @@ components:
       - category
       - amount
       title: Earning
-      x-tags:
-      - Schemas
-    EmploymentObjResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: id
-          description: Unique identifier for the object.
-        created_at:
-          type: string
-          format: date-time
-          title: created_at
-          description: ISO 8601 timestamp of created time.
-        updated_at:
-          type: string
-          format: date-time
-          title: updated_at
-          description: ISO 8601 timestamp of the last update to this object.
-        account_id:
-          type: string
-          format: uuid
-          title: account_id
-          description: Unique identifier for the object.
-        status:
-          allOf:
-          - type: string
-            enum:
-            - employed
-            - terminated
-            - furloughed
-          description: The employment status of the employee.
-        start_date:
-          type: string
-          format: date
-          title: start_date
-          description: The date the employee began their job.
-        termination_date:
-          type: string
-          format: date
-          title: termination_date
-          description: The date the employee was terminated.
-        employer_name:
-          type: string
-          title: employer_name
-          description: Name of employer, e.g., Apple, Disney, Walmart.
-        employer_address:
-          allOf:
-          - $ref: '#/components/schemas/AddressGetResponseItem'
-          title: employer_address
-          description: The address of the employer.
-        employer_phone_number:
-          allOf:
-          - $ref: '#/components/schemas/PhoneNumberGetResponseItem'
-          title: employer_phone_number
-          description: The phone number of the employer.
-        title:
-          type: string
-          title: title
-          description: The job title of the employee.
-      type: object
-      required:
-      - id
-      - created_at
-      - updated_at
-      - account_id
-      - employer_name
-      title: Employment
       x-tags:
       - Schemas
   securitySchemes:

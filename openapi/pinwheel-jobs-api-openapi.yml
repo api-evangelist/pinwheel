@@ -170,6 +170,20 @@ paths:
                       next_cursor: eyJuYW1lIjogImFtYXpvbiJ9
 components:
   schemas:
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
     JobObjResponse_v2023_11_22:
       properties:
         id:
@@ -238,50 +252,6 @@ components:
       - outcome
       - link_token_id
       title: Job
-      x-tags:
-      - Schemas
-    TargetAccount:
-      properties:
-        account_name:
-          type: string
-          title: account_name
-          description: The account name (if any) for this allocation.
-        account_type:
-          allOf:
-          - type: string
-            enum:
-            - checking
-            - savings
-          description: The account type for this allocation.
-        last_four_account_number:
-          type: string
-          title: last_four_account_number
-          description: The last four digits of the account number for this allocation.
-      type: object
-      title: TargetAccount
-      x-tags:
-      - Schemas
-    DirectDepositAllocationDetail:
-      properties:
-        type:
-          allOf:
-          - type: string
-            enum:
-            - amount
-            - percentage
-            - remainder
-          description: Indicates what type of allocation this is.
-        value:
-          type: integer
-          title: value
-          description: The value (if any) for this allocation.  Will be set if the type is `percentage` or `amount`.
-        target:
-          allOf:
-          - $ref: '#/components/schemas/TargetAccount'
-          title: target
-          description: The target account for this allocation.
-      type: object
-      title: DirectDepositAllocationDetail
       x-tags:
       - Schemas
     ParamsPayload_v2023_11_22:
@@ -418,6 +388,50 @@ components:
       title: ParamsPayload_v2023_11_22
       x-tags:
       - Schemas
+    TargetAccount:
+      properties:
+        account_name:
+          type: string
+          title: account_name
+          description: The account name (if any) for this allocation.
+        account_type:
+          allOf:
+          - type: string
+            enum:
+            - checking
+            - savings
+          description: The account type for this allocation.
+        last_four_account_number:
+          type: string
+          title: last_four_account_number
+          description: The last four digits of the account number for this allocation.
+      type: object
+      title: TargetAccount
+      x-tags:
+      - Schemas
+    DirectDepositAllocationDetail:
+      properties:
+        type:
+          allOf:
+          - type: string
+            enum:
+            - amount
+            - percentage
+            - remainder
+          description: Indicates what type of allocation this is.
+        value:
+          type: integer
+          title: value
+          description: The value (if any) for this allocation.  Will be set if the type is `percentage` or `amount`.
+        target:
+          allOf:
+          - $ref: '#/components/schemas/TargetAccount'
+          title: target
+          description: The target account for this allocation.
+      type: object
+      title: DirectDepositAllocationDetail
+      x-tags:
+      - Schemas
     MerchantPayment:
       properties:
         card_name:
@@ -445,20 +459,6 @@ components:
           description: The last four digits of the account number for this payment.
       type: object
       title: MerchantPayment
-      x-tags:
-      - Schemas
-    PaginationMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: PaginationMeta
       x-tags:
       - Schemas
   securitySchemes:

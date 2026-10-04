@@ -390,6 +390,20 @@ components:
       title: WebhookPatchBody
       x-tags:
       - Schemas
+    PaginationMeta:
+      properties:
+        count:
+          type: integer
+          title: count
+          description: Number of objects returned.
+        next_cursor:
+          type: string
+          title: next_cursor
+          description: Pointer to the next page of results.
+      type: object
+      title: PaginationMeta
+      x-tags:
+      - Schemas
     WebhookObjResponse:
       properties:
         url:
@@ -560,20 +574,6 @@ components:
       - enabled_events
       - version
       title: WebhookPostBody
-      x-tags:
-      - Schemas
-    PaginationMeta:
-      properties:
-        count:
-          type: integer
-          title: count
-          description: Number of objects returned.
-        next_cursor:
-          type: string
-          title: next_cursor
-          description: Pointer to the next page of results.
-      type: object
-      title: PaginationMeta
       x-tags:
       - Schemas
   securitySchemes:
