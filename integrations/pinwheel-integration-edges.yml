@@ -1,0 +1,31 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/pinwheel/integrations
+- https://n8n.io/integrations/pinwheel/
+- https://composio.dev/toolkits/pinwheel
+- https://monid.ai/tools/pinwheel
+checked:
+- https://composio.dev/toolkits/pinwheel
+- https://monid.ai/tools/pinwheel
+- https://n8n.io/integrations/pinwheel/
+- https://zapier.com/apps/pinwheel/integrations
+summary: null
+marketplace_apps: []
+edges:
+- partner_name: plaid
+  partner: plaid
+  partner_match: domain
+  type: contract
+  channel: partner-built
+  relationship: processor-connection
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/plaid/blob/main/openapi/plaid-plaid-api-openapi.yml
+  contract_reference:
+    repo: plaid
+    spec_file: plaid-plaid-api-openapi.yml
+    value: pinwheel
+    property: schemas.ProcessorTokenCreateRequest.processor
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+templates: []
