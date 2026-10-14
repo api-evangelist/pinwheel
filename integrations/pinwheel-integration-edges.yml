@@ -9,6 +9,7 @@ checked:
 - https://composio.dev/toolkits/pinwheel
 - https://monid.ai/tools/pinwheel
 - https://n8n.io/integrations/pinwheel/
+- https://registry.financialdataexchange.org/
 - https://zapier.com/apps/pinwheel/integrations
 summary: null
 marketplace_apps: []
@@ -28,4 +29,28 @@ edges:
     property: schemas.ProcessorTokenCreateRequest.processor
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
+- partner_name: FDX (Financial Data Exchange)
+  partner: fdx
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.financialdataexchange.org/
+  contract_reference:
+    register: FDX Registry
+    standard: FDX API
+    spec_file: null
+    register_api: https://registry.financialdataexchange.org/fdxregistryapi/organizations/search/listingTags
+    role: data-access-platform,data-recipient
+    member_type: MEMBER
+    registered_name: Underdog Technologies - PinwheelApi
+    register_id: 389
+    registered_website: https://www.pinwheelapi.com/
+    country: United States
+    fdx_version: null
+    matched_by: domain:pinwheelapi.com
+    detected_by: sweep-fdx.py
+    detected: '2026-10-14'
+  detected_by: sweep-fdx.py
+  first_seen: '2026-10-14'
 templates: []
