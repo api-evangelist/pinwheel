@@ -341,6 +341,8 @@ apis:
   - type: JSONLDContext
     url: json-ld/pinwheel-context.jsonld
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/pinwheel/overview
   - type: AgenticAccess
     url: agentic-access/pinwheel-agentic-access.yml
   - type: TrustCenter
