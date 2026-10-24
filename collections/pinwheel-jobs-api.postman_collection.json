@@ -1,90 +1,28 @@
 {
+  "info": {
+    "_postman_id": "219a71ff-af4e-41ec-9dcc-e8e529099a23",
+    "name": "Pinwheel Jobs API",
+    "description": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:26:11.000Z",
+    "updatedAt": "2026-10-22T02:26:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-219a71ff-af4e-41ec-9dcc-e8e529099a23"
+  },
   "item": [
     {
-      "id": "b1acff67-5450-4ff9-affa-410d7d9a653b",
-      "name": "Jobs",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "jobs",
       "item": [
         {
-          "id": "7e19f759-0609-46c1-ab16-0f12478df3b7",
           "name": "List Completed Jobs",
+          "id": "24ee5e75-0980-454d-9723-f1ab496ee1ac",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List Completed Jobs",
-            "description": {
-              "content": "List all completed jobs which were initiated by Link (i.e., excluding refresh jobs for monitoring). This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "jobs"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "link_token_id",
-                  "value": "<uuid>",
-                  "description": "UUID of the link token triggering the job."
-                },
-                {
-                  "disabled": false,
-                  "key": "account_id",
-                  "value": "<uuid>",
-                  "description": "UUID of the payroll account."
-                },
-                {
-                  "disabled": false,
-                  "key": "job_types",
-                  "value": "<string>",
-                  "description": "List of job types. May be expanded to include new enum values (see our Change Management policy)."
-                },
-                {
-                  "disabled": false,
-                  "key": "job_types",
-                  "value": "<string>",
-                  "description": "List of job types. May be expanded to include new enum values (see our Change Management policy)."
-                },
-                {
-                  "disabled": false,
-                  "key": "outcome",
-                  "value": "<string>",
-                  "description": "The outcome of the job."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25",
-                  "description": "The maximum number of results to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Cursor for the page you want to retrieve."
-                },
-                {
-                  "disabled": false,
-                  "key": "from_timestamp",
-                  "value": "<dateTime>",
-                  "description": "Return results after this ISO 8601 timestamp."
-                },
-                {
-                  "disabled": false,
-                  "key": "to_timestamp",
-                  "value": "<dateTime>",
-                  "description": "Return results to this ISO 8601 timestamp."
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
-                "disabled": false,
                 "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                 "key": "Pinwheel-Version",
                 "value": "2025-07-08"
@@ -94,72 +32,72 @@
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/jobs?link_token_id=<uuid>&account_id=<uuid>&job_types=identity&job_types=bill_cancellation&outcome=error&limit=25&cursor=<string>&from_timestamp=<dateTime>&to_timestamp=<dateTime>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "jobs"
+              ],
+              "query": [
+                {
+                  "description": "UUID of the link token triggering the job.",
+                  "key": "link_token_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "description": "UUID of the payroll account.",
+                  "key": "account_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "description": "List of job types. May be expanded to include new enum values (see our Change Management policy).",
+                  "key": "job_types",
+                  "value": "identity"
+                },
+                {
+                  "description": "List of job types. May be expanded to include new enum values (see our Change Management policy).",
+                  "key": "job_types",
+                  "value": "bill_cancellation"
+                },
+                {
+                  "description": "The outcome of the job.",
+                  "key": "outcome",
+                  "value": "error"
+                },
+                {
+                  "description": "The maximum number of results to return.",
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "description": "Cursor for the page you want to retrieve.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Return results after this ISO 8601 timestamp.",
+                  "key": "from_timestamp",
+                  "value": "<dateTime>"
+                },
+                {
+                  "description": "Return results to this ISO 8601 timestamp.",
+                  "key": "to_timestamp",
+                  "value": "<dateTime>"
+                }
+              ]
+            },
+            "description": "List all completed jobs which were initiated by Link (i.e., excluding refresh jobs for monitoring). This is a paginated endpoint; see how Pinwheel implements pagination here."
           },
           "response": [
             {
-              "id": "b5b19fd4-f9a3-422e-9a9d-51033a691e48",
+              "id": "798d8ce3-3b9f-4afe-9461-c16d9024d90b",
               "name": "OK",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "jobs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "link_token_id",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "account_id",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "job_types",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "job_types",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "outcome",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "from_timestamp",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "to_timestamp",
-                      "value": "<dateTime>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                     "key": "Pinwheel-Version",
                     "value": "2025-07-08"
@@ -167,39 +105,91 @@
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/jobs?link_token_id=<uuid>&account_id=<uuid>&job_types=bill_cancellation&outcome=error&limit=25&cursor=<string>&from_timestamp=<dateTime>&to_timestamp=<dateTime>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "jobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "UUID of the link token triggering the job.",
+                      "key": "link_token_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "UUID of the payroll account.",
+                      "key": "account_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "List of job types. May be expanded to include new enum values (see our Change Management policy).",
+                      "key": "job_types",
+                      "value": "bill_cancellation"
+                    },
+                    {
+                      "description": "The outcome of the job.",
+                      "key": "outcome",
+                      "value": "error"
+                    },
+                    {
+                      "description": "The maximum number of results to return.",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Cursor for the page you want to retrieve.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Return results after this ISO 8601 timestamp.",
+                      "key": "from_timestamp",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Return results to this ISO 8601 timestamp.",
+                      "key": "to_timestamp",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f08\",\n      \"account_id\": \"449e7a5c-69d3-4b8a-aaaf-5c9b713ebc65\",\n      \"platform_id\": \"fce3eee0-285b-496f-9b36-30e976194736\",\n      \"platform_name\": \"ADP\",\n      \"link_token_id\": \"4787acbc-11cf-4db3-998c-5ea7c4feebcd\",\n      \"name\": \"direct_deposit_switch\",\n      \"timestamp\": \"2021-01-12T02:36:01.287148+00:00\",\n      \"outcome\": \"success\",\n      \"params\": {\n        \"action\": \"partial_switch\",\n        \"allocation\": {\n          \"type\": \"amount\",\n          \"value\": 50,\n          \"target\": {\n            \"account_name\": \"My Checking Account\",\n            \"account_type\": \"checking\"\n          }\n        }\n      }\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"meta\": {\n    \"count\": \"<integer>\",\n    \"next_cursor\": \"<string>\"\n  },\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"direct_deposit_payment\",\n      \"timestamp\": \"<dateTime>\",\n      \"outcome\": \"error\",\n      \"link_token_id\": \"<uuid>\",\n      \"error_code\": \"<string>\",\n      \"error_type\": \"<string>\",\n      \"params\": {\n        \"document_type\": \"1099\",\n        \"pay_date\": \"<string>\",\n        \"year\": \"<integer>\",\n        \"count\": \"<integer>\",\n        \"from_pay_date\": \"<date>\",\n        \"to_pay_date\": \"<date>\",\n        \"has_potential_paystubs_documents\": \"<boolean>\",\n        \"sync_status\": \"complete\",\n        \"bill_id\": \"<uuid>\",\n        \"type\": \"ach\",\n        \"payment\": {\n          \"card_name\": \"<string>\",\n          \"last_four_card_number\": \"<string>\",\n          \"account_name\": \"<string>\",\n          \"account_type\": \"checking\",\n          \"last_four_account_number\": \"<string>\"\n        },\n        \"frequency\": \"other\",\n        \"next_payment_date\": \"<dateTime>\",\n        \"next_payment_amount_cents\": \"<integer>\",\n        \"is_integrated_switch\": \"<boolean>\",\n        \"is_integrated_cancellation\": \"<boolean>\",\n        \"detection_method\": \"first_party\",\n        \"reported_platform_name\": \"<string>\",\n        \"reserved_platform_id\": \"<uuid>\",\n        \"card_name\": \"<string>\",\n        \"action\": \"partial_switch\",\n        \"allocation\": {\n          \"type\": \"remainder\",\n          \"value\": \"<integer>\",\n          \"target\": {\n            \"account_name\": \"<string>\",\n            \"account_type\": \"checking\",\n            \"last_four_account_number\": \"<string>\"\n          }\n        }\n      },\n      \"account_id\": \"<uuid>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"income\",\n      \"timestamp\": \"<dateTime>\",\n      \"outcome\": \"pending\",\n      \"link_token_id\": \"<uuid>\",\n      \"error_code\": \"<string>\",\n      \"error_type\": \"<string>\",\n      \"params\": {\n        \"document_type\": \"1099\",\n        \"pay_date\": \"<string>\",\n        \"year\": \"<integer>\",\n        \"count\": \"<integer>\",\n        \"from_pay_date\": \"<date>\",\n        \"to_pay_date\": \"<date>\",\n        \"has_potential_paystubs_documents\": \"<boolean>\",\n        \"sync_status\": \"complete\",\n        \"bill_id\": \"<uuid>\",\n        \"type\": \"ach\",\n        \"payment\": {\n          \"card_name\": \"<string>\",\n          \"last_four_card_number\": \"<string>\",\n          \"account_name\": \"<string>\",\n          \"account_type\": \"savings\",\n          \"last_four_account_number\": \"<string>\"\n        },\n        \"frequency\": \"weekly\",\n        \"next_payment_date\": \"<dateTime>\",\n        \"next_payment_amount_cents\": \"<integer>\",\n        \"is_integrated_switch\": \"<boolean>\",\n        \"is_integrated_cancellation\": \"<boolean>\",\n        \"detection_method\": \"first_party\",\n        \"reported_platform_name\": \"<string>\",\n        \"reserved_platform_id\": \"<uuid>\",\n        \"card_name\": \"<string>\",\n        \"action\": \"full_switch\",\n        \"allocation\": {\n          \"type\": \"percentage\",\n          \"value\": \"<integer>\",\n          \"target\": {\n            \"account_name\": \"<string>\",\n            \"account_type\": \"checking\",\n            \"last_four_account_number\": \"<string>\"\n          }\n        }\n      },\n      \"account_id\": \"<uuid>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T02:26:12.000Z",
+              "updatedAt": "2026-10-22T02:26:12.000Z",
+              "uid": "35240-798d8ce3-3b9f-4afe-9461-c16d9024d90b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:26:12.000Z",
+          "updatedAt": "2026-10-22T02:26:12.000Z",
+          "uid": "35240-24ee5e75-0980-454d-9723-f1ab496ee1ac"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getpinwheel.com/v1",
-      "key": "baseUrl"
+      "id": "05c51630-8913-4537-8750-0da85507f637",
+      "createdAt": "2026-10-22T02:26:12.000Z",
+      "updatedAt": "2026-10-22T02:26:12.000Z",
+      "uid": "35240-05c51630-8913-4537-8750-0da85507f637"
     }
   ],
   "auth": {
@@ -207,25 +197,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-API-SECRET"
+        "value": "X-API-SECRET",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "0d2f0bb8-d490-411b-b28d-46fcc5945305",
-    "name": "Pinwheel Accounts Jobs API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getpinwheel.com/v1"
     }
-  }
+  ]
 }

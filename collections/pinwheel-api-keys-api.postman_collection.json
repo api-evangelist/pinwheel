@@ -1,88 +1,293 @@
 {
+  "info": {
+    "_postman_id": "bb825c84-f6a1-4a25-b976-7546678c6c8b",
+    "name": "Pinwheel API Keys API",
+    "description": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:25:30.000Z",
+    "updatedAt": "2026-10-22T02:25:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bb825c84-f6a1-4a25-b976-7546678c6c8b"
+  },
   "item": [
     {
-      "id": "05cc5d74-21f6-41ee-9bbf-ff3106290dde",
-      "name": "API Keys",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "admin",
       "item": [
         {
-          "id": "24b8cb45-6bbd-41ab-8616-ac364b3abca3",
-          "name": "Admin API Authentication",
-          "request": {
-            "name": "Admin API Authentication",
-            "description": {
-              "content": "Authenticate against the Admin API.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "token",
+          "item": [
             {
-              "id": "a7f1f9e2-e871-4ea9-8e1a-bbde8b764ca9",
-              "name": "OK",
-              "originalRequest": {
+              "name": "Admin API Authentication",
+              "id": "530f44a0-10b4-4f2a-9007-dd563464becb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                    "key": "Pinwheel-Version",
+                    "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
-                  "path": [
-                    "admin",
-                    "token"
-                  ],
+                  "raw": "{{baseUrl}}/admin/token",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "admin",
+                    "token"
+                  ]
                 },
+                "description": "Authenticate against the Admin API."
+              },
+              "response": [
+                {
+                  "id": "5a6270c0-aff1-46f3-8d7e-273bcb79bcc7",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                        "key": "Pinwheel-Version",
+                        "value": "2025-07-08"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-API-SECRET",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/token",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "token"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"token\": \"<uuid>\",\n    \"expiration\": \"<dateTime>\",\n    \"workspace_name\": \"<string>\",\n    \"mode\": \"development\",\n    \"user_role\": \"developer\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:25:30.000Z",
+                  "updatedAt": "2026-10-22T02:25:30.000Z",
+                  "uid": "35240-5a6270c0-aff1-46f3-8d7e-273bcb79bcc7"
+                }
+              ],
+              "createdAt": "2026-10-22T02:25:30.000Z",
+              "updatedAt": "2026-10-22T02:25:30.000Z",
+              "uid": "35240-530f44a0-10b4-4f2a-9007-dd563464becb"
+            }
+          ],
+          "id": "835a81f2-6ba1-4a85-b838-15165b1c7bc6",
+          "createdAt": "2026-10-22T02:25:30.000Z",
+          "updatedAt": "2026-10-22T02:25:30.000Z",
+          "uid": "35240-835a81f2-6ba1-4a85-b838-15165b1c7bc6"
+        },
+        {
+          "name": "api_keys",
+          "item": [
+            {
+              "name": "{api_key}",
+              "item": [
+                {
+                  "name": "revoke",
+                  "item": [
+                    {
+                      "name": "Revoke an API Key",
+                      "id": "a2fe5335-c6d7-4e5f-91ea-6822a1a55e99",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                            "key": "Pinwheel-Version",
+                            "value": "2025-07-08"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/api_keys/:api_key/revoke",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "api_keys",
+                            ":api_key",
+                            "revoke"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b36dd2d1-272c-4e19-986b-09a40393f5a3",
+                              "key": "api_key",
+                              "value": "<string>",
+                              "description": "(Required) The public token that refers to your API key, as distinct from the API Secret."
+                            }
+                          ]
+                        },
+                        "description": "Revokes an API Key."
+                      },
+                      "response": [
+                        {
+                          "id": "68114441-cc32-4b12-a83f-37caa22c8b57",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                                "key": "Pinwheel-Version",
+                                "value": "2025-07-08"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/api_keys/:api_key/revoke",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "api_keys",
+                                ":api_key",
+                                "revoke"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "api_key"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"mode\": \"development\",\n    \"key\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"revoked_at\": \"<dateTime>\",\n    \"expires_at\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:25:30.000Z",
+                          "updatedAt": "2026-10-22T02:25:30.000Z",
+                          "uid": "35240-68114441-cc32-4b12-a83f-37caa22c8b57"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:25:30.000Z",
+                      "updatedAt": "2026-10-22T02:25:30.000Z",
+                      "uid": "35240-a2fe5335-c6d7-4e5f-91ea-6822a1a55e99"
+                    }
+                  ],
+                  "id": "c54bbfb4-b589-4c85-b4b5-4627462f15f4",
+                  "createdAt": "2026-10-22T02:25:30.000Z",
+                  "updatedAt": "2026-10-22T02:25:30.000Z",
+                  "uid": "35240-c54bbfb4-b589-4c85-b4b5-4627462f15f4"
+                }
+              ],
+              "id": "9f7ea468-af6e-4293-8036-45e37d6b781d",
+              "createdAt": "2026-10-22T02:25:30.000Z",
+              "updatedAt": "2026-10-22T02:25:30.000Z",
+              "uid": "35240-9f7ea468-af6e-4293-8036-45e37d6b781d"
+            },
+            {
+              "name": "List API Keys",
+              "id": "a197f05d-256c-4df2-960f-e93592a64f0d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                     "key": "Pinwheel-Version",
                     "value": "2025-07-08"
@@ -92,426 +297,230 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"username\": \"bob@example.com\",\n  \"password\": \"!pa55w0rd\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"token\": \"665ffb0f-3b65-483d-97be-2aeddfd54467\",\n    \"expiration\": \"2023-03-24 21:37:00.650846+00:00\",\n    \"workspace_name\": \"Acme, Inc.\",\n    \"mode\": \"production\",\n    \"user_role\": \"administrator\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c65a7905-f163-452a-a064-9ce7f7d33511",
-          "name": "List API Keys",
-          "request": {
-            "name": "List API Keys",
-            "description": {
-              "content": "List all keys for this workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "api_keys"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Cursor for the page you want to retrieve."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25",
-                  "description": "The maximum number of results to return."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "b11e96dd-ec11-49f7-a8d9-771e64706e6b",
-              "name": "OK",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/admin/api_keys?cursor=<string>&limit=25",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "admin",
                     "api_keys"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Cursor for the page you want to retrieve.",
                       "key": "cursor",
                       "value": "<string>"
                     },
                     {
+                      "description": "The maximum number of results to return.",
                       "key": "limit",
                       "value": "25"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Admin API bearer token.",
-                    "key": "authorization",
-                    "value": "string"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                    "key": "Pinwheel-Version",
-                    "value": "2025-07-08"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List all keys for this workspace."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"mode\": \"production\",\n      \"key\": \"412cb238ff82788ae1678fbdb3623a75b44059aa07a6e915c3d99a750e7953b2\",\n      \"expires_at\": null,\n      \"created_at\": \"2023-03-24 21:37:00.650846+00:00\",\n      \"last_used_at\": \"2023-03-24\",\n      \"is_active\": true,\n      \"revoked_at\": null\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6e4ca4e5-9a3a-41a3-9a68-17060277df17",
-          "name": "Create an API Key",
-          "request": {
-            "name": "Create an API Key",
-            "description": {
-              "content": "Creates an API Key.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "api_keys"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"expires_at\": \"<dateTime>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "426b5545-689f-4c36-b7e4-a41eabc4ff42",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "api_keys"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Admin API bearer token.",
-                    "key": "authorization",
-                    "value": "string"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                    "key": "Pinwheel-Version",
-                    "value": "2025-07-08"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"expires_at\": \"2023-03-23 12:34:56\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "id": "28483e0b-36ff-4072-bd65-433598769dc5",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                        "key": "Pinwheel-Version",
+                        "value": "2025-07-08"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/api_keys?cursor=<string>&limit=25",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "api_keys"
+                      ],
+                      "query": [
+                        {
+                          "description": "Cursor for the page you want to retrieve.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The maximum number of results to return.",
+                          "key": "limit",
+                          "value": "25"
+                        }
+                      ]
                     }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"mode\": \"production\",\n    \"key\": \"412cb238ff82788ae1678fbdb3623a75b44059aa07a6e915c3d99a750e7953b2\",\n    \"secret\": \"23252c3d516ec1cf92822d8db03b04f59c22ac4810fb20752b5511e43340e771\",\n    \"expires_at\": null,\n    \"created_at\": \"2023-03-24 21:37:00.650846+00:00\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "44d87ff0-94e6-4627-8103-f9385a62d836",
-          "name": "Revoke an API Key",
-          "request": {
-            "name": "Revoke an API Key",
-            "description": {
-              "content": "Revokes an API Key.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "api_keys",
-                ":api_key",
-                "revoke"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "api_key",
-                  "description": "(Required) The public token that refers to your API key, as distinct from the API Secret."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "ce396d2b-9ffc-495f-8bed-e1e5dd4f1d8a",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "api_keys",
-                    ":api_key",
-                    "revoke"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "api_key",
-                      "description": "(Required) The public token that refers to your API key, as distinct from the API Secret."
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"meta\": {\n    \"count\": \"<integer>\",\n    \"next_cursor\": \"<string>\"\n  },\n  \"data\": [\n    {\n      \"mode\": \"development\",\n      \"key\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"expires_at\": \"<dateTime>\",\n      \"last_used_at\": \"<date>\",\n      \"revoked_at\": \"<dateTime>\"\n    },\n    {\n      \"mode\": \"production\",\n      \"key\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"is_active\": \"<boolean>\",\n      \"expires_at\": \"<dateTime>\",\n      \"last_used_at\": \"<date>\",\n      \"revoked_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:25:30.000Z",
+                  "updatedAt": "2026-10-22T02:25:30.000Z",
+                  "uid": "35240-28483e0b-36ff-4072-bd65-433598769dc5"
+                }
+              ],
+              "createdAt": "2026-10-22T02:25:30.000Z",
+              "updatedAt": "2026-10-22T02:25:30.000Z",
+              "uid": "35240-a197f05d-256c-4df2-960f-e93592a64f0d"
+            },
+            {
+              "name": "Create an API Key",
+              "id": "382bb372-10c6-40b9-860e-3c30332edd46",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
                     }
                   ]
                 },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Admin API bearer token.",
-                    "key": "authorization",
-                    "value": "string"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                     "key": "Pinwheel-Version",
                     "value": "2025-07-08"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {}
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expires_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/admin/api_keys",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "api_keys"
+                  ]
+                },
+                "description": "Creates an API Key."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "1acdb834-6c9d-4d3d-a97f-b784bff64b8c",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                        "key": "Pinwheel-Version",
+                        "value": "2025-07-08"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"expires_at\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/api_keys",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "api_keys"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"mode\": \"sandbox\",\n    \"key\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"secret\": \"<string>\",\n    \"expires_at\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:25:30.000Z",
+                  "updatedAt": "2026-10-22T02:25:30.000Z",
+                  "uid": "35240-1acdb834-6c9d-4d3d-a97f-b784bff64b8c"
                 }
               ],
-              "body": "{\n  \"data\": {\n    \"mode\": \"production\",\n    \"key\": \"412cb238ff82788ae1678fbdb3623a75b44059aa07a6e915c3d99a750e7953b2\",\n    \"expires_at\": null,\n    \"created_at\": \"2023-03-20 13:02:21.987347+00:00\",\n    \"revoked_at\": \"2023-03-24 21:37:00.768426+00:00\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:25:30.000Z",
+              "updatedAt": "2026-10-22T02:25:30.000Z",
+              "uid": "35240-382bb372-10c6-40b9-860e-3c30332edd46"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d0ea9a98-b778-4424-ae7b-1627291e1cb6",
+          "createdAt": "2026-10-22T02:25:30.000Z",
+          "updatedAt": "2026-10-22T02:25:30.000Z",
+          "uid": "35240-d0ea9a98-b778-4424-ae7b-1627291e1cb6"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getpinwheel.com/v1",
-      "key": "baseUrl"
+      "id": "188f11f6-baea-4b24-93f0-84180510f596",
+      "createdAt": "2026-10-22T02:25:30.000Z",
+      "updatedAt": "2026-10-22T02:25:30.000Z",
+      "uid": "35240-188f11f6-baea-4b24-93f0-84180510f596"
     }
   ],
   "auth": {
@@ -519,25 +528,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-API-SECRET"
+        "value": "X-API-SECRET",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b24b2581-cb92-4033-b1ce-0b5ef9de2f81",
-    "name": "Pinwheel Accounts API Keys API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getpinwheel.com/v1"
     }
-  }
+  ]
 }

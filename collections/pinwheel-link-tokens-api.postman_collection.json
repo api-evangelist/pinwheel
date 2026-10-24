@@ -1,35 +1,28 @@
 {
+  "info": {
+    "_postman_id": "c616a5d0-4032-46ec-b670-3b89ef9b8fc9",
+    "name": "Pinwheel Link Tokens API",
+    "description": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:26:18.000Z",
+    "updatedAt": "2026-10-22T02:26:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c616a5d0-4032-46ec-b670-3b89ef9b8fc9"
+  },
   "item": [
     {
-      "id": "b9ccc602-f5cc-45cb-a1cb-b63a6b93185f",
-      "name": "Link Tokens",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "link_tokens",
       "item": [
         {
-          "id": "e30c2f8c-8425-45a2-ba75-c50cf7d347c7",
           "name": "Create Link Token",
+          "id": "f0d50b4b-00d7-4f23-9842-4e853393f9f8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Create Link Token",
-            "description": {
-              "content": "Create a token used to launch a Link modal.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "link_tokens"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                 "key": "Pinwheel-Version",
                 "value": "2025-07-08"
@@ -43,92 +36,99 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"org_name\": \"<string>\",\n  \"solution\": \"<string>\",\n  \"allocation\": {\n    \"type\": \"<string>\",\n    \"value\": \"<number>\",\n    \"min_amount\": \"<number>\"\n  },\n  \"skip_intro_screen\": false,\n  \"employer_id\": \"<uuid>\",\n  \"disable_direct_deposit_splitting\": false,\n  \"platform_id\": \"<uuid>\",\n  \"platform_type\": \"<string>\",\n  \"language\": \"en\",\n  \"end_user_id\": \"<string>\",\n  \"account_id\": \"<uuid>\",\n  \"document_uploads\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"deposit_forms\": \"<string>\",\n  \"use_case\": \"<string>\",\n  \"end_user\": {\n    \"platform_matching\": {\n      \"social_security_number\": \"<string>\",\n      \"social_security_number_last_four\": \"<string>\",\n      \"date_of_birth\": \"<date>\",\n      \"last_name\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"mobile_phone_number\": \"<string>\",\n      \"home_address_zip_code\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  },\n  \"cards\": [\n    {\n      \"card_name\": \"<string>\",\n      \"card_number\": \"<string>\",\n      \"expiration_date\": \"<date>\",\n      \"name_on_card\": \"<string>\",\n      \"card_zip_code\": \"<string>\",\n      \"cvc\": \"<string>\",\n      \"billing_address\": \"<string>\",\n      \"billing_address_two\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    {\n      \"card_name\": \"<string>\",\n      \"card_number\": \"<string>\",\n      \"expiration_date\": \"<date>\",\n      \"name_on_card\": \"<string>\",\n      \"card_zip_code\": \"<string>\",\n      \"cvc\": \"<string>\",\n      \"billing_address\": \"<string>\",\n      \"billing_address_two\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\"\n    }\n  ],\n  \"reseller_customer_id\": \"<string>\",\n  \"features\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "raw": "{\n  \"org_name\": \"<string>\",\n  \"solution\": \"Paycheck Viewer\",\n  \"allocation\": {\n    \"type\": \"amount\",\n    \"value\": \"<number>\",\n    \"min_amount\": \"<number>\"\n  },\n  \"skip_intro_screen\": false,\n  \"employer_id\": \"<uuid>\",\n  \"disable_direct_deposit_splitting\": false,\n  \"platform_id\": \"<uuid>\",\n  \"platform_type\": \"time_and_attendance\",\n  \"language\": \"en\",\n  \"end_user_id\": \"<string>\",\n  \"account_id\": \"<uuid>\",\n  \"document_uploads\": \"fallback\",\n  \"tags\": {\n    \"doloref7\": \"<string>\"\n  },\n  \"deposit_forms\": \"direct\",\n  \"use_case\": \"account_servicing\",\n  \"end_user\": {\n    \"platform_matching\": {\n      \"social_security_number\": \"911191119\",\n      \"social_security_number_last_four\": \"2180\",\n      \"date_of_birth\": \"<date>\",\n      \"last_name\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"mobile_phone_number\": \"0596605966\",\n      \"home_address_zip_code\": \"40740\",\n      \"email\": \"<email>\"\n    }\n  },\n  \"cards\": [\n    {\n      \"card_name\": \"<string>\",\n      \"card_number\": \"172172172172\",\n      \"expiration_date\": \"<date>\",\n      \"name_on_card\": \"<string>\",\n      \"card_zip_code\": \"20740\",\n      \"cvc\": \"<string>\",\n      \"billing_address\": \"<string>\",\n      \"billing_address_two\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"WA\"\n    },\n    {\n      \"card_name\": \"<string>\",\n      \"card_number\": \"35253525\",\n      \"expiration_date\": \"<date>\",\n      \"name_on_card\": \"<string>\",\n      \"card_zip_code\": \"     \",\n      \"cvc\": \"<string>\",\n      \"billing_address\": \"<string>\",\n      \"billing_address_two\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"FL\"\n    }\n  ],\n  \"reseller_customer_id\": \"<string>\",\n  \"features\": [\n    \"direct_deposit_allocations\",\n    \"employment\"\n  ]\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/link_tokens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "link_tokens"
+              ]
+            },
+            "description": "Create a token used to launch a Link modal."
           },
           "response": [
             {
-              "id": "522361ac-14b8-4487-8837-63b522e5a2f6",
+              "id": "31b1ff8a-afa9-451d-9b98-ae18cb6c966a",
               "name": "OK",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "link_tokens"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                     "key": "Pinwheel-Version",
                     "value": "2025-07-08"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"org_name\": \"Fintech.io\",\n  \"solution\": \"Deposit Switch\",\n  \"features\": [\n    \"direct_deposit_switch\"\n  ],\n  \"end_user_id\": \"my_user_12345\",\n  \"allocation\": {\n    \"type\": \"amount\",\n    \"value\": 123.45,\n    \"targets\": [\n      {\n        \"name\": \"My Checking Account\",\n        \"type\": \"checking\",\n        \"account_number\": \"5675249802\",\n        \"routing_number\": \"193487629\"\n      },\n      {\n        \"name\": \"My Savings Account\",\n        \"type\": \"savings\",\n        \"account_number\": \"6675249802\",\n        \"routing_number\": \"193487629\"\n      }\n    ]\n  },\n  \"employer_id\": \"e3c3ec9e-eea5-42fc-b533-de3cea9c352f\",\n  \"end_user\": {\n    \"platform_matching\": {\n      \"social_security_number\": \"123456789\",\n      \"first_name\": \"Alicia\",\n      \"last_name\": \"Green\",\n      \"mobile_phone_number\": \"1234567890\",\n      \"home_address_zip_code\": \"12345\",\n      \"date_of_birth\": \"2023-11-22\"\n    }\n  }\n}",
+                  "raw": "{\n  \"org_name\": \"<string>\",\n  \"solution\": \"Paycheck Viewer\",\n  \"allocation\": {\n    \"type\": \"amount\",\n    \"value\": \"<number>\",\n    \"min_amount\": \"<number>\"\n  },\n  \"skip_intro_screen\": false,\n  \"employer_id\": \"<uuid>\",\n  \"disable_direct_deposit_splitting\": false,\n  \"platform_id\": \"<uuid>\",\n  \"platform_type\": \"time_and_attendance\",\n  \"language\": \"en\",\n  \"end_user_id\": \"<string>\",\n  \"account_id\": \"<uuid>\",\n  \"document_uploads\": \"fallback\",\n  \"tags\": {\n    \"doloref7\": \"<string>\"\n  },\n  \"deposit_forms\": \"direct\",\n  \"use_case\": \"account_servicing\",\n  \"end_user\": {\n    \"platform_matching\": {\n      \"social_security_number\": \"911191119\",\n      \"social_security_number_last_four\": \"2180\",\n      \"date_of_birth\": \"<date>\",\n      \"last_name\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"mobile_phone_number\": \"0596605966\",\n      \"home_address_zip_code\": \"40740\",\n      \"email\": \"<email>\"\n    }\n  },\n  \"cards\": [\n    {\n      \"card_name\": \"<string>\",\n      \"card_number\": \"172172172172\",\n      \"expiration_date\": \"<date>\",\n      \"name_on_card\": \"<string>\",\n      \"card_zip_code\": \"20740\",\n      \"cvc\": \"<string>\",\n      \"billing_address\": \"<string>\",\n      \"billing_address_two\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"WA\"\n    },\n    {\n      \"card_name\": \"<string>\",\n      \"card_number\": \"35253525\",\n      \"expiration_date\": \"<date>\",\n      \"name_on_card\": \"<string>\",\n      \"card_zip_code\": \"     \",\n      \"cvc\": \"<string>\",\n      \"billing_address\": \"<string>\",\n      \"billing_address_two\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"FL\"\n    }\n  ],\n  \"reseller_customer_id\": \"<string>\",\n  \"features\": [\n    \"direct_deposit_allocations\",\n    \"employment\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/link_tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "link_tokens"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": {\n    \"id\": \"bd2c09e7-1303-46d5-87c0-0ffa572d7ae4\",\n    \"token\": \"eyJhbGciOiJIUz....pZ-qZZPO-mA06Dzu-nfUdurwaTUA\",\n    \"expires\": \"2021-01-09T02:52:26+00:00\",\n    \"mode\": \"production\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"mode\": \"development\",\n    \"id\": \"<uuid>\",\n    \"token\": \"<string>\",\n    \"expires\": \"<dateTime>\",\n    \"smart_branch_url\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:26:19.000Z",
+              "updatedAt": "2026-10-22T02:26:19.000Z",
+              "uid": "35240-31b1ff8a-afa9-451d-9b98-ae18cb6c966a"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:26:18.000Z",
+          "updatedAt": "2026-10-22T02:26:18.000Z",
+          "uid": "35240-f0d50b4b-00d7-4f23-9842-4e853393f9f8"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getpinwheel.com/v1",
-      "key": "baseUrl"
+      "id": "50cd686a-47fd-4784-87ac-1ba9c6110886",
+      "createdAt": "2026-10-22T02:26:18.000Z",
+      "updatedAt": "2026-10-22T02:26:18.000Z",
+      "uid": "35240-50cd686a-47fd-4784-87ac-1ba9c6110886"
     }
   ],
   "auth": {
@@ -136,25 +136,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-API-SECRET"
+        "value": "X-API-SECRET",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "20654d67-095c-4c39-a57d-8e881025ebf8",
-    "name": "Pinwheel Accounts Link Tokens API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getpinwheel.com/v1"
     }
-  }
+  ]
 }

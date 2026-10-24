@@ -1,157 +1,176 @@
 {
+  "info": {
+    "_postman_id": "2a99e3ce-b011-4987-994d-a8d1c5ce5a8f",
+    "name": "Pinwheel Earnings Stream API",
+    "description": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:25:47.000Z",
+    "updatedAt": "2026-10-22T02:25:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2a99e3ce-b011-4987-994d-a8d1c5ce5a8f"
+  },
   "item": [
     {
-      "id": "1ba72fa9-222f-46dc-9059-3cbc0d968bd5",
-      "name": "Earnings Stream",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "end_users",
       "item": [
         {
-          "id": "59ea57bf-9269-4b69-a650-cdadf8bc057e",
-          "name": "Get Earnings Stream Payouts",
-          "request": {
-            "name": "Get Earnings Stream Payouts",
-            "description": {
-              "content": "Get an Earnings Stream of payout objects representing discrete cash flow events. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "end_users",
-                ":end_user_id",
-                "earnings_stream",
-                "payouts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Cursor for the page you want to retrieve."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25",
-                  "description": "The maximum number of results to return."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "end_user_id",
-                  "description": "(Required) User ID provided by you, to associate Pinwheel users with your user model."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{end_user_id}",
+          "item": [
             {
-              "id": "5be9efd0-2494-421a-84b5-0aa1151ed6c5",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "end_users",
-                    ":end_user_id",
-                    "earnings_stream",
-                    "payouts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "end_user_id",
-                      "description": "(Required) User ID provided by you, to associate Pinwheel users with your user model."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                    "key": "Pinwheel-Version",
-                    "value": "2025-07-08"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "earnings_stream",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "payouts",
+                  "item": [
+                    {
+                      "name": "Get Earnings Stream Payouts",
+                      "id": "52103222-cceb-432d-8e56-ca3ce2705bdc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                            "key": "Pinwheel-Version",
+                            "value": "2025-07-08"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/end_users/:end_user_id/earnings_stream/payouts?cursor=<string>&limit=25",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "end_users",
+                            ":end_user_id",
+                            "earnings_stream",
+                            "payouts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Cursor for the page you want to retrieve.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The maximum number of results to return.",
+                              "key": "limit",
+                              "value": "25"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "d4edee63-75e7-4b18-afc1-0e974c039409",
+                              "key": "end_user_id",
+                              "value": "<string>",
+                              "description": "(Required) User ID provided by you, to associate Pinwheel users with your user model."
+                            }
+                          ]
+                        },
+                        "description": "Get an Earnings Stream of payout objects representing discrete cash flow events. This is a paginated endpoint; see how Pinwheel implements pagination here."
+                      },
+                      "response": [
+                        {
+                          "id": "098de451-d69a-4795-8be8-b6b6e99004c5",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                                "key": "Pinwheel-Version",
+                                "value": "2025-07-08"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-SECRET",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/end_users/:end_user_id/earnings_stream/payouts?cursor=<string>&limit=25",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "end_users",
+                                ":end_user_id",
+                                "earnings_stream",
+                                "payouts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Cursor for the page you want to retrieve.",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The maximum number of results to return.",
+                                  "key": "limit",
+                                  "value": "25"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "end_user_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"meta\": {\n    \"refreshed_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"count\": \"<integer>\",\n    \"next_cursor\": \"<string>\"\n  },\n  \"data\": [\n    {\n      \"status\": \"estimated\",\n      \"pay_date\": \"<date>\",\n      \"net_pay\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"RSD\"\n      }\n    },\n    {\n      \"status\": \"estimated\",\n      \"pay_date\": \"<date>\",\n      \"net_pay\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"AOA\"\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:25:48.000Z",
+                          "updatedAt": "2026-10-22T02:25:48.000Z",
+                          "uid": "35240-098de451-d69a-4795-8be8-b6b6e99004c5"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:25:48.000Z",
+                      "updatedAt": "2026-10-22T02:25:48.000Z",
+                      "uid": "35240-52103222-cceb-432d-8e56-ca3ce2705bdc"
+                    }
+                  ],
+                  "id": "6980e317-ee37-4f07-be86-d89774ececf7",
+                  "createdAt": "2026-10-22T02:25:48.000Z",
+                  "updatedAt": "2026-10-22T02:25:48.000Z",
+                  "uid": "35240-6980e317-ee37-4f07-be86-d89774ececf7"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"status\": \"estimated\",\n      \"pay_date\": \"2022-05-15\",\n      \"earnings\": [\n        {\n          \"date\": \"2022-05-05\",\n          \"confidence_score\": 0.5,\n          \"net_pay\": {\n            \"amount\": 10000,\n            \"currency\": \"USD\"\n          }\n        },\n        {\n          \"date\": \"2022-05-04\",\n          \"confidence_score\": 0.5,\n          \"net_pay\": {\n            \"amount\": 5000,\n            \"currency\": \"USD\"\n          }\n        },\n        {\n          \"date\": \"2022-05-03\",\n          \"confidence_score\": 0.7,\n          \"net_pay\": {\n            \"amount\": 7500,\n            \"currency\": \"USD\"\n          }\n        },\n        {\n          \"date\": \"2022-05-02\",\n          \"confidence_score\": 0.7,\n          \"net_pay\": {\n            \"amount\": 5000,\n            \"currency\": \"USD\"\n          }\n        },\n        {\n          \"date\": \"2022-05-01\",\n          \"confidence_score\": 0.7,\n          \"net_pay\": {\n            \"amount\": 10000,\n            \"currency\": \"USD\"\n          }\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "1b30c471-4962-43dc-acac-05193b8ed4bb",
+              "createdAt": "2026-10-22T02:25:48.000Z",
+              "updatedAt": "2026-10-22T02:25:48.000Z",
+              "uid": "35240-1b30c471-4962-43dc-acac-05193b8ed4bb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "b461e6c4-b7ac-4b8b-a4db-a73e6850d313",
+          "createdAt": "2026-10-22T02:25:48.000Z",
+          "updatedAt": "2026-10-22T02:25:48.000Z",
+          "uid": "35240-b461e6c4-b7ac-4b8b-a4db-a73e6850d313"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getpinwheel.com/v1",
-      "key": "baseUrl"
+      "id": "50ad9e9f-fe19-4e68-b880-ecd5e9a2a654",
+      "createdAt": "2026-10-22T02:25:48.000Z",
+      "updatedAt": "2026-10-22T02:25:48.000Z",
+      "uid": "35240-50ad9e9f-fe19-4e68-b880-ecd5e9a2a654"
     }
   ],
   "auth": {
@@ -159,25 +178,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-API-SECRET"
+        "value": "X-API-SECRET",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2bacbdc8-c5c8-4cd1-945d-fc0a5eb49a87",
-    "name": "Pinwheel Accounts Earnings Stream API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getpinwheel.com/v1"
     }
-  }
+  ]
 }

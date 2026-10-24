@@ -1,115 +1,223 @@
 {
+  "info": {
+    "_postman_id": "787abe71-fe82-46f6-b66f-9d651a84328b",
+    "name": "Pinwheel Accounts API",
+    "description": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:25:23.000Z",
+    "updatedAt": "2026-10-22T02:25:24.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-787abe71-fe82-46f6-b66f-9d651a84328b"
+  },
   "item": [
     {
-      "id": "31c99d5f-8110-4e63-aa6e-ad682ee049b3",
-      "name": "Accounts",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "accounts",
       "item": [
         {
-          "id": "0407d0e4-d5d7-40fa-ab89-8b30917df234",
-          "name": "List Accounts",
-          "request": {
-            "name": "List Accounts",
-            "description": {
-              "content": "List all payroll accounts. This is a paginated endpoint; see how Pinwheel implements pagination <a href='https://docs.pinwheelapi.com/docs/pagination-1' target='_blank'>here</a>.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "accounts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Cursor for the page you want to retrieve."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "25",
-                  "description": "The maximum number of results to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "connected",
-                  "value": "<boolean>",
-                  "description": "If included, filter on connected accounts. If true, return only accounts that are connected. If false, return only accounts that are disconnected. Connected accounts are accounts for which you can retrieve new data manually using On Demand Updates or automatically via Monitoring."
-                },
-                {
-                  "disabled": false,
-                  "key": "monitoring_status",
-                  "value": "<string>",
-                  "description": "Monitoring status describes the the automated ability of Pinwheel to retrieve new account information."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{account_id}",
+          "item": [
             {
-              "id": "58035e8b-f5c1-4e19-8b8a-21bec247d4df",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
+              "name": "disable_monitoring",
+              "item": [
+                {
+                  "name": "Disable monitoring for account",
+                  "id": "0956b3ef-6a0f-4925-9aa6-ea93efa31979",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                        "key": "Pinwheel-Version",
+                        "value": "2025-07-08"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/disable_monitoring",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "disable_monitoring"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0ddd1261-a09e-423c-8151-dafe35f6142b",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) UUID of the payroll account."
+                        }
+                      ]
                     },
+                    "description": "Disable monitoring for an account so that refresh jobs will no longer be scheduled to retrieve payroll data."
+                  },
+                  "response": [
                     {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "connected",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "monitoring_status",
-                      "value": "<string>"
+                      "id": "9f94ef56-5b79-40f1-a426-19b3c812d13b",
+                      "name": "No Content",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                            "key": "Pinwheel-Version",
+                            "value": "2025-07-08"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-API-SECRET",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/disable_monitoring",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "disable_monitoring"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:25:24.000Z",
+                      "updatedAt": "2026-10-22T02:25:24.000Z",
+                      "uid": "35240-9f94ef56-5b79-40f1-a426-19b3c812d13b"
                     }
                   ],
-                  "variable": []
-                },
+                  "createdAt": "2026-10-22T02:25:24.000Z",
+                  "updatedAt": "2026-10-22T02:25:24.000Z",
+                  "uid": "35240-0956b3ef-6a0f-4925-9aa6-ea93efa31979"
+                }
+              ],
+              "id": "4c9bb762-e4c7-4b79-9e3f-fdc9c6dd62cd",
+              "createdAt": "2026-10-22T02:25:24.000Z",
+              "updatedAt": "2026-10-22T02:25:24.000Z",
+              "uid": "35240-4c9bb762-e4c7-4b79-9e3f-fdc9c6dd62cd"
+            },
+            {
+              "name": "disconnect",
+              "item": [
+                {
+                  "name": "Disconnect an account",
+                  "id": "39e5add3-63ab-4c10-850a-a11017a382f9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                        "key": "Pinwheel-Version",
+                        "value": "2025-07-08"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/disconnect",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "disconnect"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0b6fd0d0-132a-4265-ad27-307a426fd086",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) UUID of the payroll account."
+                        }
+                      ]
+                    },
+                    "description": "Disconnect an account. This is permanent and irreversible. Once complete, an account will no longer support Earnings Streams or Recurring Access, e.g., On Demand Updates will no longer work and Monitoring will no longer be performed. However, old data will remain accessible. As mentioned above, this excludes derived data products e.g. Earnings Stream."
+                  },
+                  "response": [
+                    {
+                      "id": "fe159caf-cc60-4e4b-a114-6e973156c78a",
+                      "name": "No Content",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                            "key": "Pinwheel-Version",
+                            "value": "2025-07-08"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-API-SECRET",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/disconnect",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "disconnect"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:25:24.000Z",
+                      "updatedAt": "2026-10-22T02:25:24.000Z",
+                      "uid": "35240-fe159caf-cc60-4e4b-a114-6e973156c78a"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:25:24.000Z",
+                  "updatedAt": "2026-10-22T02:25:24.000Z",
+                  "uid": "35240-39e5add3-63ab-4c10-850a-a11017a382f9"
+                }
+              ],
+              "id": "509f1120-3ee4-499d-bb71-0e6b51ff54c1",
+              "createdAt": "2026-10-22T02:25:24.000Z",
+              "updatedAt": "2026-10-22T02:25:24.000Z",
+              "uid": "35240-509f1120-3ee4-499d-bb71-0e6b51ff54c1"
+            },
+            {
+              "name": "Get Account",
+              "id": "46d41e98-5ccd-4372-9413-63e538bb1212",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                     "key": "Pinwheel-Version",
                     "value": "2025-07-08"
@@ -119,105 +227,151 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"eb240ec6-a227-47ca-b7c7-fbbdfe7170a0\",\n      \"created_at\": \"2021-01-06T15:59:13.530178+00:00\",\n      \"link_token_id\": \"bd2c09e7-1303-46d5-87c0-0ffa572d7ae4\",\n      \"platform_id\": \"fce3eee0-285b-496f-9b36-30e976194736\",\n      \"connected\": true,\n      \"monitoring_status\": \"active\",\n      \"data_updated_at\": {\n        \"direct_deposit_allocations\": \"2021-01-08T00:00:00.000000+00:00\"\n      },\n      \"data_refreshed_at\": {\n        \"direct_deposit_allocations\": \"2021-01-09T00:00:00.000000+00:00\"\n      },\n      \"end_user_id\": \"my_user_12345\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"next_cursor\": \"eyJuYW1lIjogImFtYXpvbiJ9\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6d7314dc-7b9d-4c98-9edb-dc78af2f6878",
-          "name": "Get Account",
-          "request": {
-            "name": "Get Account",
-            "description": {
-              "content": "Get a single payroll account.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "accounts",
-                ":account_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "account_id",
-                  "description": "(Required) UUID of the payroll account."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c5417f37-334f-4369-9b36-890ba4c7bab3",
-              "name": "OK",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/accounts/:account_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "accounts",
                     ":account_id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
+                      "id": "65f808df-dcd7-4be9-b118-c2279aaeb9d3",
                       "key": "account_id",
+                      "value": "<uuid>",
                       "description": "(Required) UUID of the payroll account."
                     }
                   ]
                 },
+                "description": "Get a single payroll account."
+              },
+              "response": [
+                {
+                  "id": "c627b9c0-f008-4eaf-b5b9-a2e58e42e564",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                        "key": "Pinwheel-Version",
+                        "value": "2025-07-08"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-API-SECRET",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"created_at\": \"<dateTime>\",\n    \"platform_id\": \"<uuid>\",\n    \"connected\": \"<boolean>\",\n    \"monitoring_status\": \"unavailable\",\n    \"id\": \"<uuid>\",\n    \"data_updated_at\": {\n      \"direct_deposit_allocations\": \"<dateTime>\",\n      \"income\": \"<dateTime>\",\n      \"employment\": \"<dateTime>\",\n      \"identity\": \"<dateTime>\",\n      \"shifts\": \"<dateTime>\",\n      \"paystubs\": \"<dateTime>\"\n    },\n    \"data_refreshed_at\": {\n      \"direct_deposit_allocations\": \"<dateTime>\",\n      \"income\": \"<dateTime>\",\n      \"employment\": \"<dateTime>\",\n      \"identity\": \"<dateTime>\",\n      \"shifts\": \"<dateTime>\",\n      \"paystubs\": \"<dateTime>\"\n    },\n    \"customer_id\": \"<string>\",\n    \"tags\": {},\n    \"reseller_customer_id\": \"<string>\",\n    \"link_token_id\": \"<uuid>\",\n    \"end_user_id\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:25:24.000Z",
+                  "updatedAt": "2026-10-22T02:25:24.000Z",
+                  "uid": "35240-c627b9c0-f008-4eaf-b5b9-a2e58e42e564"
+                }
+              ],
+              "createdAt": "2026-10-22T02:25:24.000Z",
+              "updatedAt": "2026-10-22T02:25:24.000Z",
+              "uid": "35240-46d41e98-5ccd-4372-9413-63e538bb1212"
+            }
+          ],
+          "id": "25e81609-9297-4478-8520-f5df9479487f",
+          "createdAt": "2026-10-22T02:25:24.000Z",
+          "updatedAt": "2026-10-22T02:25:24.000Z",
+          "uid": "35240-25e81609-9297-4478-8520-f5df9479487f"
+        },
+        {
+          "name": "List Accounts",
+          "id": "14848135-e015-4e4c-868f-a9196a11cf3c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
+                "key": "Pinwheel-Version",
+                "value": "2025-07-08"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/accounts?cursor=<string>&limit=25&connected=<boolean>&monitoring_status=user_action_required",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "accounts"
+              ],
+              "query": [
+                {
+                  "description": "Cursor for the page you want to retrieve.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of results to return.",
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "description": "If included, filter on connected accounts. If true, return only accounts that are connected. If false, return only accounts that are disconnected. Connected accounts are accounts for which you can retrieve new data manually using On Demand Updates or automatically via Monitoring.",
+                  "key": "connected",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.",
+                  "key": "monitoring_status",
+                  "value": "user_action_required"
+                }
+              ]
+            },
+            "description": "List all payroll accounts. This is a paginated endpoint; see how Pinwheel implements pagination here."
+          },
+          "response": [
+            {
+              "id": "f3a7d810-cd45-498d-a674-24ac9cf4f884",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
                     "key": "Pinwheel-Version",
                     "value": "2025-07-08"
@@ -225,243 +379,71 @@
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-API-SECRET",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?cursor=<string>&limit=25&connected=<boolean>&monitoring_status=user_action_required",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cursor for the page you want to retrieve.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of results to return.",
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "description": "If included, filter on connected accounts. If true, return only accounts that are connected. If false, return only accounts that are disconnected. Connected accounts are accounts for which you can retrieve new data manually using On Demand Updates or automatically via Monitoring.",
+                      "key": "connected",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Monitoring status describes the the automated ability of Pinwheel to retrieve new account information.",
+                      "key": "monitoring_status",
+                      "value": "user_action_required"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": {\n    \"id\": \"eb240ec6-a227-47ca-b7c7-fbbdfe7170a0\",\n    \"created_at\": \"2021-01-06T15:59:13.530178+00:00\",\n    \"link_token_id\": \"bd2c09e7-1303-46d5-87c0-0ffa572d7ae4\",\n    \"platform_id\": \"fce3eee0-285b-496f-9b36-30e976194736\",\n    \"connected\": true,\n    \"monitoring_status\": \"active\",\n    \"data_updated_at\": {\n      \"direct_deposit_allocations\": \"2021-01-08T00:00:00.000000+00:00\"\n    },\n    \"data_refreshed_at\": {\n      \"direct_deposit_allocations\": \"2021-01-09T00:00:00.000000+00:00\"\n    },\n    \"end_user_id\": \"my_user_12345\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"meta\": {\n    \"count\": \"<integer>\",\n    \"next_cursor\": \"<string>\"\n  },\n  \"data\": [\n    {\n      \"created_at\": \"<dateTime>\",\n      \"platform_id\": \"<uuid>\",\n      \"connected\": \"<boolean>\",\n      \"monitoring_status\": \"active\",\n      \"id\": \"<uuid>\",\n      \"data_updated_at\": {\n        \"direct_deposit_allocations\": \"<dateTime>\",\n        \"income\": \"<dateTime>\",\n        \"employment\": \"<dateTime>\",\n        \"identity\": \"<dateTime>\",\n        \"shifts\": \"<dateTime>\",\n        \"paystubs\": \"<dateTime>\"\n      },\n      \"data_refreshed_at\": {\n        \"direct_deposit_allocations\": \"<dateTime>\",\n        \"income\": \"<dateTime>\",\n        \"employment\": \"<dateTime>\",\n        \"identity\": \"<dateTime>\",\n        \"shifts\": \"<dateTime>\",\n        \"paystubs\": \"<dateTime>\"\n      },\n      \"customer_id\": \"<string>\",\n      \"tags\": {},\n      \"reseller_customer_id\": \"<string>\",\n      \"link_token_id\": \"<uuid>\",\n      \"end_user_id\": \"<string>\"\n    },\n    {\n      \"created_at\": \"<dateTime>\",\n      \"platform_id\": \"<uuid>\",\n      \"connected\": \"<boolean>\",\n      \"monitoring_status\": \"unavailable\",\n      \"id\": \"<uuid>\",\n      \"data_updated_at\": {\n        \"direct_deposit_allocations\": \"<dateTime>\",\n        \"income\": \"<dateTime>\",\n        \"employment\": \"<dateTime>\",\n        \"identity\": \"<dateTime>\",\n        \"shifts\": \"<dateTime>\",\n        \"paystubs\": \"<dateTime>\"\n      },\n      \"data_refreshed_at\": {\n        \"direct_deposit_allocations\": \"<dateTime>\",\n        \"income\": \"<dateTime>\",\n        \"employment\": \"<dateTime>\",\n        \"identity\": \"<dateTime>\",\n        \"shifts\": \"<dateTime>\",\n        \"paystubs\": \"<dateTime>\"\n      },\n      \"customer_id\": \"<string>\",\n      \"tags\": {},\n      \"reseller_customer_id\": \"<string>\",\n      \"link_token_id\": \"<uuid>\",\n      \"end_user_id\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T02:25:24.000Z",
+              "updatedAt": "2026-10-22T02:25:24.000Z",
+              "uid": "35240-f3a7d810-cd45-498d-a674-24ac9cf4f884"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3ecc24a4-2a06-454f-9d9c-c34b7b950f15",
-          "name": "Disable monitoring for account",
-          "request": {
-            "name": "Disable monitoring for account",
-            "description": {
-              "content": "Disable monitoring for an account so that refresh jobs will no longer be scheduled to retrieve payroll data.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "accounts",
-                ":account_id",
-                "disable_monitoring"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "account_id",
-                  "description": "(Required) UUID of the payroll account."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "2f930df3-7553-42f3-8978-cb11f7de0a39",
-              "name": "No Content",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":account_id",
-                    "disable_monitoring"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "account_id",
-                      "description": "(Required) UUID of the payroll account."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                    "key": "Pinwheel-Version",
-                    "value": "2025-07-08"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6c32abe6-5bbb-4a69-bd4c-ed659ce47842",
-          "name": "Disconnect an account",
-          "request": {
-            "name": "Disconnect an account",
-            "description": {
-              "content": "Disconnect an account. This is permanent and irreversible. Once complete, an account will no longer support Earnings Streams or Recurring Access, e.g., On Demand Updates will no longer work and Monitoring will no longer be performed. However, old data will remain accessible. As mentioned above, this excludes derived data products e.g. Earnings Stream.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "accounts",
-                ":account_id",
-                "disconnect"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "account_id",
-                  "description": "(Required) UUID of the payroll account."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                "key": "Pinwheel-Version",
-                "value": "2025-07-08"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "d01251e5-e25f-4d38-9514-0e091dd33fad",
-              "name": "No Content",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":account_id",
-                    "disconnect"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "account_id",
-                      "description": "(Required) UUID of the payroll account."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-API-SECRET",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) Version identifier specifying how the Pinwheel API should behave. See the Change Management page for more information.",
-                    "key": "Pinwheel-Version",
-                    "value": "2025-07-08"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:25:24.000Z",
+          "updatedAt": "2026-10-22T02:25:24.000Z",
+          "uid": "35240-14848135-e015-4e4c-868f-a9196a11cf3c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.getpinwheel.com/v1",
-      "key": "baseUrl"
+      "id": "73d62fed-f9c0-4260-bd22-da3a2ceb9fb7",
+      "createdAt": "2026-10-22T02:25:24.000Z",
+      "updatedAt": "2026-10-22T02:25:24.000Z",
+      "uid": "35240-73d62fed-f9c0-4260-bd22-da3a2ceb9fb7"
     }
   ],
   "auth": {
@@ -469,25 +451,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-API-SECRET"
+        "value": "X-API-SECRET",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "bc872bd1-5be4-451a-9a88-4572d1a51434",
-    "name": "Pinwheel Accounts API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Pinwheel is the API for direct deposit switching, bill switching, and income & employment verification.\n\nContact Support:\n Name: Support\n Email: support@getpinwheel.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getpinwheel.com/v1"
     }
-  }
+  ]
 }
